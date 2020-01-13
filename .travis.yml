@@ -9,9 +9,9 @@ script:
   - hexo generate # generate static files
 deploy:
   provider: pages
-  skip-cleanup: true
+  cleanup: false
   token: $GH_TOKEN
-  keep-history: true
+  keep_history: true
   on:
     all_branches: true # solve a permission problem
   target_branch: master
