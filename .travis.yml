@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - 10 # use nodejs v10 LTS
+cache: npm
+branches:
+  only:
+    - develop # build develop instead of master
+script:
+  - hexo generate # generate static files
+deploy:
+  provider: pages
+  cleanup: false
+  token: $GH_TOKEN
+  keep-history: true
+  on:
+    all_branches: true # solve a permission problem
+  target_branch: master
+  local-dir: public
