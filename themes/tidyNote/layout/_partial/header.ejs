@@ -1,0 +1,14 @@
+<header class="site-header">
+  <h1 class="home-link">
+    <a href="<%- url_for() %>" class="Quentin">
+      <span><%= config.title %></span>
+    </a>
+  </h1>
+  <div class="menus-container">
+      <ul class="menus-list">
+        <% for (var i in theme.menu){ %>
+          <li><a href="<%- url_for(theme.menu[i]) %>" class="iconfont icon-<%= i %>"></a></li>
+        <% } %>
+      </ul>
+  </div>
+</header>

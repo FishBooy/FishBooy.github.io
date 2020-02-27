@@ -1,0 +1,35 @@
+<div class="site-column-post">
+  <div class="site-content-post">
+      <article class="post-all-content">
+          <div class="post-name">
+            <h2><%= post.title %></h2>
+          </div>
+          <div class="post-info">
+              <span class="post-info-date"><i class="iconfont icon-suggest"></i> <%= date(post.date) %></span>
+              <span class="post-info-attention"><i class="iconfont icon-browse"></i> 1300</span>
+          </div>
+          <div class="post-body">
+            <%- post.content %>
+          </div>
+      </article>
+
+      <div class="post-navigation">
+        <% if (post.prev){ %>
+        <div class="post-previous">
+          <a href="<%- url_for(post.prev.path) %>">
+              <i class="iconfont icon-leftbutton"></i> 
+              <span class="post-prev-title"><%= post.prev.title %></span>
+          </a>
+        </div>
+        <% }%>
+        <% if (post.next){ %>
+        <div class="post-next">
+            <a href="<%- url_for(post.next.path) %>">
+                <span class="post-next-title"><%= post.next.title %></span>
+                <span><i class="iconfont icon-rightbutton"></i></span>
+            </a>
+        </div>
+        <% }%>
+      </div>
+  </div>
+</div>

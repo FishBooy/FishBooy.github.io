@@ -1,0 +1,115 @@
+.site-column-index {
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .site-content-index{
+    flex-grow: 1;
+    display: flex;
+
+    .post-list-container{
+      border-left: #eff0f1 2px solid;
+      flex-grow: 1;
+
+      .post-list-by-year{
+        margin-bottom: 2em;
+
+        .post-list-item,
+        .post-arch-year {
+          display: flex;
+          align-items: center;
+          position: relative;
+
+          &::before{
+            content: '';
+            height: 5px;
+            width: 4px;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateX(-75%) translateY(-50%);
+          }
+        }
+
+        .post-arch-year {
+          position: relative;
+          padding: 0.6em 2.5em 0.6em 1.6em;
+          &::before {
+            height: 21px;
+            width: 4px;
+          }
+          .arch-year{
+            color: #283443;
+
+            a{
+              font-size: 20px;
+              font-weight: bold; 
+            }
+          }
+        }
+
+        .post-list-item{
+          padding: .6em 2.5em .6em 1.2em;
+
+          &::before{
+            background: #d2d8de;
+          }
+
+          h2{
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 0 0 0 .5em;
+            color: #283443;
+            font-weight: normal;
+
+            .post-date{
+              display: inline-block;
+              font-size: .6em;
+              margin-right: .6em;
+              margin-top: 1px;
+              color: #9ea5ad;
+              transition: color .5s;
+            }
+
+            &:hover .post-date{
+              color: #555f69;
+            }
+
+            a.post-title{
+              color: #3f4a56;
+              text-decoration: none;
+              font-size: 16px;
+
+              &:hover{
+                transition: color .5s;
+                text-decoration: none;
+              }
+            }
+          }
+        }
+
+        &:nth-child(2n+1){
+          .post-arch-year::before{
+            background:rgb(221, 54, 66);
+          }
+
+          a.post-title:hover{
+            color:rgb(221, 54, 66);
+          }
+        }
+
+        &:nth-child(2n+2){
+          .post-arch-year::before{
+            background:rgb(96, 193, 208);
+          }
+
+          a.post-title:hover{
+            color:rgb(96, 193, 208);
+          }
+        }
+      }
+    }
+  }
+}
