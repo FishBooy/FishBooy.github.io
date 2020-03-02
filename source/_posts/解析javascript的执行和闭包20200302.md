@@ -20,7 +20,7 @@ ECMAScript规范是javascript的实现标准，6.0版本(简称ES6.0)在2015年�
 
 ## 1. 代码的执行
 
-在浏览器中运行的javascript代码，是以`<script>`标签为运行单位的，也就是说：js引擎会在执行完当前`<script>`标签中编写或引入的代码之后才会以相同的处理方式去执行下一个`<script>`中的代码块，直到执行完当前窗口中所有的js代码。
+在浏览器中运行的javascript代码，是以`<script>`标签为运行单位的，也就是说：js引擎会在执行完当前`<script>∏`标签中编写或引入的代码之后才会以相同的处理方式去执行下一个`<script>`中的代码块，直到执行完当前窗口中所有的js代码。
 
 ```html
 <script type="text/javascript" src="js/public.js"></script>
