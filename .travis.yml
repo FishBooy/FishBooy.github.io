@@ -6,7 +6,8 @@ branches:
   only:
     - develop # build develop instead of master
 script:
-  - hexo generate # generate static files
+  - hexo clean # clean the existed static files
+  - hexo generate # generate new static files
 deploy:
   provider: pages
   skip_cleanup: true

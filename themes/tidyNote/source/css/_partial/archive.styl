@@ -9,7 +9,7 @@
     display: flex;
 
     .post-list-container{
-      border-left: #eff0f1 2px solid;
+      border-left: color-line 2px solid;
       flex-grow: 1;
 
       .post-list-by-year{
@@ -40,7 +40,7 @@
             width: 4px;
           }
           .arch-year{
-            color: #283443;
+            color: color-archive-title;
 
             a{
               font-size: 20px;
@@ -61,24 +61,23 @@
             display: flex;
             align-items: center;
             padding: 0 0 0 .5em;
-            color: #283443;
             font-weight: normal;
 
             .post-date{
               display: inline-block;
-              font-size: .6em;
+              font-size: 12px;
               margin-right: .6em;
               margin-top: 1px;
-              color: #9ea5ad;
+              color: color-tips;
               transition: color .5s;
             }
 
             &:hover .post-date{
-              color: #555f69;
+              color: color-tips-hover;
             }
 
             a.post-title{
-              color: #3f4a56;
+              color: color-link-title;
               text-decoration: none;
               font-size: 16px;
 
@@ -92,21 +91,21 @@
 
         &:nth-child(2n+1){
           .post-arch-year::before{
-            background:rgb(221, 54, 66);
+            background: color-rose;
           }
 
           a.post-title:hover{
-            color:rgb(221, 54, 66);
+            color: color-rose;
           }
         }
 
         &:nth-child(2n+2){
           .post-arch-year::before{
-            background:rgb(96, 193, 208);
+            background: color-lake;
           }
 
           a.post-title:hover{
-            color:rgb(96, 193, 208);
+            color: color-lake;
           }
         }
       }

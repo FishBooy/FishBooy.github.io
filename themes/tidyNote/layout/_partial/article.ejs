@@ -5,8 +5,27 @@
             <h2><%= post.title %></h2>
           </div>
           <div class="post-info">
-              <span class="post-info-date"><i class="iconfont icon-suggest"></i> <%= date(post.date) %></span>
-              <span class="post-info-attention"><i class="iconfont icon-browse"></i> 1300</span>
+              <span class="post-info-date"><i class="iconfont icon-calendar"></i><%= date(post.date) %></span>
+              <span class="post-update"><i class="iconfont icon-copy"></i><%= date(post.updated) %></span>
+              <% if (post.categories.data.length) { %>
+              <span class="post-category">
+                <i class="iconfont icon-folder"></i>
+                <% post.categories.data.forEach(function(cat,index){ %>
+                  <% if(!index){ %>
+                    <a href="<%= url_for() + cat.path %>"><%= cat.name %></a>
+                  <% } %>
+                <% }) %>
+              </span>
+              <% } %>
+              <% if (post.tags.data.length) { %>
+              <span class="post-tag">
+                <i class="iconfont icon-collection"></i>
+                <% post.tags.data.forEach(function(tag){ %>
+                  <a href="<%= url_for() + tag.path %>"><%= tag.name %></a>
+                <% }) %>
+              </span>
+              <% } %>
+              <a href="<%= url_for() %>"> Back to home</a>
           </div>
           <div class="post-body">
             <%- post.content %>
@@ -17,7 +36,7 @@
         <% if (post.prev){ %>
         <div class="post-previous">
           <a href="<%- url_for(post.prev.path) %>">
-              <i class="iconfont icon-leftbutton"></i> 
+              <i class="iconfont icon-round-arrow-left"></i> 
               <span class="post-prev-title"><%= post.prev.title %></span>
           </a>
         </div>
@@ -26,10 +45,11 @@
         <div class="post-next">
             <a href="<%- url_for(post.next.path) %>">
                 <span class="post-next-title"><%= post.next.title %></span>
-                <span><i class="iconfont icon-rightbutton"></i></span>
+                <i class="iconfont icon-round-arrow-right"></i>
             </a>
         </div>
         <% }%>
       </div>
   </div>
 </div>
+<div class="post-catalog"></div>

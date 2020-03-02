@@ -5,53 +5,217 @@
     margin-top: 40px;
 
     .post-name{
-      margin-bottom: 10px;
+      margin-bottom: 5px;
 
       h2{
         font-size: 26px;
         font-weight: 400;
-        color: #252a2f;
+        color: color-title;
       }
     }
 
     .post-info{
       border: none;
       padding-bottom: 5px;
-      color: #909599;
 
       span{
-        margin-right: 5px;
+        margin-right: 6px;
+        font-size: 14px;
+        color: color-link-dark;
+
+        .iconfont {
+          margin-right: 3px;
+          color: color-icon-dark ;
+        }
+
+        a{
+          color: color-link-dark;
+          &:hover{
+            text-decoration: underline;
+            color: color-link-title;
+          }
+        }
       }
     }
 
     .post-body{
-      color: #464d54;
+      color: #3c444c;
       font-size: 15px;
       line-height: 30px;
+      margin-top: 25px;
 
       p{
-        margin: 1.2em 0;
+        margin: 0 0 15px 0;
+        a{
+          color: color-link;
+          &:hover{ text-decoration: underline; }
+        }
       }
+
+      code.inline {
+          padding: 1px 3px;
+          background: #f4f4f4;
+          color: #e2687f;
+          border-radius: 5px;
+          border: $border-style;
+          font-weight: bold;
+          margin: 0 4px;
+          border: 1px solid #ebe3e3;
+      }
+
+      table {
+        td {
+          border: 1px solid #dce1e6;
+          padding: 5px 10px;
+        }
+        th {
+          border: 1px solid #dce1e6;
+          background: #eaebed;
+          padding: 5px 0;
+        }
+        margin-bottom: 15px;
+      }
+
+      ul {
+        li {
+          position: relative;
+          padding-left: 19px;
+
+          &::before{
+            background: color-link;
+            content: '';
+            height: 4px;
+            width: 4px;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-2px);
+          }
+
+          a {
+            color: color-link;
+            &:hover{
+              text-decoration: underline;
+              color: #2272b5;
+            }
+          }
+        }
+      }
+
+      blockquote {
+        border-left: quote-border-color  5px solid;
+        padding: 10px;
+        background: quote-bg;
+        margin-bottom: 15px;
+
+        p {
+          margin: 0;
+          color: #56697b;
+          line-height: 26px;
+        }
+      }
+  
     }
 
     .post-navigation{
       display: flex;
       justify-content: space-between;
       font-size: 1em;
-      padding: 1em 0 1.2em 0;
+      margin: 25px 0;
+      padding-top: 10px;
+      border-top: color-line 1px solid;
 
       .iconfont{
-        font-size: 20px;
+        font-size: 24px;
         position: relative;
-        top: 1px;
-        color: #7e8489;
+        top: 3px;
+        color: color-tips;
       }
 
       .post-next,.post-previous{
         position: relative;
 
         a{
-            color: #5c636a;
+          font-size: 16px;
+          &:hover{
+            color: color-tips-hover ;
+            .iconfont{ color: color-tips-hover }
+          }
+        }
+      }
+    }
+  }
+}
+
+.post-catalog{
+  position: fixed;
+  left:50vw;
+  top:136px;
+  display: none;
+
+  ul{
+    border-left: color-line 2px solid;
+    padding-left: 15px;
+
+    li{
+      padding: 4px 0;
+      position:relative;
+
+      &::before {
+        content: '';
+        background: color-dot;
+        width: 4px;
+        height: 12px;
+        position: absolute;
+        left:-18px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      a{
+        font-size: 14px;
+        color: #49525a;
+        &:hover{
+          color: #528fc1;
+        }
+      }
+
+      &.h3-link{
+        padding-left: 16px;
+        &::before{ height: 4px; }
+        a {
+          color: #556069;
+          &:hover{ color: #528fc1;}
+        }
+      }
+      &.h4-link{
+        padding-left: 37px;
+        &::before{
+          height: 4px;
+        }
+        a {
+          color:#7e848a;
+          &:hover{ color: #528fc1;}
+        }
+      }
+      &.h5-link{
+        padding-left: 50px;
+        &::before{
+          height: 4px;
+        }
+        a {
+          color:#7e848a;
+          &:hover{ color: #528fc1;}
+        }
+      }
+      &.h6-link{
+        padding-left: 50px;
+        &::before{
+          height: 4px;
+        }
+        a {
+          color:#7e848a;
+          &:hover{ color: #528fc1;}
         }
       }
     }

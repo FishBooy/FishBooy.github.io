@@ -1,116 +1,125 @@
-/**
- * okaidia theme for JavaScript, CSS and HTML
- * Loosely based on Monokai textmate theme by http://www.monokai.nl/
- * @author ocodia
- */
+/*for PrismJS 1.19.0 8*/
 
-// Colors
-color-js-keyword = #c754dc;
-color-string = #8ecb56
-color-operator = #38cfdd
-color-punctuation = #b8bdc8
+color-code-background = #1e2128
+color-js-keyword = #c754dc
+color-string = #7bbc5d
+color-operator = #23aab8
+color-punctuation = #9aa2b3
 color-link = #258fb8
-color-function = #3b9beb
-color-js-default = #d35666
-color-js-number = #cd8042;
+color-function = #3a9ff2
+color-js-default = #e94a5f
+color-js-number = #d0864a
+color-js-comment = slategray
+color-js-keyword-this = #e5b353
+
+
+color-comments = #7f848e
 
 code[class*="language-"],
 pre[class*="language-"] {
 	color: color-js-default;
 	background: none;
-	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-	font-size: 1em;
-	text-align: left;
-	white-space: pre;
-	word-spacing: normal;
-	word-break: normal;
-	word-wrap: normal;
-	line-height: 1.5;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+	font-family: Menlo, Monaco, 'Courier New', monospace;
 
-	-moz-tab-size: 4;
-	-o-tab-size: 4;
-	tab-size: 4;
-
-	-webkit-hyphens: none;
-	-moz-hyphens: none;
-	-ms-hyphens: none;
-	hyphens: none;
 }
-
 
 /* Code blocks */
 pre[class*="language-"] {
-	padding: 1em;
-	margin: .5em 0;
-	overflow: auto;
-	border-radius: 0.3em;
+	background: color-code-background;
+	margin-bottom: 15px;
 }
 
-:not(pre) > code[class*="language-"],
-pre[class*="language-"] {
-	background: #1e2127;
-}
+code[class*="language-"] {
+	.token.comment,
+	.token.prolog,
+	.token.doctype,
+	.token.cdata {
+		color: color-js-comment;
+	}
 
-/* Inline code */
-:not(pre) > code[class*="language-"] {
-	padding: .1em;
-	border-radius: .3em;
-	white-space: normal;
-}
+	.token.punctuation {
+		color: color-punctuation;
+	}
 
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-	color: slategray;
-}
+	.token.namespace {
+		opacity: .7;
+	}
 
-.token.punctuation {
-	color: color-punctuation;
-}
+	.token.property,
+	.token.tag,
+	.token.constant,
+	.token.symbol,
+	.token.deleted {
+		color: color-js-default;
+	}
 
-.token.namespace {
-	opacity: .7;
-}
+	.token.boolean,
+	.token.number {
+		color: color-js-number;
+	}
 
-.token.tag,
-.token.constant,
-.token.symbol,
-.token.deleted {
-	color: #d35666;
-}
-
-.token.boolean,
-.token.number {
-	color: #cd8042;
-}
-.token.attr-name{
-	color:color-js-number;
-}
-.token.attr-value{
-	color:color-string;
-	.token.punctuation{
+	.token.attr-name{
+		color:color-js-number;
+	}
+	.token.attr-value{
 		color:color-string;
+		.token.punctuation{
+			color:color-string;
+		}
+	}
+
+	.token.string,
+	.token.char,
+	.token.builtin,
+	.token.inserted {
+		color: color-string;
+	}
+
+	.token.operator,
+	.token.entity,
+	.token.url,
+	.language-css .token.string,
+	.style .token.string,
+	.token.variable {
+		color: color-operator;
+	}
+
+	.token.keyword {
+		color: color-js-keyword;
+
+		&.keyword-this {
+			color: color-js-keyword-this;
+		}
+	}
+
+	.token.atrule,
+	.token.function,
+	.token.class-name {
+		color: color-function;
+	}
+
+
+
+	.token.regex,
+	.token.important {
+		color: #fd971f;
+	}
+
+	.token.important,
+	.token.bold {
+		font-weight: bold;
+	}
+	.token.italic {
+		font-style: italic;
+	}
+
+	.token.entity {
+		cursor: help;
 	}
 }
 
 
-.token.string,
-.token.char,
-.token.builtin,
-.token.inserted {
-	color: color-string;
-}
-
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string,
-.token.variable {
-	color: color-operator;
-}
 
 // For CSS
 code[class*="language-css"],
@@ -134,24 +143,13 @@ pre[class*="language-css"] {
 .token.class-name {
 	color: color-function;
 }
-
-.token.keyword {
-	color: color-js-keyword;
+// line numbers
+.line-numbers .line-numbers-rows {
+	border-right-color: #282b33;
+	left: -4em;
+}
+.line-numbers-rows > span:before {
+	color: #474c5d;
 }
 
-.token.regex,
-.token.important {
-	color: #fd971f;
-}
 
-.token.important,
-.token.bold {
-	font-weight: bold;
-}
-.token.italic {
-	font-style: italic;
-}
-
-.token.entity {
-	cursor: help;
-}

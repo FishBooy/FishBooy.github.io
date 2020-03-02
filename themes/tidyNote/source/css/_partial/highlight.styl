@@ -1,26 +1,58 @@
 // https://github.com/chriskempson/tomorrow-theme
-highlight-background = #2d2d2d
-highlight-current-line = #393939
-highlight-selection = #515151
-highlight-foreground = #cccccc
-highlight-comment = #999999
-highlight-red = #f2777a
-highlight-orange = #f99157
-highlight-yellow = #ffcc66
-highlight-green = #99cc99
-highlight-aqua = #66cccc
-highlight-blue = #6699cc
-highlight-purple = #cc99cc
+$highlight-background = #1e2127
+$highlight-current-line = #393939
+$highlight-selection = #515151
+$highlight-foreground = #cccccc
+$highlight-comment = slategray
+$highlight-red = #f2777a
+$highlight-orange = #f99157
+$highlight-yellow = #ffcc66
+$highlight-green = #99cc99
+$highlight-aqua = #66cccc
+$highlight-blue = #6699cc
+$highlight-purple = #cc99cc
+
+figure.highlight{
+  margin: 0 auto;
+  display: block;
+  background: $highlight-background;
+  border-radius: 5px;
+  text-shadow: 0 1px rgba(0,0,0,0.3);
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+
+  .comment {
+    color: $$highlight-comment;
+  }
+  .gutter{
+    text-align: center;
+    padding: 5px 0 5px 2px;
+
+    span.line{
+      padding: 2px 5px;
+      color: #515663;
+      font-weight: bold;
+      text-shadow: 0 1px rgba(0,0,0,0.1);
+    }
+  }
+
+  .code{
+    padding: 0 0 0 5px;
+  }
+
+  &.html{
+    
+  }
+}
 
 $code-block
-  background: highlight-background
+  background: $highlight-background
   margin: 0 article-padding * -1
   padding: 15px article-padding
   border-style: solid
   border-color: color-border
   border-width: 1px 0
   overflow: auto
-  color: highlight-foreground
+  color: $highlight-foreground
   line-height: font-size * line-height
 
 $line-numbers
@@ -55,7 +87,7 @@ $line-numbers
     figcaption
       clearfix()
       font-size: 0.85em
-      color: highlight-comment
+      color: $highlight-comment
       line-height: 1em
       margin-bottom: 1em
       a
@@ -67,13 +99,13 @@ $line-numbers
     .line
       height: font-size * line-height
     .line.marked
-      background: highlight-selection
+      background: $highlight-selection
   .gist
     margin: 0 article-padding * -1
     border-style: solid
     border-color: color-border
     border-width: 1px 0
-    background: highlight-background
+    background: $highlight-background
     padding: 15px article-padding 15px 0
     .gist-file
       border: none
@@ -94,8 +126,8 @@ $line-numbers
         padding: 0
         border: none
       .gist-meta
-        background: highlight-background
-        color: highlight-comment
+        background: $highlight-background
+        color: $highlight-comment
         font: 0.85em font-sans
         text-shadow: 0 0
         padding: 0
@@ -110,7 +142,7 @@ $line-numbers
 pre
   .comment
   .title
-    color: highlight-comment
+    color: $highlight-comment
   .variable
   .attribute
   .tag
@@ -123,27 +155,27 @@ pre
   .css .id
   .css .class
   .css .pseudo
-    color: highlight-red
+    color: $highlight-red
   .number
   .preprocessor
   .built_in
   .literal
   .params
   .constant
-    color: highlight-orange
+    color: $highlight-orange
   .class
   .ruby .class .title
   .css .rules .attribute
-    color: highlight-green
+    color: $highlight-green
   .string
   .value
   .inheritance
   .header
   .ruby .symbol
   .xml .cdata
-    color: highlight-green
+    color: $highlight-green
   .css .hexcolor
-    color: highlight-aqua
+    color: $highlight-aqua
   .function
   .python .decorator
   .python .title
@@ -152,7 +184,7 @@ pre
   .perl .sub
   .javascript .title
   .coffeescript .title
-    color: highlight-blue
+    color: $highlight-blue
   .keyword
   .javascript .function
-    color: highlight-purple
+    color: $highlight-purple
