@@ -10,6 +10,12 @@
 - Deployed with Travis CI
 - Server is github pages
 
+## Branches
+
+- Blog code base and posts' markdowns are on `Develop`
+- Generated `.html` files by Hexo are on `Master`
+- All changes will be in `Develop`, never in `Master`
+
 ## To-do List
 
 - [X] V1.0.0 release
