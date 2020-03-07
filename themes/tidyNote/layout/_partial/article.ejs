@@ -5,8 +5,14 @@
             <h2><%= post.title %></h2>
           </div>
           <div class="post-info">
-              <span class="post-info-date"><i class="iconfont icon-calendar"></i><%= date(post.date) %></span>
-              <span class="post-update"><i class="iconfont icon-copy"></i><%= date(post.updated) %></span>
+              <span class="post-info-date">
+                <i class="iconfont icon-calendar"></i>
+                <%= date(post.date) %>
+              </span>
+              <span class="post-update">
+                <i class="iconfont icon-copy"></i>
+                <%= date(post.updated) %>
+              </span>
               <% if (post.categories.data.length) { %>
               <span class="post-category">
                 <i class="iconfont icon-folder"></i>
@@ -25,7 +31,12 @@
                 <% }) %>
               </span>
               <% } %>
-              <a href="<%= url_for() %>"> Back to home</a>
+              <span class="back-to-home">
+                <a href="<%= url_for() %>">
+                  <span><%= config.title %></span>
+                  <i class="iconfont icon-home"></i>
+                </a>
+              </span>
           </div>
           <div class="post-body">
             <%- post.content %>
