@@ -1,5 +1,6 @@
+[![Build Status](https://travis-ci.com/FishBooy/FishBooy.github.io.svg?branch=develop)](https://travis-ci.com/FishBooy/FishBooy.github.io)
 
-## Personal Blog [![Build Status](https://travis-ci.com/FishBooy/FishBooy.github.io.svg?branch=develop)](https://travis-ci.com/FishBooy/FishBooy.github.io)
+## Personal Blog
 
 - Record thoughts in life
 - Share web technologies
