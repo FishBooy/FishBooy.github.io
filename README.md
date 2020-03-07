@@ -1,6 +1,6 @@
 ## Personal Blog
  - Record thoughts in life
- - Sahre web technologies
+ - Share web technologies
 
 ## Powered By
 - Built with Hexo
@@ -8,6 +8,7 @@
 - Server is github pages
 
 ## To-do List
-- [X] v1.0.0 release
+- [X] V1.0.0 release
+- [ ] Previous posts not all published yet...
 - [ ] Js for indicating the catlog location when scrolling post
-- [ ] Home and Catlog buttons on post page
+- [ ] Adjust home and Catlog buttons on post page
