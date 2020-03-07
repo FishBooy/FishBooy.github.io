@@ -9,5 +9,5 @@
 
 ## To-do List
 - [X] v1.0.0 release
-- [] Js for indicating the catlog location when scrolling post
-- [] Home and Catlog buttons on post page
+- [ ] Js for indicating the catlog location when scrolling post
+- [ ] Home and Catlog buttons on post page
