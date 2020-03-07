@@ -1,5 +1,4 @@
 language: node_js
-root: linux
 node_js:
   - 10 # use nodejs v10 LTS
 cache: npm
@@ -11,11 +10,11 @@ script:
   - hexo generate # generate new static files
 deploy:
   provider: pages
-  skiP_cleanup: true
+  skip_cleanup: true
   token: $GH_TOKEN
   keep_history: true
   on:
     all_branches: true # solve a permission problem
   target_branch: master
   local_dir: public
-  skip_render: README.md
+skip_render: README.md
