@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>ECMAScript5.1-(13)函数的定义 | Calvin&#39;s notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="13 定义方式函数声明：function Identifier ( FormalParameterListopt ) { FunctionBody }该声明会在声明绑定初始化的过程中按照以下方式进行初始化：  使用 FormalParameterList ，以及 FunctionBody ，当前执行环境的VariableEnvironment作为 Scope ，flag(如果声明是被包含在严格模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ECMAScript5.1-(13)函数的定义">
+<meta property="og:url" content="http://www.qiwenke.com/2017/07/06/ECMAScript5-1-13-%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89/index.html">
+<meta property="og:site_name" content="Calvin&#39;s notes">
+<meta property="og:description" content="13 定义方式函数声明：function Identifier ( FormalParameterListopt ) { FunctionBody }该声明会在声明绑定初始化的过程中按照以下方式进行初始化：  使用 FormalParameterList ，以及 FunctionBody ，当前执行环境的VariableEnvironment作为 Scope ，flag(如果声明是被包含在严格模式">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-07-06T20:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-07T21:07:10.283Z">
+<meta property="article:author" content="Calvin">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Calvin&#39;s notes" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/prism.css">
+
+    
+<link rel="stylesheet" href="/css/prism_custom.css">
+
+  
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body><div class="site-column-post">
+  <div class="site-content-post">
+      <article class="post-all-content">
+          <div class="post-name">
+            <h2>ECMAScript5.1-(13)函数的定义</h2>
+          </div>
+          <div class="post-info">
+              <span class="post-info-date">
+                <i class="iconfont icon-calendar"></i>
+                2017-07-06
+              </span>
+              <span class="post-update">
+                <i class="iconfont icon-copy"></i>
+                2020-03-07
+              </span>
+              
+              <span class="post-category">
+                <i class="iconfont icon-folder"></i>
+                
+                  
+                    <a href="/categories/技术/">技术</a>
+                  
+                
+                  
+                
+                  
+                
+              </span>
+              
+              
+              <span class="post-tag">
+                <i class="iconfont icon-collection"></i>
+                
+                  <a href="/tags/Javascript/">Javascript</a>
+                
+              </span>
+              
+              <span class="back-to-home">
+                <a href="/">
+                  <span>Calvin&#39;s notes</span>
+                  <i class="iconfont icon-home"></i>
+                </a>
+              </span>
+          </div>
+          <div class="post-body">
+            <h2 id="13-定义方式"><a href="#13-定义方式" class="headerlink" title="13 定义方式"></a>13 定义方式</h2><p><strong>函数声明：function</strong> <em>Identifier</em> ( <em>FormalParameterList<strong>opt</strong></em> ) { <em>FunctionBody</em> }<br>该声明会在声明绑定初始化的过程中按照以下方式进行初始化：</p>
+<ol>
+<li>使用 <em>FormalParameterList</em> ，以及 <em>FunctionBody</em> ，当前执行环境的<strong>VariableEnvironment</strong>作为 <em>Scope</em> ，flag(如果声明是被包含在严格模式中或FunctionBody是严格模式则为<strong>true</strong>，否则则为<strong>false</strong>)作为参数，根据13.2创建出函数对象并返回。</li>
+</ol>
+<p><strong>函数表达式1：function</strong> ( <em>FormalParameterList<strong>opt</strong></em> ) { <em>FunctionBody</em> }<br>初始化方式如下：</p>
+<ol>
+<li>使用 <em>FormalParameterList</em>  ，以及 <em>FunctionBody</em> ，当前执行环境的<strong>LexicalEnvironment</strong>作为 <em>Scope</em> ，Strict(如果表达式是被包含在严格模式中或FunctionBody是严格模式则为<strong>true</strong>，否则则为<strong>false</strong>)作为参数，根据13.2创建出函数对象并返回。</li>
+</ol>
+<p><strong>函数表达式2：function</strong> <em>Identifier</em> ( <em>FormalParameterListopt</em> ) { <em>FunctionBody</em> } 初始化方式如下：</p>
+<ol>
+<li>调用NewDeclarativeEnvironment，传入当前执行环境的Lexical Environment作为参数，设创建出的新的词法环境为funcEnv。</li>
+<li>设 <em>envRec</em> 为funcEnv的环境记录。</li>
+<li>调用 <em>envRec</em> 的CreateImmutableBinding方法并传入Identifier作为参数。</li>
+<li>使用 <em>FormalParameterList</em> ，以及 <em>FunctionBody</em> ，<em>funcEnv</em> 作为 <em>Scope</em> ，<em>Strict</em> (如果表达式是被包含在严格模式中或FunctionBody是严格模式则为<strong>true</strong>，否则则为<strong>false</strong>)作为参数，根据13.2创建出函数对象 <em>closure</em> 。</li>
+<li>调用 <em>envRec</em> 的InitializeImmutableBinding方法，传入  <em>Identifier</em> 和 <em>closure</em> 为参数。</li>
+<li>返回 <em>closure</em> 。</li>
+</ol>
+<blockquote>
+<p>函数表达式中的标识符Identifier可以在函数内被引用，这样就能实现函数自身的递归调用。不过不同于函数声明，Identifier只能在函数内部被引用不能在包含函数表达式的作用域内被引用，也无法影响其他作用域。</p>
+</blockquote>
+<h3 id="13-2-创建函数对象"><a href="#13-2-创建函数对象" class="headerlink" title="13.2 创建函数对象"></a>13.2 创建函数对象</h3><p>给定可选参数列表 <em>FormalParameterList</em> ，代码段 <em>FunctionBody</em> ，一个词法环境(Lexical Environment) <em>Scope</em> ， 一个布尔标识 <em>Strict</em> 后，一个函数对象会按照下面的步骤进行构建：</p>
+<ol>
+<li>创建一个新的原生object，然后将F赋值为该object。</li>
+<li>按照8.12为F设置内置方法，[[Get]]除外。</li>
+<li>设置F的内置属性[[Class]]为字符串“<strong>Function</strong>“。</li>
+<li>设置F的内置属性[[Prototype]]为EL的内置对象<strong>Function.prototype</strong>。</li>
+<li>根据15.3.5.4设置F的内置属性[[Get]]</li>
+<li>根据13.2.1设置F的内置属性[[Call]]</li>
+<li>根据13.2.2设置F的内置属性[[Constructor]]</li>
+<li>根据15.3.5.3设置F的内置属性[[HasInstance]]</li>
+<li>设置F的内置属性[[Scope]]为 <em>Scope</em> 。</li>
+<li>设置 <em>names</em> 为一个列表，该列表包含了和 <em>FormalParameterList</em> 中所有形参名相对应的字符串。如果形参为空，那么 <em>names</em> 为空列表。</li>
+<li>设置F的内置属性[[FormalParameters]]为 <em>names</em> 列表。</li>
+<li>设置F的内置属性[[Code]]为 <em>FunctionBody</em> 。</li>
+<li>设置F的内置属性[[Extensible]]为<strong>true</strong>。</li>
+<li>设置len为 <em>FormalParameterList</em> 中行参的个数，如果没有参数则设置 <em>len</em> 为0。</li>
+<li>调用F的内置方法[[DefineOwnProperty]]，传入参数：“<strong>length</strong>“，{[[Value]]:<em>len</em>, { [[Writable]]: <strong>true</strong>, [[Enumerable]]: <strong>false</strong>, [[Configurable]]: <strong>true</strong>}(Property Descriptor)， <strong>false</strong>。</li>
+<li>设置 <em>proto</em> 为一个新的原生对象，该对象的创建方式与new Object()是一致的。</li>
+<li>调用 <em>proto</em> 的内置方法[[DefineOwnProperty]，传入参数：“<strong>Constructor</strong>“，{[[Value]]: F, { [[Writable]]: <strong>true</strong>, [[Enumerable]]: <strong>false</strong>, [[Configurable]]: <strong>true</strong>}(Property Descriptor)，<strong>false</strong>。</li>
+<li>调用F的内置方法[[DefineOwnProperty]]，传入参数：“<strong>prototype</strong>“，{[[Value]]: <em>proto</em>, { [[Writable]]: <strong>true</strong>, [[Enumerable]]: <strong>false</strong>, [[Configurable]]: <strong>false</strong>}(Property Descriptor)，<strong>false</strong>。</li>
+<li>如果 <em>Strict</em> 为<strong>true</strong>，那么：<ul>
+<li>a. 设置thrower为[[ThrowTypeError]]函数对象</li>
+<li>b. 调用F的内置方法[[DefineOwnProperty]]，传入参数：“<strong>caller</strong>“，{[[Get]]: thrower, [[Set]]: thrower, [[Enumerable]]: <strong>false</strong>, [[Configurable]]: <strong>false</strong>}(Property Descriptor)，<strong>false</strong>。</li>
+<li>c. 调用F的内置方法[[DefineOwnProperty]]，传入参数：“<strong>arguments</strong>“，{[[Get]]: thrower, [[Set]]: thrower, [[Enumerable]]: <strong>false</strong>, [[Configurable]]: <strong>false</strong>}(Property Descriptor)，<strong>false</strong>。</li>
+</ul>
+</li>
+<li>返回F。</li>
+</ol>
+<blockquote>
+<p>每个函数对象都会自动生成一个prototype属性，该属性确保该函数能够作为构造器使用。</p>
+</blockquote>
+<h4 id="13-2-1-Call"><a href="#13-2-1-Call" class="headerlink" title="13.2.1 [[Call]]"></a>13.2.1 [[Call]]</h4><p>当函数对象F的内置方法[[Call]]被传入参数一个this值和一个参数列表args，且被调用时，执行过程如下：</p>
+<ol>
+<li>使用传入的参数列表args和this值，以及F的内置属性[[FormalParameters]]，根据10.4.3中的描述为函数中的代码创建一个新的执行上下文 _funcCtx_。</li>
+<li>执行函数体，也就是F的内置属性[[Code]]。如果F没有[[Code]]或[[Code]]为空，那么执行结果result是(normal, undefined, empty)。</li>
+<li>退出当前执行上下文 _funcCtx_，恢复到之前的执行上下文。</li>
+<li>如果result.type是throw，抛出throw.value。</li>
+<li>如果result.type是return，返回result.value。</li>
+<li>否则result.type则是normal。返回<strong>undefined</strong>。</li>
+</ol>
+<h4 id="13-2-2-Construct"><a href="#13-2-2-Construct" class="headerlink" title="13.2.2 [[Construct]]"></a>13.2.2 [[Construct]]</h4><p>当F的内置方法[[Construct]]被传入参数：一个可能为空的参数列表，并被调用时，执行过程如下：</p>
+<ol>
+<li>创建一个新对象obj。</li>
+<li>为 <em>obj</em> 设置8.12 中规定的所有内置方法。</li>
+<li>设置 <em>obj</em> 的内置属性[[Class]]为“<strong>Object</strong>“。</li>
+<li>设置 <em>obj</em> 的内置属性[[Extensible]]为<strong>true</strong>。</li>
+<li>调用F的内置方法[[Get]]并传入参数“<strong>prototype</strong>“，设获取到的值为 _proto_。</li>
+<li>如果Type(<em>proto</em>)是Object，那么设置obj的内置属性[[Prototype]]为 _proto_。</li>
+<li>如果Type(<em>proto</em>)不是Object，那么创建一个新的空对象赋值给obj的内置属性[[Prototype]]。</li>
+<li>调用F的内置方法[[Call]]，obj为作为<strong>this</strong>值，以传入的参数列表作为args。设执行结果为 _result_。</li>
+<li>如果Type(result)为Object则返回 _result_。</li>
+<li>返回 _obj_。</li>
+</ol>
+<h4 id="13-2-3-函数对象-ThrowTypeError"><a href="#13-2-3-函数对象-ThrowTypeError" class="headerlink" title="13.2.3 函数对象[[ThrowTypeError]]"></a>13.2.3 函数对象[[ThrowTypeError]]</h4><p>[[ThrowTypeError]]对象是一个特殊的函数对象，它的定义如下：</p>
+<ol>
+<li>创建一个新对象F。</li>
+<li>为F设置8.12中定义的所有内置方法。</li>
+<li>设置F的内置属性[[Class]]为“<strong>Function</strong>“。</li>
+<li>设置F的内置属性[[Prototype]]为内置对象<strong>Function.prototype</strong>。</li>
+<li>设置F的内置方法[[Call]]，根据13.2.1。</li>
+<li>设置F的内置属性[[Scope]]为全局环境。</li>
+<li>设置F的内置属性[[FormalParameters]]为空列表。</li>
+<li>设置F的内置属性[[Code]]为一个代码体：该代码体只抛出<strong>TypeError</strong>异常，无其他操作。</li>
+<li>调用F的内置方法[[DefineOwnProperty]]，传入参数：“<strong>length</strong>“，{[[Value]]: 0, [[Writable]]: <strong>false</strong>, [[Enumerable]]: <strong>false</strong>, [[Configurable]]: <strong>false</strong>}(Property Descriptor)，和<strong>false</strong>。</li>
+<li>设置F的[[Extensible]]为<strong>false</strong>。</li>
+<li>将F赋值给[[ThrowTypeError]]。</li>
+</ol>
+
+          </div>
+      </article>
+
+      <div class="post-navigation">
+        
+        
+        <div class="post-next">
+            <a href="/2017/06/25/ECMAScript5-1-9-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/">
+                <span class="post-next-title">ECMAScript5.1-(9)类型转换</span>
+                <i class="iconfont icon-round-arrow-right"></i>
+            </a>
+        </div>
+        
+      </div>
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script>
+  
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+  var disqus_config = function () {
+  this.page.url = "http://www.qiwenke.com/2017/07/06/ECMAScript5-1-13-%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89/";  // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = "http://www.qiwenke.com/2017/07/06/ECMAScript5-1-13-%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89/"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+  (function() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = 'https://qiwenke.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+
+</div>
+<div class="post-catalog"></div>
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/prism.js"></script>
+</body>
+</html>
