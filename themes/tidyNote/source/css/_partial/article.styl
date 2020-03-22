@@ -21,7 +21,7 @@
       padding-bottom: 5px;
 
       span{
-        margin-right: 6px;
+        margin-right: 10px;
         font-size: 14px;
         color: color-link-dark;
         white-space: nowrap;
@@ -29,7 +29,6 @@
         text-overflow: ellipsis;
 
         .iconfont {
-          margin-right: 3px;
           color: color-icon-dark ;
         }
 
@@ -65,7 +64,7 @@
 
     .post-body{
       color: #3c444c;
-      font-size: 16px;
+      font-size: 15px;
       line-height: 30px;
       margin-top: 30px;
 
@@ -86,7 +85,7 @@
         font-size: 18px;
         margin-bottom: 5px;
       }
-      h4 { font-size: 16px; }
+      h4 { font-size: 18px; }
       h5 { font-size: 16px; }
       h6 { font-size: 16px; }
 
@@ -178,6 +177,11 @@
           line-height: 26px;
         }
       }
+
+      img{
+        width: 100%;
+        text-align: center;
+      }
   
     }
 
@@ -201,9 +205,15 @@
 
         a{
           font-size: 16px;
+          color: #9ea5ad;
           &:hover{
             color: color-tips-hover ;
             .iconfont{ color: color-tips-hover }
+          }
+          span{
+            @media(max-width:639px){
+              display: none;
+            }
           }
         }
       }
@@ -220,7 +230,7 @@
 
   ul{
     border-left: color-line 2px solid;
-    padding-left: 15px;
+    padding: 5px 0 0 15px;
 
     li{
       padding: 4px 0;
@@ -228,6 +238,7 @@
       // overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+      line-height: 16px;
 
       &::before {
         content: '';

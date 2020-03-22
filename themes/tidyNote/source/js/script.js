@@ -1,6 +1,6 @@
 ;(function(){
 
-  // Add className for prism parser
+  /* Add className for prism parser */
   const codeBlocks = document.querySelectorAll('code');
   const supportedLang = ['javascript','css','html','jsx','sass','scss']
   codeBlocks.forEach(function(code){
@@ -17,6 +17,7 @@
     }
   });
 
+  /* Catalog function */
   // List the content
   const postBody = document.querySelector('.post-body');
   const childNodesInPost = postBody ? postBody.childNodes : [];
@@ -47,6 +48,14 @@
       }
       catalogContainer.appendChild(listNode);
     });
+
+    // Change position while scrolling
+    const html = document.querySelector('html');
+    const originalTop = parseInt(window.getComputedStyle(postCatalog).top);
+    window.addEventListener('scroll', function(){
+      const scrollTop = html.scrollTop;
+      postCatalog.style.top = scrollTop < originalTop ? `${Math.abs(originalTop-scrollTop)}px` : 0;
+    })
   }
 
 })();
