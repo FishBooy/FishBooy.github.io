@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>ECMAScript5.1-(11)表达式 | Calvin&#39;s notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="11.2 Left-Hand-Side 表达式11.2.2 new 操作符表达式 new NewExpression 执行顺序如下：  设ref为NewExpression的执行结果。 设constructor为 GetValue(ref)。 如果constructor的类型不是Object，抛出TypeError异常。 如果constructor没有实现内置方法[[Constructor]]，抛">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ECMAScript5.1-(11)表达式">
+<meta property="og:url" content="http://www.qiwenke.com/2017/08/16/ECMAScript5-1-11-%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Calvin&#39;s notes">
+<meta property="og:description" content="11.2 Left-Hand-Side 表达式11.2.2 new 操作符表达式 new NewExpression 执行顺序如下：  设ref为NewExpression的执行结果。 设constructor为 GetValue(ref)。 如果constructor的类型不是Object，抛出TypeError异常。 如果constructor没有实现内置方法[[Constructor]]，抛">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-08-16T20:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-22T15:32:36.535Z">
+<meta property="article:author" content="Calvin">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Calvin&#39;s notes" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/prism.css">
+
+    
+<link rel="stylesheet" href="/css/prism_custom.css">
+
+  
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body><div class="site-column-post">
+  <div class="site-content-post">
+      <article class="post-all-content">
+          <div class="post-name">
+            <h2>ECMAScript5.1-(11)表达式</h2>
+          </div>
+          <div class="post-info">
+              <span class="post-info-date">
+                <i class="iconfont icon-calendar"></i>
+                2017-08-16
+              </span>
+              <span class="post-update">
+                <i class="iconfont icon-copy"></i>
+                2020-03-22
+              </span>
+              
+              <span class="post-category">
+                <i class="iconfont icon-folder"></i>
+                
+                  
+                    <a href="/categories/技术/">技术</a>
+                  
+                
+                  
+                
+                  
+                
+              </span>
+              
+              
+              <span class="post-tag">
+                <i class="iconfont icon-collection"></i>
+                
+                  <a href="/tags/Javascript/">Javascript</a>
+                
+              </span>
+              
+              <span class="back-to-home">
+                <a href="/">
+                  <span>Calvin&#39;s notes</span>
+                  <i class="iconfont icon-home"></i>
+                </a>
+              </span>
+          </div>
+          <div class="post-body">
+            <h2 id="11-2-Left-Hand-Side-表达式"><a href="#11-2-Left-Hand-Side-表达式" class="headerlink" title="11.2 Left-Hand-Side 表达式"></a>11.2 Left-Hand-Side 表达式</h2><h3 id="11-2-2-new-操作符"><a href="#11-2-2-new-操作符" class="headerlink" title="11.2.2 new 操作符"></a>11.2.2 new 操作符</h3><p>表达式 new NewExpression 执行顺序如下：</p>
+<ol>
+<li>设ref为NewExpression的执行结果。</li>
+<li>设constructor为 GetValue(ref)。</li>
+<li>如果constructor的类型不是Object，抛出TypeError异常。</li>
+<li>如果constructor没有实现内置方法[[Constructor]]，抛出TypeError异常。</li>
+<li>返回constructor[[Constructor]]()的执行结果。</li>
+</ol>
+<p>表达式 new MemberExpression Arguments 的执行步骤如下：</p>
+<ol>
+<li>设ref为NewExpression的执行结果。</li>
+<li>设constructor为 GetValue(ref)。</li>
+<li>设arglist为Arguments的执行结果，即一个包含参数值的列表。</li>
+<li>如果constructor的类型不是Object，抛出TypeError异常。</li>
+<li>如果constructor没有实现内置方法[[Constructor]]，抛出TypeError异常。</li>
+<li>返回constructor[[Constructor]](argList)的执行结果。</li>
+</ol>
+<h2 id="11-3-后缀表达式"><a href="#11-3-后缀表达式" class="headerlink" title="11.3 后缀表达式"></a>11.3 后缀表达式</h2><h3 id="11-3-1-后缀增量操作符"><a href="#11-3-1-后缀增量操作符" class="headerlink" title="11.3.1 后缀增量操作符"></a>11.3.1 后缀增量操作符</h3><p>表达式 LeftHandSideExpression ++ 的执行步骤如下：</p>
+<ol>
+<li>设lhs为LeftHandSideExpression的执行结果。</li>
+<li>如果以下条件全部满足则抛出SyntaxError异常：<ul>
+<li>如果lhs的值为布尔值true</li>
+<li>如果IsStrictReference(lhs)为true</li>
+<li>如果lhs是规范中定义的Environment Record类型</li>
+<li>GetReferenceName(lhs)是“eval”或“arguments”</li>
+</ul>
+</li>
+<li>设oldValue为ToNumber(GetValue(lhs))。</li>
+<li>设newValue为oldValue+1。</li>
+<li>执行PutValue(lhs, newValue)。</li>
+<li>返回oldValue。</li>
+</ol>
+<h3 id="11-3-2-后缀减量操作符"><a href="#11-3-2-后缀减量操作符" class="headerlink" title="11.3.2 后缀减量操作符"></a>11.3.2 后缀减量操作符</h3><p>表达式 LeftHandSideExpression – 的执行步骤如下：</p>
+<ol>
+<li>设lhs为LeftHandSideExpression的执行结果。</li>
+<li>如果以下条件全部满足则抛出SyntaxError异常：<ul>
+<li>如果lhs的值为布尔值true</li>
+<li>如果IsStrictReference(lhs)为true</li>
+<li>如果lhs是规范中定义的Environment Record类型</li>
+<li>GetReferenceName(lhs)是“eval”或“arguments”</li>
+</ul>
+</li>
+<li>设oldValue为ToNumber(GetValue(lhs))。</li>
+<li>设newValue为oldValue-1。</li>
+<li>执行PutValue(lhs, newValue)。</li>
+<li>返回oldValue。</li>
+</ol>
+<h2 id="11-4-一元操作符"><a href="#11-4-一元操作符" class="headerlink" title="11.4 一元操作符"></a>11.4 一元操作符</h2><h3 id="11-4-3-typeof-操作符"><a href="#11-4-3-typeof-操作符" class="headerlink" title="11.4.3 typeof 操作符"></a>11.4.3 typeof 操作符</h3><p>表达式 typeof UnaryExpression 执行步骤如下：</p>
+<ol>
+<li>设val为UnaryExpression的执行结果。</li>
+<li>如果Type(val)是Reference，那么：<ul>
+<li>a. 如果UnresolvableReference(val)为true，返回“undefined”。</li>
+<li>b. 设置val为GetValue(val)。</li>
+</ul>
+</li>
+<li>返回一个按下表定义的Type(val)的字符串。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Type of val</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Undefined</td>
+<td>“undefined”</td>
+</tr>
+<tr>
+<td>Null</td>
+<td>“object”</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>“boolean”</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>“number”</td>
+</tr>
+<tr>
+<td>String</td>
+<td>“string”</td>
+</tr>
+<tr>
+<td>Object(原生对象且没有实现内置方法[[Call]])</td>
+<td>“object”</td>
+</tr>
+<tr>
+<td>Object(原生对象且实现了内置方法[[Call]])</td>
+<td>“function”</td>
+</tr>
+<tr>
+<td>Object(非原生对象且没有实现内置方法[[Call]])</td>
+<td>Implementation-defined except may not be “undefined”, “boolean”, “number”, or “string”</td>
+</tr>
+</tbody></table>
+<h3 id="11-4-4-前缀增量操作符"><a href="#11-4-4-前缀增量操作符" class="headerlink" title="11.4.4 前缀增量操作符"></a>11.4.4 前缀增量操作符</h3><p>表达式 ++ UnaryExpression 执行步骤如下：</p>
+<ol>
+<li>设expr为UnaryExpression的执行结果。</li>
+<li>如果以下条件全部满足则抛出SyntaxError异常：<ul>
+<li>如果expr的值为布尔值true</li>
+<li>如果IsStrictReference(expr)为true</li>
+<li>如果expr是规范中定义的Environment Record类型</li>
+<li>GetReferenceName(expr)是“eval”或“arguments”</li>
+</ul>
+</li>
+<li>设oldValue为ToNumber(GetValue(expr))。</li>
+<li>设newValue为oldValue+1。</li>
+<li>执行PutValue(expr, newValue)。</li>
+<li>返回newValue。</li>
+</ol>
+<h3 id="11-4-5-前缀减量操作符"><a href="#11-4-5-前缀减量操作符" class="headerlink" title="11.4.5 前缀减量操作符"></a>11.4.5 前缀减量操作符</h3><p>表达式 – UnaryExpression 执行步骤如下：</p>
+<ol>
+<li>设expr为UnaryExpression的执行结果。</li>
+<li>如果以下条件全部满足则抛出SyntaxError异常：<ul>
+<li>如果expr的值为布尔值true</li>
+<li>如果IsStrictReference(expr)为true</li>
+<li>如果expr是规范中定义的Environment Record类型</li>
+<li>GetReferenceName(expr)是“eval”或“arguments”</li>
+</ul>
+</li>
+<li>设oldValue为ToNumber(GetValue(expr))。</li>
+<li>设newValue为oldValue-1。</li>
+<li>执行PutValue(expr, newValue)。</li>
+<li>返回newValue。</li>
+</ol>
+<h3 id="11-4-6-一元-操作符"><a href="#11-4-6-一元-操作符" class="headerlink" title="11.4.6 一元+操作符"></a>11.4.6 一元+操作符</h3><p>一元+操作符将操作数转化为Number类型的值。表达式 + UnaryExpression 的执行步骤如下：</p>
+<ol>
+<li>设expr为UnaryExpression的执行结果。</li>
+<li>返回ToNumber（GetValue(expr)）的执行结果。</li>
+</ol>
+<h3 id="11-4-7-一元-操作符"><a href="#11-4-7-一元-操作符" class="headerlink" title="11.4.7 一元-操作符"></a>11.4.7 一元-操作符</h3><p>一元+操作符将操作数转化为Number类型的值，然后将值取负。注：+0的操作结果为-0，-0的操作结果为+0。表达式 - UnaryExpression 的执行步骤如下：</p>
+<ol>
+<li>设expr为UnaryExpression的执行结果。</li>
+<li>设oldValue为ToNumber（GetValue(expr)）的执行结果。</li>
+<li>如果oldValue为NaN，返回NaN。</li>
+<li>返回oldValue的负数值。</li>
+</ol>
+<h3 id="11-4-9-逻辑非操作符"><a href="#11-4-9-逻辑非操作符" class="headerlink" title="11.4.9 逻辑非操作符(!)"></a>11.4.9 逻辑非操作符(!)</h3><p>表达式 ! UnaryExpression 的执行步骤如下：</p>
+<ol>
+<li>设expr为UnaryExpression的执行结果。</li>
+<li>设oldValue为ToBoolean(GetValue(expr))的执行结果。</li>
+<li>如果oldValue为true则返回false。</li>
+<li>返回true。</li>
+</ol>
+<h2 id="11-6-添加操作符"><a href="#11-6-添加操作符" class="headerlink" title="11.6 添加操作符"></a>11.6 添加操作符</h2><h3 id="11-6-1-加法操作符"><a href="#11-6-1-加法操作符" class="headerlink" title="11.6.1 加法操作符(+)"></a>11.6.1 加法操作符(+)</h3><p>加法操作符的作用是将两个字符串连接或者进行数学加运算。表达式 AdditiveExpression + MultiplicativeExpression 的执行步骤如下：</p>
+<ol>
+<li>设lref为AdditiveExpression的执行结果。</li>
+<li>设lval为GetValue(lref)。</li>
+<li>设rref为MultiplicativeExpression的执行结果。</li>
+<li>设rval为GetValue(rref)。</li>
+<li>设lprim为ToPrimitive(lval)。</li>
+<li>设rprim为ToPrimitive(rval)。</li>
+<li>如果lprim和rprim的值都是String类型，那么返回一个由两者连接组成的字符串。</li>
+<li>返回ToNumber(lprim)+ToNumber(rprim)的运算值。</li>
+</ol>
+<h3 id="11-6-2-加法操作符"><a href="#11-6-2-加法操作符" class="headerlink" title="11.6.2 加法操作符(-)"></a>11.6.2 加法操作符(-)</h3><p>表达式 AdditiveExpression - MultiplicativeExpression 的执行步骤如下：</p>
+<ol>
+<li>设lref为AdditiveExpression的执行结果。</li>
+<li>设lval为GetValue(lref)。</li>
+<li>设rref为MultiplicativeExpression的执行结果。</li>
+<li>设rval为GetValue(rref)。</li>
+<li>设lprim为ToNumber(lval)。</li>
+<li>设rprim为ToNumber(rval)。</li>
+<li>返回ToNumber(lprim)-ToNumber(rprim)的运算值。</li>
+</ol>
+<h2 id="11-8-关系操作符"><a href="#11-8-关系操作符" class="headerlink" title="11.8 关系操作符"></a>11.8 关系操作符</h2><h3 id="11-8-1-小于操作符-lt"><a href="#11-8-1-小于操作符-lt" class="headerlink" title="11.8.1 小于操作符(&lt;)"></a>11.8.1 小于操作符(&lt;)</h3><p>表达式 RelationalExpression &lt; ShiftExpression 的执行步骤如下：</p>
+<ol>
+<li>设lref为RelationalExpression的执行结果。</li>
+<li>设lval为GetValue(lref)。</li>
+<li>设rref为ShiftExpression的执行结果。</li>
+<li>设rval为ShiftExpressionGetValue(rref)。</li>
+<li>设r为lval &lt; rval 的返回结果(见11.8.5)。</li>
+<li>如果r是undefined 则返回false，否则返回r。</li>
+</ol>
+<h3 id="11-8-2-大于操作符-gt"><a href="#11-8-2-大于操作符-gt" class="headerlink" title="11.8.2 大于操作符(&gt;)"></a>11.8.2 大于操作符(&gt;)</h3><p>表达式 RelationalExpression &gt; ShiftExpression 的执行步骤如下：</p>
+<ol>
+<li>设lref为RelationalExpression的执行结果。</li>
+<li>设lval为GetValue(lref)。</li>
+<li>设rref为ShiftExpression的执行结果。</li>
+<li>设rval为ShiftExpressionGetValue(rref)。</li>
+<li>设r为rval &lt; lval 的返回结果, LeftFirst设置为false。(见11.8.5)。</li>
+<li>如果r是undefined 则返回false，否则返回r。</li>
+</ol>
+<h3 id="11-8-3-小于等于操作符-lt"><a href="#11-8-3-小于等于操作符-lt" class="headerlink" title="11.8.3 小于等于操作符(&lt;=)"></a>11.8.3 小于等于操作符(&lt;=)</h3><p>1-5步骤等同于 &gt; 操作符。<br>6.如果r是undefined或true，返回false。否则返回true。</p>
+<h3 id="11-8-4-大于等于操作符-gt"><a href="#11-8-4-大于等于操作符-gt" class="headerlink" title="11.8.4 大于等于操作符(&gt;=)"></a>11.8.4 大于等于操作符(&gt;=)</h3><p>1-5步骤等同于 &lt; 操作符。<br>6.如果r是undefined或true，返回false。否则返回true。</p>
+<h3 id="11-8-5-关系比较操作"><a href="#11-8-5-关系比较操作" class="headerlink" title="11.8.5 关系比较操作"></a>11.8.5 关系比较操作</h3><p>表达式 x &lt; y 执行步骤如下：</p>
+<ol>
+<li>如果LeftFlag为true，那么<ul>
+<li>a. 设px为ToPrimitive(x, hint Number)的返回值。</li>
+<li>b. 设py为ToPrimitive(y, hint Number)的返回值。</li>
+</ul>
+</li>
+<li>如果LeftFlag为false，那么<ul>
+<li>a. 设py为ToPrimitive(y, hint Number)的返回值。</li>
+<li>b. 设px为ToPrimitive(x, hint Number)的返回值。</li>
+</ul>
+</li>
+<li>只要不满足“Type(px),Type(py)都是String类型”，那么：<ul>
+<li>a. 把ToNumber(px)的结果赋值给nx</li>
+<li>b. 把ToNumber(py)的结果赋值给ny</li>
+<li>c. 如果nx，ny中有一个值为NaN，那么返回undefined；</li>
+<li>d. 如果nx，ny是+0，-0的比较那么返回false；</li>
+<li>e. 如果nx是正无穷+∞，返回false；</li>
+<li>f. 如果ny是正无穷+∞，返回true；</li>
+<li>g. 如果nx是负无穷-∞，返回true；</li>
+<li>h. 如果ny是负无穷-∞，返回false；</li>
+<li>i. 如果nx在数值上比ny小则返回true，如果nx和ny相等则返回false。</li>
+</ul>
+</li>
+<li>如果px，py都是String类型，那么：<ul>
+<li>a. 如果px是py的前缀（如果字符串b能由字符串a和其他字符串拼接而成，那么a就是b的前缀，如：“he”是“hello”的前缀），则返回true，如果y是x的前缀则返回false；</li>
+<li>b. 以k作为索引值从0开始递增，依次比较px和py在k处的字符，如果两个字符相同则继续比较，如果不同则停止比较并把px[k]赋值给m，把py[k]赋值给n；</li>
+<li>c. 把m，n在ASC II字符码集合中对应的索引数值分别赋值给l、r，返回 l &lt; r（都是Number类型）的比较结果。</li>
+</ul>
+</li>
+</ol>
+<h3 id="11-8-6-instanceof-操作符"><a href="#11-8-6-instanceof-操作符" class="headerlink" title="11.8.6 instanceof 操作符"></a>11.8.6 instanceof 操作符</h3><p>表达式 RelationalExpression instanceof ShiftExpression 的执行步骤如下：</p>
+<ol>
+<li>设lref为RelationalExpression的执行结果。</li>
+<li>设lval为GetValue(lref)。</li>
+<li>设rref为ShiftExpression的执行结果。</li>
+<li>设rval为ShiftExpressionGetValue(rref)。</li>
+<li>如果Type(rval)不是Object，则抛出TypeError的异常。</li>
+<li>如果rval没有内置方法[[HasInstance]]，则抛出TypeError的异常。</li>
+<li>返回rval[[HasInstance]](lval)的返回值。</li>
+</ol>
+<h3 id="11-8-7-in-操作符"><a href="#11-8-7-in-操作符" class="headerlink" title="11.8.7 in 操作符"></a>11.8.7 in 操作符</h3><ol>
+<li>设lref为RelationalExpression的执行结果。</li>
+<li>设lval为GetValue(lref)。</li>
+<li>设rref为ShiftExpression的执行结果。</li>
+<li>设rval为ShiftExpressionGetValue(rref)。</li>
+<li>如果Type(rval)不是Object，则抛出TypeError的异常。</li>
+<li>返回rval[[HasProperty]](lval)的返回值。</li>
+</ol>
+<h2 id="11-9-相等操作符"><a href="#11-9-相等操作符" class="headerlink" title="11.9 相等操作符"></a>11.9 相等操作符</h2><h3 id="11-9-1-等于操作符"><a href="#11-9-1-等于操作符" class="headerlink" title="11.9.1 等于操作符(==)"></a>11.9.1 等于操作符(==)</h3><p>表达式 EqualityExpression == RelationalExpression 的执行步骤如下：</p>
+<ol>
+<li>设lref为EqualityExpression的执行结果。</li>
+<li>设lval为GetValue(lref)。</li>
+<li>设rref为RelationalExpression的执行结果。</li>
+<li>设rval为GetValue(rref)。</li>
+<li>返回 rval == lval 的返回值（见11.9.3）</li>
+</ol>
+<h3 id="11-9-2-不等操作符"><a href="#11-9-2-不等操作符" class="headerlink" title="11.9.2 不等操作符(!=)"></a>11.9.2 不等操作符(!=)</h3><p>表达式 EqualityExpression != RelationalExpression 的执行步骤如下：</p>
+<ol>
+<li>设lref为EqualityExpression的执行结果。</li>
+<li>设lval为GetValue(lref)。</li>
+<li>设rref为RelationalExpression的执行结果。</li>
+<li>设rval为GetValue(rref)。</li>
+<li>设r为 rval == lval 的返回值（见11.9.3）</li>
+<li>如果r是true，则返回false。否则返回true。</li>
+</ol>
+<h3 id="11-9-3-相等比较操作"><a href="#11-9-3-相等比较操作" class="headerlink" title="11.9.3 相等比较操作"></a>11.9.3 相等比较操作</h3><p>比较式 x == y，最终返回true或false。执行步骤如下：</p>
+<ol>
+<li>如果Type(x)和Type(y)一致，那么<br> a.如果Type(x)是Undefined，则返回true。<br> b.如果Type(x)是Null，则返回true。<br> c.如果Type(x)是Number，那么<pre><code> - i. 如果x是NaN，返回false。
+ - ii. 如果y是NaN，返回false。
+ - iii. 如果x，y的值相同则返回true。
+ - iv. 如果x是+0，y是-0，返回true。
+ - v. 如果x是-0，y是+0，返回true。
+ - vi. 其他返回false。</code></pre> d. 如果Type(x)是String，那么当x，y为相同字符串时返回true，否则返回false。<br> e. 如果Type(x)是Boolean，那么x，y都为true/false时返回true。否则返回false。<br> f. 如果x，y指向同一个对象，则返回true，否则返回false。</li>
+<li>如果x是null，y是undefined，返回true。</li>
+<li>如果x是undefined，y是null，返回true。</li>
+<li>如果Type(x)是Number，Type(y)是String，那么返回 x == ToNumber(y) 的结果。</li>
+<li>如果Type(x)是String，Type(y)是Number，那么返回 ToNumber(x) == y 的结果。</li>
+<li>如果Type(x)是Boolean，那么返回 ToNumber(x) == y 的结果。</li>
+<li>如果Type(y)是Boolean，那么返回 x == ToNumber(y) 的结果。</li>
+<li>如果Type(x)是String或Number，Type(y)是Object，返回 x == ToPrimitive(y) 的结果。</li>
+<li>如果Type(x)是Object，Type(y)String或Number ToPrimitive(x) == y 的结果。</li>
+<li>返回false。</li>
+</ol>
+<h3 id="11-9-4-严格等于操作符"><a href="#11-9-4-严格等于操作符" class="headerlink" title="11.9.4 严格等于操作符(===)"></a>11.9.4 严格等于操作符(===)</h3><p>表达式 EqualityExpression === RelationalExpression 的执行步骤如下：</p>
+<ol>
+<li>设lref为EqualityExpression的执行结果。</li>
+<li>设lval为GetValue(lref)。</li>
+<li>设rref为RelationalExpression的执行结果。</li>
+<li>设rval为GetValue(rref)。</li>
+<li>返回 rval === lval 的返回值（见11.9.6）</li>
+</ol>
+<h3 id="11-9-4-严格不等操作符"><a href="#11-9-4-严格不等操作符" class="headerlink" title="11.9.4 严格不等操作符(!==)"></a>11.9.4 严格不等操作符(!==)</h3><p>表达式 EqualityExpression !== RelationalExpression 的执行步骤如下：</p>
+<ol>
+<li>设lref为EqualityExpression的执行结果。</li>
+<li>设lval为GetValue(lref)。</li>
+<li>设rref为RelationalExpression的执行结果。</li>
+<li>设rval为GetValue(rref)。</li>
+<li>设r为 rval === lval 的返回值（见11.9.6）</li>
+<li>如果r是true则返回false，反之返回true。</li>
+</ol>
+<h3 id="11-9-6-严格相等操作"><a href="#11-9-6-严格相等操作" class="headerlink" title="11.9.6 严格相等操作"></a>11.9.6 严格相等操作</h3><p>比较式 x === y 的操作结果为true或false，操作步骤如下：</p>
+<ol>
+<li>如果Type(x)和Type(y)不同，直接返回false。</li>
+<li>如果Type(x)是Undefined，返回true。</li>
+<li>如果Type(x)是Null，返回true。</li>
+<li>如果Type(x)是NuNumber，那么<br> c.如果Type(x)是Number，那么<pre><code> - i. 如果x是NaN，返回false。
+ - ii. 如果y是NaN，返回false。
+ - iii. 如果x，y的值相同则返回true。
+ - iv. 如果x是+0，y是-0，返回true。
+ - v. 如果x是-0，y是+0，返回true。
+ - vi. 其他返回false。</code></pre></li>
+<li>如果Type(x)是String，x，y为相同的字符串则返回true，否则返回false。</li>
+<li>如果Type(x)是Boolean，那么x，y都为true/false时返回true。否则返回false。</li>
+<li>如果x，y指向同一个对象，则返回true，否则返回false。</li>
+</ol>
+
+          </div>
+      </article>
+
+      <div class="post-navigation">
+        
+        <div class="post-previous">
+          <a href="/2017/08/21/ECMAScript5-1-12-%E8%AF%AD%E5%8F%A5/">
+              <i class="iconfont icon-round-arrow-left"></i> 
+              <span class="post-prev-title">ECMAScript5.1-(12)语句</span>
+          </a>
+        </div>
+        
+        
+        <div class="post-next">
+            <a href="/2017/07/02/ECMAScript5-1-10-%E5%8F%AF%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81%E5%92%8C%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/">
+                <span class="post-next-title">ECMAScript5.1-(10)可执行代码和执行上下文</span>
+                <i class="iconfont icon-round-arrow-right"></i>
+            </a>
+        </div>
+        
+      </div>
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script>
+  
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+  var disqus_config = function () {
+  this.page.url = "http://www.qiwenke.com/2017/08/16/ECMAScript5-1-11-%E8%A1%A8%E8%BE%BE%E5%BC%8F/";  // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = "http://www.qiwenke.com/2017/08/16/ECMAScript5-1-11-%E8%A1%A8%E8%BE%BE%E5%BC%8F/"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+  (function() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = 'https://qiwenke.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+
+</div>
+<div class="post-catalog"></div>
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/prism.js"></script>
+</body>
+</html>

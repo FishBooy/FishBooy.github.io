@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Flexbox布局完全指南 [译] | Calvin&#39;s notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Flexbox（弹性布局盒模型，W3C规范中的术语叫作flex layout box model）布局模式的目标在于提供一种解决方案，使得页面容器内的元素能够更加合理地布局、排列以及分配空间，尤其是针对内部子元素的宽度和高度未知或者动态变化的情况（这也是为什么用“弹性”来定义这种布局方式）。 Flexbox的布局模式使得父元素有能力控制子元素的宽度或高度以及排列顺序，从而更好的填充父元素内的空间（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flexbox布局完全指南 [译]">
+<meta property="og:url" content="http://www.qiwenke.com/2017/10/24/Flexbox%E5%B8%83%E5%B1%80%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/index.html">
+<meta property="og:site_name" content="Calvin&#39;s notes">
+<meta property="og:description" content="Flexbox（弹性布局盒模型，W3C规范中的术语叫作flex layout box model）布局模式的目标在于提供一种解决方案，使得页面容器内的元素能够更加合理地布局、排列以及分配空间，尤其是针对内部子元素的宽度和高度未知或者动态变化的情况（这也是为什么用“弹性”来定义这种布局方式）。 Flexbox的布局模式使得父元素有能力控制子元素的宽度或高度以及排列顺序，从而更好的填充父元素内的空间（">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://css-tricks.com/wp-content/uploads/2018/11/00-basic-terminology.svg">
+<meta property="og:image" content="https://css-tricks.com/wp-content/uploads/2018/10/01-container.svg">
+<meta property="og:image" content="https://css-tricks.com/wp-content/uploads/2018/10/flex-direction.svg">
+<meta property="og:image" content="https://css-tricks.com/wp-content/uploads/2018/10/flex-wrap.svg">
+<meta property="og:image" content="https://css-tricks.com/wp-content/uploads/2018/10/justify-content.svg">
+<meta property="og:image" content="https://css-tricks.com/wp-content/uploads/2018/10/align-items.svg">
+<meta property="og:image" content="https://css-tricks.com/wp-content/uploads/2018/10/align-content.svg">
+<meta property="og:image" content="https://css-tricks.com/wp-content/uploads/2018/10/02-items.svg">
+<meta property="og:image" content="https://css-tricks.com/wp-content/uploads/2018/10/order.svg">
+<meta property="og:image" content="https://css-tricks.com/wp-content/uploads/2018/10/flex-grow.svg">
+<meta property="og:image" content="https://css-tricks.com/wp-content/uploads/2018/10/align-self.svg">
+<meta property="article:published_time" content="2017-10-24T20:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-22T15:32:36.535Z">
+<meta property="article:author" content="Calvin">
+<meta property="article:tag" content="Flexbox">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://css-tricks.com/wp-content/uploads/2018/11/00-basic-terminology.svg">
+  
+    <link rel="alternate" href="/atom.xml" title="Calvin&#39;s notes" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/prism.css">
+
+    
+<link rel="stylesheet" href="/css/prism_custom.css">
+
+  
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body><div class="site-column-post">
+  <div class="site-content-post">
+      <article class="post-all-content">
+          <div class="post-name">
+            <h2>Flexbox布局完全指南 [译]</h2>
+          </div>
+          <div class="post-info">
+              <span class="post-info-date">
+                <i class="iconfont icon-calendar"></i>
+                2017-10-24
+              </span>
+              <span class="post-update">
+                <i class="iconfont icon-copy"></i>
+                2020-03-22
+              </span>
+              
+              <span class="post-category">
+                <i class="iconfont icon-folder"></i>
+                
+                  
+                    <a href="/categories/技术/">技术</a>
+                  
+                
+                  
+                
+                  
+                
+              </span>
+              
+              
+              <span class="post-tag">
+                <i class="iconfont icon-collection"></i>
+                
+                  <a href="/tags/Flexbox/">Flexbox</a>
+                
+              </span>
+              
+              <span class="back-to-home">
+                <a href="/">
+                  <span>Calvin&#39;s notes</span>
+                  <i class="iconfont icon-home"></i>
+                </a>
+              </span>
+          </div>
+          <div class="post-body">
+            <p>Flexbox（弹性布局盒模型，W3C规范中的术语叫作flex layout box model）布局模式的目标在于提供一种解决方案，使得页面容器内的元素能够更加合理地布局、排列以及分配空间，尤其是针对内部子元素的宽度和高度未知或者动态变化的情况（这也是为什么用“弹性”来定义这种布局方式）。</p>
+<p>Flexbox的布局模式使得父元素有能力控制子元素的宽度或高度以及排列顺序，从而更好的填充父元素内的空间（尤其是在适配各种设备和屏幕尺寸的时候）。一个flex元素能够扩大子元素的尺寸来填满空间，也可以收缩元素的尺寸防止溢出。</p>
+<p>最重要的一点，不同于常规的布局方式（基于纵向或横向），flexbox布局是和方向无关的。尽管以前的一些常规布局方式也能满足页面的需求，但是在面对一些复杂的web应用的时候往往缺乏灵活性，尤其是在涉及到方向变化，尺寸扩展收缩等的时候。</p>
+<blockquote>
+<p>Flexbox和Grid都是css3.0针对页面布局提出的新特性，两者的关键区别在于：Flexbox布局属于一维布局，也就是说它只能在行或列上进行控制；Grid则属于二维布局，它既能控制行也能控制列，是一个完整的网格系统。因此，Flexbox布局用于页面上小范围的布局是合适的，比如某个组件。如果要对整个页面结构进行布局，Grid布局模式则是最佳方案。</p>
+</blockquote>
+<h2 id="基础和术语"><a href="#基础和术语" class="headerlink" title="基础和术语"></a>基础和术语</h2><p>flexbox布局是由一系列css属性集合起来才得以实现的，一部分属性是在父元素（也叫“弹性容器”）上设置的，另一部分则是在子元素上设置的（“弹性元素”）。</p>
+<p>如果常规的布局是以块元素和内联元素为基础的文档流，那么flexbox布局则是以以弹性元素为基础的弹性流。下面的插图（来自W3C HTML规范）揭示了基于弹性布局的原理：</p>
+<p><img src="https://css-tricks.com/wp-content/uploads/2018/11/00-basic-terminology.svg" alt="flebox"></p>
+<p>因此，容器内的子元素是按照main axis（主轴，从main-start到main-end）或cross axis（纵轴，从cross-start到cross-end）依次排列的。</p>
+<ul>
+<li><strong>main axis</strong> - 主轴，即当前子元素按照这条轴线的方向排列。main axis不是固定的，使用“flex-direction”属性可以改变元素主轴方向（水平和垂直两种，默认是水平方向）。</li>
+<li><strong>main-start | main-end</strong> - 元素从main-start的位置开始朝main-end的方向排列。</li>
+<li><strong>main size</strong> - 一个弹性容器或弹性元素的宽或高，如果main-axis是水平方向那么main-size等同于元素的width值，如果是纵向则是元素的height值。</li>
+<li><strong>cross axis</strong> - 和主轴线相垂直的轴线</li>
+<li><strong>cross-start | cross-end</strong> - 当元素按照cross axis排列的时候，会从cross-start开始朝cross-end的方向排列。</li>
+<li><strong>cross size</strong> -一个弹性容器或弹性元素的宽或高，如果cross-axis是水平方向那么cross-size等同于元素的width值，如果是纵向则是元素的height值。</li>
+</ul>
+<h2 id="属性介绍"><a href="#属性介绍" class="headerlink" title="属性介绍"></a>属性介绍</h2><h3 id="父元素（弹性容器）的属性"><a href="#父元素（弹性容器）的属性" class="headerlink" title="父元素（弹性容器）的属性"></a>父元素（弹性容器）的属性</h3><p><img src="https://css-tricks.com/wp-content/uploads/2018/10/01-container.svg" alt="flex container"></p>
+<h4 id="display"><a href="#display" class="headerlink" title="display"></a>display</h4><p>dispaly属性是实现弹性布局的第一步，它使得父元素能够成为弹性容器，至于是内联还是块级则取决于具体的属性值。需要注意的是：在一个弹性容器中使用coloums属性是无效的。</p>
+<pre><code class="css">.container {
+    display: flex;/* 或者inline-flex */
+}</code></pre>
+<h4 id="flex-direction"><a href="#flex-direction" class="headerlink" title="flex-direction"></a>flex-direction</h4><p><img src="https://css-tricks.com/wp-content/uploads/2018/10/flex-direction.svg" alt="flex-direction"></p>
+<p>该属性定义了主轴线main-axis的方向，也就是容器内子元素的排列方向。flexbox是单向布局的，元素只能在水平和竖直中选择一个方向进行排列。</p>
+<pre><code class="css">.container {
+    flex-direction: row | row-reverse | column | colum-reverse;
+}</code></pre>
+<ul>
+<li><strong>row （默认）</strong>: 水平的自左向右排列</li>
+<li><strong>row-reverse</strong>: 水平的自右向左排列</li>
+<li><strong>column</strong>: 竖直的自上而下排列</li>
+<li><strong>column-reverse</strong>: 竖直的自下而上排列</li>
+</ul>
+<h4 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a>flex-wrap</h4><p><img src="https://css-tricks.com/wp-content/uploads/2018/10/flex-wrap.svg" alt="flex-wrap"></p>
+<p>子元素默认会在沿着flex-direction的方向一直排列，而使用flex-wrap属性则可以使元素进行换行排列（在所有元素排列长度超过父元素宽度时）。</p>
+<pre><code class="css">.container {
+    flex-wrap: nowrap | wrap | wrap-reverse;
+}</code></pre>
+<ul>
+<li><strong>nowrap (默认)</strong>: 所有元素都会排列在一条线上</li>
+<li><strong>wrap</strong>: 当元素排列到行尾或列尾时会进行换行或换列继续排</li>
+<li><strong>wrap-reverse</strong>: 以wrap的反方向排列</li>
+</ul>
+<blockquote>
+<p>注：当flex-direction为row或者row-reverse的时候（也就是main-axis是水平方向时），如果父元素flex-wrap值为no-wrap且子元素设置的width之和超过main-size，那么子元素设置的with属性会失效，所有子元素的宽度都等于：父元素宽度/子元素个数，如果仍然大于main-size，那么子元素的flex-shrink属性就会生效，即元素会收缩至只够容纳自身content（content+padding+border）的宽度。</p>
+</blockquote>
+<h4 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h4><p>flex-flow是flex-direction和flex-wrap合并的缩写属性，默认属性值为“row nowrap”</p>
+<h4 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h4><p><img src="https://css-tricks.com/wp-content/uploads/2018/10/justify-content.svg" alt="justify-content"></p>
+<p>该属性定义了子元素排列的对齐方式。当子元素是固定尺寸时，该属性能更好的利用父元素剩余的空间。即使元素溢出父元素，justify-content的控制也依然有效。</p>
+<pre><code class="css">.container {
+    justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly;
+}</code></pre>
+<ul>
+<li><strong>flex-start (默认)</strong>: 元素朝着排列的起始方向对齐（左对齐或上对齐）</li>
+<li><strong>flex-end</strong>: 元素朝着排列的结束方向对齐（右对齐或下对齐）</li>
+<li><strong>space-between</strong>: 元素被均匀排列在轴线上，元素之间的距离相等。</li>
+<li><strong>space-around</strong>: 每个元素的左右（横向排列时）或上下（纵向排列时）都被分配了相等的空间。</li>
+<li><strong>space-evenly</strong>: 元素被均匀排列，元素与元素之间的距离、元素和边界(main-start/main-end/cross-start/cross-end) 之间的距离是相等的。</li>
+</ul>
+<blockquote>
+<p>注：如果子元素设置了margin:auto，则父元素的justify-content的属性值会被覆盖为space-around。在上文中使用到及下文不断会提到的“剩余空间”，它指的是在main-axis方向上减去去所有元素排列的长度之后余下的尺寸。如果main-axis是水平方向，那么每一行的剩余空间就是main-size减去元素排列总宽度后剩余的宽度；如果main-axis是竖直方向，同理，剩余空间就代表了main-size和元素排列的高度差。</p>
+</blockquote>
+<h4 id="align-items"><a href="#align-items" class="headerlink" title="align-items"></a>align-items</h4><p><img src="https://css-tricks.com/wp-content/uploads/2018/10/align-items.svg" alt="align-items"></p>
+<p>这个属性定义了子元素在cross-axis的方向上是如何对齐的。</p>
+<pre><code class="css">.container {
+    align-items: flex-start | flex-end | center | baseline | stretch ;
+}</code></pre>
+<ul>
+<li><strong>flex-start</strong>: 元素在cross-axis方向上以flex-start（cross-axis的flex-start）为准进行对齐。</li>
+<li><strong>flex-end</strong>: 元素在cross-axis方向上以flex-end（cross-axis的flex-end）为准进行对齐。</li>
+<li><strong>center</strong>: 元素在cross-axis方向上居中对齐。</li>
+<li><strong>baseline</strong>: 元素在cross-axis方向上用基线（每个子元素的内容的首行的底线）对齐。</li>
+<li><strong>stretch (默认)</strong>: 元素的cross-size伸展到等同于整个父元素在cross-axis方向上的尺寸。</li>
+</ul>
+<h4 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h4><p><img src="https://css-tricks.com/wp-content/uploads/2018/10/align-content.svg" alt="align-content"></p>
+<p>当cross-axis方向上除元素占据的空间还有多余的空间时，该属性会将这些空间进行合理分配（类似于上文中控制main-axis的justify-content）。该属性针对的是子元素有多行排列的情况，如果父元素内的元素排列只有一行，该属性定义无效。</p>
+<pre><code class="css">.container {
+    align-items: flex-start | flex-end | center | baseline | stretch ;
+}</code></pre>
+<ul>
+<li><strong>flex-start</strong>: 元素在cross-axis的方向上以flex-start（cross-axis的flex-start）为准进行对齐，剩余空间全部在flex-end一侧。</li>
+<li><strong>flex-end</strong>: 元素在cross-size的方向上以flex-end（cross-axis的flex-end）为准进行对齐，剩余空间全部在flex-end一侧。</li>
+<li><strong>center</strong>: 元素在cross-size的方向上居中对齐，剩余空间一分为二分布在flex-start和flex-end两侧。</li>
+<li><strong>space-between</strong>: 元素被均匀排列在cross-axis上，元素之间的距离相等。</li>
+<li><strong>space-around</strong>: 每个元素的左右（cross-axis为横向时）或上下（cross-axis为纵向时）都被分配了相等的空间。</li>
+<li><strong>stretch</strong>: 元素被均匀的拉伸以完全占用cross-axis方向上的剩余尺寸。</li>
+</ul>
+<h3 id="子元素（弹性元素）的属性"><a href="#子元素（弹性元素）的属性" class="headerlink" title="子元素（弹性元素）的属性"></a>子元素（弹性元素）的属性</h3><p><img src="https://css-tricks.com/wp-content/uploads/2018/10/02-items.svg" alt="flex item"></p>
+<h4 id="order"><a href="#order" class="headerlink" title="order"></a>order</h4><p><img src="https://css-tricks.com/wp-content/uploads/2018/10/order.svg" alt="order"></p>
+<p>子元素默认是按照html中的标签顺序依次排列的，但是“order”属性可以改变元素在页面中显示出来的排列顺序（DOM中的层次顺序不会发生变化）。</p>
+<pre><code class="css">.item {
+    order: &lt;integer&gt; ;/*任意整数值 默认为0 值越小越对应的元素越靠前排列*/
+}</code></pre>
+<h4 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow"></a>flex-grow</h4><p><img src="https://css-tricks.com/wp-content/uploads/2018/10/flex-grow.svg" alt="flex-grow"></p>
+<p>当在main-axis方向上有剩余空间时，子元素会按照各自的flex-grow的属性值按比例扩大尺寸以充分分配剩余空间。如果所有子元素的flex-grow都设置为1，那么剩余空间会被子元素均分。如果其中某个子元素的flex-grow设置为2而其他子元素设置为1，那么该元素的增加的尺寸是其他元素增加尺寸的两倍。</p>
+<pre><code class="css">.item {
+    order: &lt;integer&gt; ;/*任意非负整数值 默认为0*/
+}</code></pre>
+<h4 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h4><p>该属性与flex-grow产生的效果相反，对子元素产生收缩尺寸的效果，这种情况通常发生main-axis为水平方向且子元素的宽度之和超过main-size时（参考上文flex-wrap中的注释）。</p>
+<pre><code class="css">.item {
+    flex-shrink: &lt;integer&gt; ;/*任意非负整数值 默认为0*/
+}</code></pre>
+<h4 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h4><p>该属性效果相当于width属性。当子元素设置了flex-grow属性时，在main-axis方向上剩余的空间会根据flex-grow的属性值按比例分配给子元素。如果子元素同时设置了flex-basis属性，那么在计算剩余空间时，main-size减去的不是子元素在页面上的宽/高度而是其flex-basis的值。flex-basis的值可以是具体的长度（比如20%、5rem、100px等），也可以是关键字“auto”。当flex-basis设置为0时，子元素的尺寸会在剩余空间分配完毕后的长度取自身内容的宽/高和分配到尺寸宽/高的最大值。</p>
+<pre><code class="css">.item {
+    flex-basis: &lt;length&gt; | auto;/*默认为auto*/
+}</code></pre>
+<h4 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h4><p>该属性是flex-grow、flex-shrink、flex-basis合并的缩写，其中后两个属性的值是可选的。默认值为“0 1 auto”。</p>
+<pre><code class="css">.item {
+    flex: none | [&lt;&#39;flex-grow&#39;&gt; &lt;&#39;flex-shrink&#39;&gt;? || &lt;flex-basis&gt;];
+}</code></pre>
+<h4 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h4><p><img src="https://css-tricks.com/wp-content/uploads/2018/10/align-self.svg" alt="align-self"></p>
+<p>上文中父元素的align-items属性是对所有子元素在main-axis方向上进行对齐，而子元素的align-self属性可以使自身的对齐方式覆盖align-items定义的方式。该属性取值在align-items取值的基础上增加了一个关键字“auto”（继承align-items属性值）。</p>
+<blockquote>
+<p>关于弹性元素（flex元素内的子元素），需要注意的是其设置的float、clear、vertical-align属性都会失效。</p>
+</blockquote>
+<h2 id="应用示例"><a href="#应用示例" class="headerlink" title="应用示例"></a>应用示例</h2><p>css布局中有一个很常见的问题：完全居中（子元素水平和垂直都居中）。用flex布局来实现会非常简单。</p>
+<pre><code class="css">.container{
+    display: flex;
+    height: 400px;/*设置固定高度或auto*/
+}
+.item {
+    width:100px;
+    height:100px;/*设置固定高度 如果没有固定高度 默认的align-items:stretch会使其高度与父元素保持一致*/
+    margin: auto;
+}</code></pre>
+<p>margin的作用非常关键，它分摊了水平和垂直方向上的宽和高并平均分布在左右和上下，从而使得子元素能够完全居中。</p>
+<blockquote>
+<p>注：如果子元素不使用margin属性，那么给父元素设置“justify-content:center;align-items:center;”同样可以达到完全居中的效果。</p>
+</blockquote>
+<p>网站顶部的导航链接也是一个常见布局。如果需要导航在大尺寸的屏幕上居右显示而小屏幕上整行显示，可以参考下面的设置（建议在CodePen中拖拽浏览器屏幕，查看不同尺寸屏幕下的样式效果）：</p>
+<p>See the Pen Demo Flexbox 2 by CSS-Tricks (@css-tricks) on CodePen.</p>
+<h2 id="样式前缀"><a href="#样式前缀" class="headerlink" title="样式前缀"></a>样式前缀</h2><p>由于flex规范提出之后，历经了多个版本，且截止到目前仍然没有形成稳定的版本，因此各浏览器厂商对其支持程度不同，这也导致了在不同的浏览器下flex的属性需要添加不同的前缀（不仅仅是属性值需要添加，属性名也需要添加前缀）。针对前缀问题的解决方案可以参考Autoprefixer。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>Flexbox in the CSS specifications</li>
+<li>Flexbox at Opera</li>
+<li>Diving into Flexbox by Bocoup</li>
+<li>Mixing syntaxes for best browser support on CSS-Tricks</li>
+<li>Flexbox by Raphael Goetter (FR)</li>
+<li>Flexplorer by Bennett Feely</li>
+</ul>
+<blockquote>
+<p>原文信息<br>地址：A Complete Guide to Flexbox<br>作者：Chris Coyier</p>
+</blockquote>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Flexbox的布局方案最早是由W3C在2009年起草的，但是到目前为止，该方案仍然不是W3C的推荐标准（REC-Recommendation）而是候选标准（CR-Candidate Recommencation），候选标准意味着该方案仍然有被替换或者废除的可能。不过基于W3C规范的滞后性以及当前各主流浏览器的支持和实现，flexbox的布局方案已经成为事实上的标准。</p>
+<p>下面的数据显示了当前flexbox的兼容性：</p>
+<p>Can I Use flexbox? Data on support for the flexbox feature across the major browsers from caniuse.com.</p>
+<p>尽管支持度已经是标准的级别，但IE仍然不出意料的拖了后腿。因此，是否在应用中完全使用flex的布局方式仍然需要开发者在进行综合考量之后再做决定。</p>
+<blockquote>
+<p>翻译备注：原文中关于flex当前的兼容性问题介绍的比较简短，因此本文中删掉了该部分并使用canIuse的数据进行了补充说明。此外，关于“样式前缀”部分，原文中有更详尽的解释，建议阅读原文并查看Autoprefixer的链接文章。</p>
+</blockquote>
+
+          </div>
+      </article>
+
+      <div class="post-navigation">
+        
+        
+        <div class="post-next">
+            <a href="/2017/09/01/ECMAScript5-1-13-%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89/">
+                <span class="post-next-title">ECMAScript5.1-(13)函数的定义</span>
+                <i class="iconfont icon-round-arrow-right"></i>
+            </a>
+        </div>
+        
+      </div>
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script>
+  
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+  var disqus_config = function () {
+  this.page.url = "http://www.qiwenke.com/2017/10/24/Flexbox%E5%B8%83%E5%B1%80%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/";  // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = "http://www.qiwenke.com/2017/10/24/Flexbox%E5%B8%83%E5%B1%80%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+  (function() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = 'https://qiwenke.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+
+</div>
+<div class="post-catalog"></div>
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/prism.js"></script>
+</body>
+</html>

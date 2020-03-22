@@ -570,7 +570,7 @@ body {
   padding-bottom: 5px;
 }
 .site-column-post .site-content-post .post-info span {
-  margin-right: 6px;
+  margin-right: 10px;
   font-size: 14px;
   color: #7d848c;
   white-space: nowrap;
@@ -578,7 +578,6 @@ body {
   text-overflow: ellipsis;
 }
 .site-column-post .site-content-post .post-info span .iconfont {
-  margin-right: 3px;
   color: #565f67;
 }
 .site-column-post .site-content-post .post-info span a {
@@ -621,7 +620,7 @@ body {
 }
 .site-column-post .site-content-post .post-body {
   color: #3c444c;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 30px;
   margin-top: 30px;
 }
@@ -644,7 +643,7 @@ body {
   margin-bottom: 5px;
 }
 .site-column-post .site-content-post .post-body h4 {
-  font-size: 16px;
+  font-size: 18px;
 }
 .site-column-post .site-content-post .post-body h5 {
   font-size: 16px;
@@ -734,6 +733,10 @@ body {
   color: #56697b;
   line-height: 26px;
 }
+.site-column-post .site-content-post .post-body img {
+  width: 100%;
+  text-align: center;
+}
 .site-column-post .site-content-post .post-navigation {
   display: -webkit-box;
   display: -moz-box;
@@ -764,6 +767,7 @@ body {
 .site-column-post .site-content-post .post-navigation .post-next a,
 .site-column-post .site-content-post .post-navigation .post-previous a {
   font-size: 16px;
+  color: #9ea5ad;
 }
 .site-column-post .site-content-post .post-navigation .post-next a:hover,
 .site-column-post .site-content-post .post-navigation .post-previous a:hover {
@@ -772,6 +776,12 @@ body {
 .site-column-post .site-content-post .post-navigation .post-next a:hover .iconfont,
 .site-column-post .site-content-post .post-navigation .post-previous a:hover .iconfont {
   color: #555f69;
+}
+@media (max-width: 639px) {
+  .site-column-post .site-content-post .post-navigation .post-next a span,
+  .site-column-post .site-content-post .post-navigation .post-previous a span {
+    display: none;
+  }
 }
 .post-catalog {
   position: fixed;
@@ -782,13 +792,14 @@ body {
 }
 .post-catalog ul {
   border-left: #eff0f1 2px solid;
-  padding-left: 15px;
+  padding: 5px 0 0 15px;
 }
 .post-catalog ul li {
   padding: 4px 0;
   position: relative;
   white-space: nowrap;
   text-overflow: ellipsis;
+  line-height: 16px;
 }
 .post-catalog ul li::before {
   content: '';

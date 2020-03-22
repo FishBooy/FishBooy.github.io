@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>JS中的操作符和类型转换 | Calvin&#39;s notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="按照ES5.1的定义，javascript中只包含六种类型：Null、Undefined、Boolean、String、Number、Object（ES6中新增了Symbol类型），类型之间的转换通常分为显式类型转换和隐式类型转换。从代码字面就能显示出要转换的类型，这类转换被称作显式转换。反之，代码中无法明确显示出的类型转换则为隐式转换。 &#x2F;&#x2F;显式类型转换 String(123) &#x2F;&#x2F; &amp;quot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS中的操作符和类型转换">
+<meta property="og:url" content="http://www.qiwenke.com/2017/02/13/JS%E4%B8%AD%E7%9A%84%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/index.html">
+<meta property="og:site_name" content="Calvin&#39;s notes">
+<meta property="og:description" content="按照ES5.1的定义，javascript中只包含六种类型：Null、Undefined、Boolean、String、Number、Object（ES6中新增了Symbol类型），类型之间的转换通常分为显式类型转换和隐式类型转换。从代码字面就能显示出要转换的类型，这类转换被称作显式转换。反之，代码中无法明确显示出的类型转换则为隐式转换。 &#x2F;&#x2F;显式类型转换 String(123) &#x2F;&#x2F; &amp;quot">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-02-13T20:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-22T15:32:36.535Z">
+<meta property="article:author" content="Calvin">
+<meta property="article:tag" content="操作符,类型转换">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Calvin&#39;s notes" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/prism.css">
+
+    
+<link rel="stylesheet" href="/css/prism_custom.css">
+
+  
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body><div class="site-column-post">
+  <div class="site-content-post">
+      <article class="post-all-content">
+          <div class="post-name">
+            <h2>JS中的操作符和类型转换</h2>
+          </div>
+          <div class="post-info">
+              <span class="post-info-date">
+                <i class="iconfont icon-calendar"></i>
+                2017-02-13
+              </span>
+              <span class="post-update">
+                <i class="iconfont icon-copy"></i>
+                2020-03-22
+              </span>
+              
+              <span class="post-category">
+                <i class="iconfont icon-folder"></i>
+                
+                  
+                    <a href="/categories/技术/">技术</a>
+                  
+                
+                  
+                
+                  
+                
+              </span>
+              
+              
+              <span class="post-tag">
+                <i class="iconfont icon-collection"></i>
+                
+                  <a href="/tags/操作符-类型转换/">操作符,类型转换</a>
+                
+              </span>
+              
+              <span class="back-to-home">
+                <a href="/">
+                  <span>Calvin&#39;s notes</span>
+                  <i class="iconfont icon-home"></i>
+                </a>
+              </span>
+          </div>
+          <div class="post-body">
+            <p>按照ES5.1的定义，javascript中只包含六种类型：Null、Undefined、Boolean、String、Number、Object（ES6中新增了Symbol类型），类型之间的转换通常分为显式类型转换和隐式类型转换。从代码字面就能显示出要转换的类型，这类转换被称作显式转换。反之，代码中无法明确显示出的类型转换则为隐式转换。</p>
+<pre><code class="javascript">//显式类型转换
+String(123) // &quot;123&quot;
+Number(&quot;456&quot;) // 456
+Boolean(&quot;&quot;) // false</code></pre>
+<p>String，Number，Boolean三个全局方法分别会将传入的参数转化为字符串、数值、布尔值，调用这三个方法进行转换就是显式类型转换。</p>
+<pre><code class="javascript">//隐式类型转换
+var str=&#39;123&#39;,
+    num=123;
+
+str == num // true
+str + num // &quot;123123&quot;
+if(str){...} // false</code></pre>
+<p>日常开发中，最常引发隐式类型转换的是操作符（==、&lt;、!、+等）。“==”操作符在对String类型和Number类型的值进行操作时，会首先将String类型的值转化为Number类型的值，然后将两个Number类型的值比较是否相等。“123”转换为Number 类型后是123，因此 123 == 123 会返回true。“+”操作符在作为运算符进行加法操作时，只要两侧值有一侧为String类型，就会把另外一个值转换为String类型，然后将两个字符串进行拼接。数值123在转换为字符串后是“123”，两个“123”拼接得到“123123”。</p>
+<p>语句也会产生隐式转换。if 语句会首先把“if(exp){…}”中的exp转换为Boolean类型的值，然后根据得到的值（true/false）决定是否执行{…}中的语句。“123”转换为Boolean类型后是true，即if代码块中的语句会被执行。</p>
+<p>在javascript中，类型转换在被提及时实际常侧重于隐式类型转换，因为隐式类型转的隐蔽性使开发人员在编写代码时很容易入坑。以“==”操作符引起的隐式类型转换为例：</p>
+<pre><code class="javascript">false == &quot;&quot; // true
+false == 0 // true
+[] == &quot;&quot; // true
+[] == ![] // true</code></pre>
+<p>这几个“==”操作都发生了隐式类型转化，但是如果没有详细了解过类型转换，就会比较难理解这些true是如何得到的。而关于类型转换规则，ES5.1中是有明确定义的，只要了解了规范中简明易懂的转换规则，就能充分理解javascript中的类型转换从而在实际开发中避免低级失误。</p>
+<p>操作符引发的隐式转换是最为普遍的，而在各操作符中“==”操作符的操作过程能够比较全面的展示规范中的类型转换规则，因此首先来看下“==”操作符是如何进行类型转换的。</p>
+<blockquote>
+<p><strong>注</strong>：规范中其实并没有“显式”和“隐式”转换的概念，这两个概念只是开发人员根据类型转换时的不同表现形式进行划分而来，毕竟Boolean(123)要比!123（同是转换为Boolean类型的值）明显的多。实际上，如果开发人员完全掌握了转换规则，那么对其而言“隐式转换”这个概念也就相当于不存在了。</p>
+</blockquote>
+<h2 id="“-”操作符（查看ES5-1规范原文）"><a href="#“-”操作符（查看ES5-1规范原文）" class="headerlink" title="“==”操作符（查看ES5.1规范原文）"></a>“==”操作符（<a href="">查看ES5.1规范原文</a>）</h2><p>“x==y”的比较结果是一个Boolean类型的值（true或false），其比较规则如下：</p>
+<ol>
+<li>如果x,y属于同一类型，那么：<ul>
+<li>a. 如果都是Undefined类型则返回true。</li>
+<li>b. 如果都是Null类型返回true。</li>
+<li>c. 如果都是Number类型，那么：<ul>
+<li>i. 如果x,y中有一个值为NaN则返回false。</li>
+<li>ii. 如果x,y是相同的数值则返回true。</li>
+<li>iii. 如果x是+0或-0，y是-0或+0返回true。</li>
+<li>iv. 其他情况返回false。</li>
+</ul>
+</li>
+<li>d. 如果都是String类型，那么只有在x,y是相同的字符序列（长度相等且字符串中各字符索引也都相同）时才会返回true。否则返回false。</li>
+<li>e. 如果都是Boolean类型，那么x,y都是true或都是false时才会返回true，否则返回false。</li>
+<li>f. 如果都是Obejct类型，那么只有在x,y是同一个对象时才会返回true，否则返回false。</li>
+</ul>
+</li>
+<li>如果x,y是null和undefiend的比较则返回true。</li>
+<li>如果x,y是String类型和Number类型的比较则会先把String类型转化为Number类型然后再返回比较值。比如，当x是String类型，y为Number类型时，返回的值是由ToNumber(x)==y产生的，反之则是由x==ToPrimitive(y)产生的。</li>
+<li>如果x,y中有Boolean类型的值则会先把Boolean类型的值转化为Number类型然后返回比较值。比如，当x是Boolean类型时，返回的值是由ToNumber(x)==y产生的，反之则是由x==ToNumber(y)产生。</li>
+<li>当x,y中有一个值为String或Number类型，另一个值为Object类型时，则会先把Object类型的值转化为原始值然后返回比较值。比如：x为String或Number，y为Object类型时，返回的值是由x==ToPrimitive(y)产生的，反之则是由ToPrimitive(x)==y产生的。</li>
+<li>其他情况一律返回false。</li>
+</ol>
+<p><strong>NOTE</strong>: “==”操作符在某些情况下是不可传递的。比如：有两个独立的字符串对象，都表示同一个字符串值，那么“每个对象”==“所表示的字符串值”都会返回true，但是这两个对象之间却是不等的。</p>
+<p>new String(“a”) == “a” 和 “a” == new String(“a”) 都是true<br>new String(“a”) == new String(“a”) 却是false</p>
+<p>在上述“==”的整个比较规则中，有两个方法ToNumber、ToPrimitive，这两个方法是类型转换的关键，它们才是实际执行转换的方法，这类负责最终转换的方法在规范中称之为“抽象操作”。接下来看看规范中的抽象操作是如何定义的。</p>
+<h2 id="规范中的抽象操作（查看ES5-1规范原文）"><a href="#规范中的抽象操作（查看ES5-1规范原文）" class="headerlink" title="规范中的抽象操作（查看ES5.1规范原文）"></a>规范中的抽象操作（<a href="">查看ES5.1规范原文</a>）</h2><p>ECMAScript在运行过程中会根据当前需要自动进行类型转换。为了使这种自动转换成为合理的规范，ES5.1中规定了一系列抽象操作。这些抽象操作并不是ECMAScript语言的一部分，它们的实现属于浏览器底层的范畴，它们在规范中以概念形式存在的意义在于帮助规范制定一个类型转换的规则。</p>
+<blockquote>
+<p><strong>注</strong>：这里的ECMAScript指的是依据规范实现的脚本语言如javascript、actionScript等。规范中定义的抽象操作属于底层操作，这些操作是由浏览器内部的引擎在执行javascript程序时完成的，开发人员是无法访问和使用的。</p>
+</blockquote>
+<h3 id="ToPrimitive"><a href="#ToPrimitive" class="headerlink" title="ToPrimitive"></a>ToPrimitive</h3><p>抽象操作ToPrimitive接受两个参数：一个必输的参数input和一个可选参数preferedType。ToPrimitive负责将input转化为原始值（非Object类型的值）。如果input能够转化为多个原始值，则ToPrimitive在操作时会根据preferedType参数把对象转化为一个指定类型的原始值。</p>
+<blockquote>
+<p><strong>注</strong>：之所以将非Object类型的值称作原始值，是因为Object类型的值实际上只是非Object类型值的集合。非Object类型也可以叫作“基础类型”或者“基本类型”。Object类型从存储角度通常被叫作“引用类型”，如果单纯从类型角度来讲，个人觉得叫作“复合类型”是比较合适的。</p>
+</blockquote>
+<p>根据ES5.1的规定，ToPrimitive在对非Object类型进行转化时不会进行任何操作而是直接返回接受的参数值作为转化结果，因此ToPrimitive实际是只针对Object类型的一个操作。该抽象操作会调用input（Object类型实例）的内置方法[[DefaultValue]]并传入preferedType作为参数，最终调用结束的返回值就是转化结果。</p>
+<p><strong><a href="hint">[DefaultValue]</a>，hint即参数preferedType</strong></p>
+<p>当对象O的内置方法[[DefaultValue]]被调用且参数hint值为String时，具体执行步骤如下：</p>
+<ol>
+<li>调用O的[[Get]]方法并传入参数 “toString”，将[[Get]]方法执行的返回值赋值给toString。</li>
+<li>如果IsCallable(toString)返回true，那么：<ul>
+<li>a. 执行toString: 以O作为执行时的this，不传入任何参数。toString执行结束后将返回结果赋值给str。</li>
+<li>b. 如果str是一个原始类型的值，返回str。</li>
+</ul>
+</li>
+<li>调用O的[[Get]]方法并传入参数“valueOf”，调用结束后将执行结果赋值给valueOf。</li>
+<li>如果IsCallable(valueOf)返回true，那么:<ul>
+<li>a. 执行valueOf: 以O作为执行时的this，不传入任何参数。valueOf执行结束后将返回结果赋值给val。</li>
+<li>b. 如果val是一个原始类型的值，返回val。</li>
+</ul>
+</li>
+<li>抛出一个类型异常: TypeError。</li>
+</ol>
+<p>当对象O的内置方法[[DefaultValue]]被调用且参数hint值为Number时，具体执行步骤如下：</p>
+<ol>
+<li>调用O的[[Get]]方法并传入参数 “toValue”，将[[Get]]方法执行的返回值赋值给toValue。</li>
+<li>如果IsCallable(toValue)返回true，那么:<ul>
+<li>a. 执行toValue: 以O作为执行时的this，不传入任何参数。toValue执行结束后将返回结果赋值给val。</li>
+<li>b. 如果val是一个原始类型的值，返回val。</li>
+</ul>
+</li>
+<li>调用O的[[Get]]方法并传入参数“toString”，调用结束后将执行结果赋值给toString。</li>
+<li>如果IsCallable(toString)返回true，那么:<ul>
+<li>a. 执行toString: 以O作为执行时的this，不传入任何参数。toString执行结束后将返回结果赋值给str。</li>
+<li>b. 如果str是一个原始类型的值，返回str。</li>
+</ul>
+</li>
+<li>抛出一个类型异常: TypeError。</li>
+</ol>
+<p>用伪代码表示如下：</p>
+<pre><code class="javascript">{
+    [[DefaultValue]]: function(hint) {
+        if (hint == String || (!hint &amp;&amp; this.constructor != Date)) {
+            toString = this.[[Get]](&#39;toString&#39;);
+            if (IsCallable(toString)) {
+                str = this.toString();
+                //function不是基本类型 是object的子类
+                if (typeof str != &quot;object&quot; &amp;&amp; typeof str != &quot;function&quot;) {
+                    return str
+                }
+            }
+            valueOf = this.[[Get]](&#39;valueOf&#39;);
+            if (IsCallable(valueOf)) {
+                val = this.valueOf();
+                if (typeof str != &quot;object&quot; &amp;&amp; typeof str != &quot;function&quot;) {
+                    return val
+                } else {
+                    throw TypeError();
+                }
+            }
+        } else {
+            valueOf = this.[[Get]](&#39;valueOf&#39;);
+            if (IsCallable(valueOf)) {
+                val = this.valueOf();
+                if (typeof str != &quot;object&quot; &amp;&amp; typeof str != &quot;function&quot;) {
+                    return val
+                }
+            }
+            toString = this.[[Get]](&#39;toString&#39;);
+            if (IsCallable(toString)) {
+                str = this.toString();
+                if (typeof str != &quot;object&quot; &amp;&amp; typeof str != &quot;function&quot;) {
+                    return str;
+                } else {
+                    throw TypeError();
+                }
+            }
+        }
+    }
+}</code></pre>
+<p>当对象O的内置方法[[DefaultValue]]被调用且没有传入参数值时，默认将hint值赋值为Number。不过有一个特例，当O是一个Date对象时，hint会被默认赋值String。</p>
+<p>规范中的内置方法[[DefaultValue]]只允许返回原始值。如果宿主对象实现了自己的[[DefaultValue]]方法，则必须保证该方法返回原始类型值。</p>
+<blockquote>
+<p><strong>注</strong>：[[Get]]是对象的内置方法，用于获取传入的属性名所对应的值（可能是任何类型）。toPrimitive的转换规则简单来讲就是“当对一个对象进行转换时，实际上就是先后调用对象的toString方法或valueOf方法( 顺序由hint值决定)，直至得到原始值(Null,Undefined,Boolean,String,Number)或抛错。即：ToPrimitive(obj)=obj.toString()或obj.valueOf()”。</p>
+</blockquote>
+<h3 id="ToBoolean"><a href="#ToBoolean" class="headerlink" title="ToBoolean"></a>ToBoolean</h3><p>ToBoolean操作接受任何类型的值作为参数并将其转化为一个布尔值，其转化规则如下：</p>
+<table>
+<thead>
+<tr>
+<th>参数类型</th>
+<th>转化结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Undefined</td>
+<td>false</td>
+</tr>
+<tr>
+<td>Null</td>
+<td>false</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>不会发生转换，返回被转换的参数值</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>+0、-0、NaN都会被转化为false;其他数值都会转换为true</td>
+</tr>
+<tr>
+<td>String</td>
+<td>空字符串””（因为其长度为0）会被转化为false;其他字符串值都会转化为true</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>true</td>
+</tr>
+</tbody></table>
+<h3 id="ToNumber"><a href="#ToNumber" class="headerlink" title="ToNumber"></a>ToNumber</h3><p>ToNumber操作接受任何类型的值作为参数并将其转化为一个Number类型的值，其转化规则如下：</p>
+<table>
+<thead>
+<tr>
+<th>参数类型</th>
+<th>转化结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Undefined</td>
+<td>NaN</td>
+</tr>
+<tr>
+<td>Null</td>
+<td>+0</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>true被转化为1;false会被转化为+0</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>不会发生转化，返回被转化的参数值</td>
+</tr>
+<tr>
+<td>String</td>
+<td>转化细节较多，详情查看ES5.1规范原文。常用转化规则为：空字符串“”转换为0，字面值为数值的字符串转化为对应的数值，其他情况返回NaN</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>转化步骤如下：</br>1. 执行ToPrimitive(input,hint Number)，将返回的原始值赋值给primValue。</br>2. 返回ToNumber(primValue)</td>
+</tr>
+</tbody></table>
+<h3 id="ToString"><a href="#ToString" class="headerlink" title="ToString"></a>ToString</h3><table>
+<thead>
+<tr>
+<th>参数类型</th>
+<th>转化结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Undefined</td>
+<td>“undefined”</td>
+</tr>
+<tr>
+<td>Null</td>
+<td>“null”</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>true被转化为”true”;false会被转化为”false”</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>转化细节较多，详情查看ES5.1规范原文。常用规则：直接转换为数值字面量的字符串</td>
+</tr>
+<tr>
+<td>String</td>
+<td>不会发生转化，返回被转化的参数值</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>转化步骤如下：</br>1. 执行ToPrimitive(input,hint String)，将返回的原始值赋值给primValue。</br>2. 返回ToString(primValue)</td>
+</tr>
+</tbody></table>
+<h3 id="IsCallable"><a href="#IsCallable" class="headerlink" title="IsCallable"></a>IsCallable</h3><p>抽象操作IsCallable不涉及类型转换，它主要用来辅助检测传入的参数是否为可调用的函数对象(类型为Object且具有内置属性[[call]])，是返回true，否则返回false。即：IsCallable(x)，只有当x值为函数时才会返回true，其他一律返回false。</p>
+<blockquote>
+<p><strong>注</strong>：对于全局方法Boolean、Number、String，当使用new关键字调用时是构造布尔对象、数值对象和字符串对象（Object类型，非原始值）的构造函数，当作为普通函数调用时，它们的执行实际就分别对应了ToBoolean、ToNumber、ToString的操作，比如：Number(true)返回1，实际就等于直接对true进行了ToNumber操作并得到结果1。除了上述五个抽象操作，规范中定义的还有ToObject和ToInteger两个主要抽象操作，介于常规开发比较少会接触到这两个操作，在此不做详细介绍，详情可查看ES5.1规范原文。</p>
+</blockquote>
+<p>在看完规范中对“==”的操作和主要的类型转换抽象操作以后，再来了解一下两个转换规则比较简单的操作符“!”和“+”。</p>
+<h2 id="逻辑非操作符“-”和一元操作符-加法操作符“-”"><a href="#逻辑非操作符“-”和一元操作符-加法操作符“-”" class="headerlink" title="逻辑非操作符“!”和一元操作符/加法操作符“+”"></a>逻辑非操作符“!”和一元操作符/加法操作符“+”</h2><h3 id="操作符“-”"><a href="#操作符“-”" class="headerlink" title="操作符“!”"></a>操作符“!”</h3><p>“!x”的转换结果为Boolean类型，规则为：</p>
+<ol>
+<li>把ToBoolean(x)的结果赋值给oldValue；</li>
+<li>如果oldValue为true则返回false,否则返回true;</li>
+</ol>
+<h3 id="一元操作符“-”"><a href="#一元操作符“-”" class="headerlink" title="一元操作符“+”"></a>一元操作符“+”</h3><p>“+x”的转换结果为Number类型，规则为：直接返回ToNumber(x)。</p>
+<h3 id="加法操作符“-”"><a href="#加法操作符“-”" class="headerlink" title="加法操作符“+”"></a>加法操作符“+”</h3><p>“x+y”的转换结果为String类型或Number类型，规则为：</p>
+<ol>
+<li>首先把ToPrimitive(x)的结果赋值给lval，把ToPrimitive(y)的结果赋值给rval；</li>
+<li>如果lval和rval中有一个是String类型，则把ToStirng(lval)和ToString(rval)拼接起来；</li>
+<li>如果lval和rval中没有String类型，则进行加法运算：ToNumber(lval)+ToNumber(rval)。</li>
+</ol>
+<blockquote>
+<p><strong>NOTE</strong>: 步骤1中的ToPrimitive操作是不传hint参数的，按照ToPrimitive的默认操作执行。“+”是哪一种操作符取决于表达式的结构，“x+y”中是加法操作符，“+x”中则是一元操作符。</p>
+</blockquote>
+<p>在了解完“==”、“！”，“+”操作符规则以及主要的抽象操作后，再来看本文一开始提到的第三个隐式转换的代码示例：</p>
+<ol>
+<li><p>false == “”，false属于Boolean类型因此首先要把false转化为数值，ToNumber(false)  == “”也就是0 == “”，接下来String类型和Number类型比较则需要把String转换为Number，即：0 == ToNumber(“”)，最后0 == 0自然是返回true。</p>
+</li>
+<li><p>false == 0，这个更简单一些，ToNumber(false) == 0 –&gt; 0 == 0 –&gt; true。</p>
+</li>
+<li><p>[ ] == ![ ]，![ ] 会首先根据 ! 的操作规则返回ToBoolean([ ])的相反值（[ ]是Object类型），也就是false，然后对 [ ] == false 进行比较，即：[ ] == ToBoolean(false) –&gt; [ ] == 0 –&gt; “ToPrimitive([ ]) == 0 –&gt; [ ].toString( ) == 0 –&gt; “” == 0 –&gt;ToNumber(“”)==0 –&gt; 0==0 –&gt; true（如上，最后得到true）。</p>
+</li>
+<li><p>[ ] == “”，ToPrimitive([ ]) == “” –&gt; [ ].toString( ) == “” –&gt; “” == “”  –&gt; true。</p>
+</li>
+</ol>
+<h2 id="其他操作符"><a href="#其他操作符" class="headerlink" title="其他操作符"></a>其他操作符</h2><p>在操作符的操作规则以及抽象操作的转换规则下，才最终实现了“隐式类型转换”。除了“==”，“！”和“+”再列举以下常用操作符：</p>
+<h3 id="其他相等操作符（查看ES5-1规范原文）"><a href="#其他相等操作符（查看ES5-1规范原文）" class="headerlink" title="其他相等操作符（查看ES5.1规范原文）"></a>其他相等操作符（查看ES5.1规范原文）</h3><p>“!=”：对“x==y”的返回值取反。</p>
+<p>“===”：全等操作符（规范中称之为严格等于操作符，strict equals）的比较规则如下：</p>
+<ol>
+<li>如果x,y不是同一类型，则返回false；</li>
+<li>如果x,y是同一类型则依据“==”操作符在x,y类型相同时的规则进行比较。</li>
+</ol>
+<p>“!==”：不全等操作符的比较规则也是遵循了取反规则，即：对x===y的返回值取反。</p>
+<h3 id="关系操作符“-lt-”（查看ES5-1规范原文）"><a href="#关系操作符“-lt-”（查看ES5-1规范原文）" class="headerlink" title="关系操作符“&lt;”（查看ES5.1规范原文）"></a>关系操作符“&lt;”（查看ES5.1规范原文）</h3><p>对于“x&lt;y”：</p>
+<ol>
+<li><p>只要不满足“x,y都是String类型”，那么：把ToNumber(x)的结果赋值给nx，把ToNumber(y)的结果赋值给ny；</p>
+<ul>
+<li>a. 如果nx，ny中有一个值为NaN，那么返回undefined；</li>
+<li>b. 如果nx，ny是+0，-0的比较那么返回false；</li>
+<li>c. 如果nx是正无穷+∞，返回false；</li>
+<li>d. 如果ny是正无穷+∞，返回true；</li>
+<li>e. 如果nx是负无穷-∞，返回true；</li>
+<li>f. 如果ny是负无穷-∞，返回false；</li>
+<li>g. 如果nx在数值上比ny小则返回true，如果nx和ny相等则返回false。</li>
+</ul>
+</li>
+<li><p>如果x，y都是String类型，那么：</p>
+<ul>
+<li>a. 如果x是y的前缀（如果字符串b能由字符串a和其他字符串拼接而成，那么a就是b的前缀，如：“he”是“hello”的前缀），则返回true，如果y是x的前缀则返回false；</li>
+<li>b. 以k作为索引值从0开始递增，依次比较x和y在k处的字符，如果两个字符相同则继续比较，如果不同则停止比较并把x[k]赋值给px，把y[k]赋值给py；</li>
+<li>c. 把px，py在ASC II字符码集合中对应的索引数值分别赋值给m、n，返回m&lt;n（都是Number类型）的比较结果。</li>
+</ul>
+</li>
+<li><p>其他关系操作符</p>
+</li>
+</ol>
+<ul>
+<li>“&gt;”：对于“x&gt;y”，返回“y&lt;x”的返回值（返回值是undefined时作为false处理）。</li>
+<li>“&gt;=”：对于“x&gt;=y”，返回“x&lt;y”的返回值的相反值（返回值是undefined时作为false处理）。</li>
+<li>“&lt;=”：对于“x&lt;=y”，返回“y&lt;x”的返回值的相反值（返回值是undefined时作为false处理）。</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>javascript中的类型及转换规则是由ECMAScript规范制定的，规范中对各种类型转换规则的定义是比较简明的，只要稍微花些时间充分了解“各操作符的操作规则”和“抽象操作方法”，就能掌握javascript中的隐式转换从而避免一些代码中常见的低级失误。</p>
+
+          </div>
+      </article>
+
+      <div class="post-navigation">
+        
+        <div class="post-previous">
+          <a href="/2017/03/24/%E8%A7%A3%E6%9E%90javascript%E7%9A%84%E6%89%A7%E8%A1%8C%E5%92%8C%E9%97%AD%E5%8C%85/">
+              <i class="iconfont icon-round-arrow-left"></i> 
+              <span class="post-prev-title">解析javascript的执行和闭包</span>
+          </a>
+        </div>
+        
+        
+      </div>
+  </div>
+
+  <div id="disqus_thread"></div>
+  <script>
+  
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+  var disqus_config = function () {
+  this.page.url = "http://www.qiwenke.com/2017/02/13/JS%E4%B8%AD%E7%9A%84%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/";  // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = "http://www.qiwenke.com/2017/02/13/JS%E4%B8%AD%E7%9A%84%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+  (function() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = 'https://qiwenke.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+
+</div>
+<div class="post-catalog"></div>
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/prism.js"></script>
+</body>
+</html>
