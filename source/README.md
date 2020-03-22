@@ -19,9 +19,9 @@
 
 ## To-do List
 
-- [X] V1.0.0 release
-- [X] V2.0.0 release
+- [X] v1.0.0 release
+- [X] v2.0.0 release
 - [ ] Create Catelog page and tag page not
 - [ ] Publish all previous posts
-- [ ] Js for indicating the catlog location when scrolling post
+- [X] Js for indicating the catlog location when scrolling post
 - [ ] Adjust home and Catlog buttons on post page
