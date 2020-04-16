@@ -1,8 +1,8 @@
-(function() {
+(function () {
     /* Add className for prism parser */
     const codeBlocks = document.querySelectorAll("code");
     const supportedLang = ["javascript", "css", "html", "jsx", "sass", "scss"];
-    codeBlocks.forEach(function(code) {
+    codeBlocks.forEach(function (code) {
         const classList = code.classList;
         const className = classList.value.toLowerCase();
         if (
@@ -27,7 +27,7 @@
     const htmlTagsForList = ["h2", "h3", "h4", "h5", "h6"];
     const contentList = [];
 
-    childNodesInPost.forEach(child => {
+    childNodesInPost.forEach((child) => {
         const tagName = child.tagName;
         if (tagName && htmlTagsForList.indexOf(tagName.toLowerCase()) != -1) {
             contentList.push(child);
@@ -41,7 +41,7 @@
         catalogContainer.className = "catalog-container";
         postCatalog.append(catalogContainer);
 
-        contentList.forEach(function(node) {
+        contentList.forEach(function (node) {
             const listNode = document.createElement("li");
             const linkNode = node.querySelector("a").cloneNode(true);
             listNode.className = `${node.tagName.toLowerCase()}-link`;
@@ -55,7 +55,7 @@
         // Change position while scrolling
         const html = document.querySelector("html");
         const originalTop = parseInt(window.getComputedStyle(postCatalog).top);
-        window.addEventListener("scroll", function() {
+        window.addEventListener("scroll", function () {
             const scrollTop = html.scrollTop;
             postCatalog.style.top =
                 scrollTop < originalTop
