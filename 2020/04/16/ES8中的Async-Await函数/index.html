@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>ES8中的async函数[译] | Calvin&#39;s notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Promise 让开发者能够以按顺序执行的书写方式更方便的处理异步操作。而 ES8 中新增的 async 函数则能够让开发者以完全同步的方式处理异步操作。虽然使用 Promise 和 generator 函数也能够实现和 async 函数相同的功能，但是 async 函数封装了许多内部操作，使得开发者能够以更少的代码去处理异步操作。 代码示例在下面的例子中，我们首先声明了一个返回 promise">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES8中的async函数[译]">
+<meta property="og:url" content="http://www.qiwenke.com/2020/04/16/ES8%E4%B8%AD%E7%9A%84Async-Await%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="Calvin&#39;s notes">
+<meta property="og:description" content="Promise 让开发者能够以按顺序执行的书写方式更方便的处理异步操作。而 ES8 中新增的 async 函数则能够让开发者以完全同步的方式处理异步操作。虽然使用 Promise 和 generator 函数也能够实现和 async 函数相同的功能，但是 async 函数封装了许多内部操作，使得开发者能够以更少的代码去处理异步操作。 代码示例在下面的例子中，我们首先声明了一个返回 promise">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-16T21:28:56.000Z">
+<meta property="article:modified_time" content="2020-04-16T20:15:20.604Z">
+<meta property="article:author" content="Calvin">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Calvin&#39;s notes" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/prism.css">
+
+    
+<link rel="stylesheet" href="/css/prism_custom.css">
+
+  
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body><div class="site-column-post">
+  <div class="site-content-post">
+      <article class="post-all-content">
+          <div class="post-name">
+            <h2>ES8中的async函数[译]</h2>
+          </div>
+          <div class="post-info">
+              <span class="post-info-date">
+                <i class="iconfont icon-calendar"></i>
+                2020-04-16
+              </span>
+              <span class="post-update">
+                <i class="iconfont icon-copy"></i>
+                2020-04-16
+              </span>
+              
+              
+              <span class="back-to-home">
+                <a href="/">
+                  <span>Calvin&#39;s notes</span>
+                  <i class="iconfont icon-home"></i>
+                </a>
+              </span>
+          </div>
+          <div class="post-body">
+            <p>Promise 让开发者能够以按顺序执行的书写方式更方便的处理异步操作。而 ES8 中新增的 async 函数则能够让开发者以完全同步的方式处理异步操作。虽然使用 Promise 和 generator 函数也能够实现和 async 函数相同的功能，但是 async 函数封装了许多内部操作，使得开发者能够以更少的代码去处理异步操作。</p>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><p>在下面的例子中，我们首先声明了一个返回 promise 的函数，该 promise 会在 2s 后以 🤡 转到 resolved 状态。然后我们声明了一个 async 函数，并且在函数内使用 await 等待 promise 直到 resolved，一旦 resolved 则立刻打印 resolved value 也就是 msg。</p>
+<pre><code class="javascript">function scaryClown() {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+            resolve(&#39;🤡&#39;);
+        }, 2000);
+    });
+}
+
+async function msg() {
+    const msg = await scaryClown();
+    console.log(`Message: ${msg}`); // Message:🤡 &lt;-- after 2 seconds
+}</code></pre>
+<blockquote>
+<p>await 是 ES8 中新增的操作符，用来等待一个 promise 完成(resolve)或被拒绝(reject).它只能在 async 函数内使用。</p>
+</blockquote>
+<p>使用 async 函数的优势在进行多个异步操作的时候体现的更为明显。</p>
+<pre><code class="javascript">function who() {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+            resolve(&#39;🤡&#39;);
+        }, 200);
+    });
+}
+
+function what() {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+            resolve(&#39;lurks&#39;);
+        }, 300);
+    });
+}
+
+function where() {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+            resolve(&#39;in the shadow&#39;);
+        }, 500);
+    });
+}
+
+async function msg() {
+    const a = await who();
+    const b = await what();
+    const c = await where();
+
+    console.log(`${a} ${b} ${c}`);
+}
+msg(); // 🤡 lurks in the shadow &lt;-- after 1 second</code></pre>
+<p>不过需要注意的是，上面代码中 a，b，c 三个变量的赋值操作是同步执行的，也就是说每个生成 promise 的方法要等到上一个 已经生成的 promise 完成或被拒绝后才开始执行。如：who()返回的 promise 在 200ms 后 resolved，则 what 就需要在 200ms 之后才开始执行。如果需要将这些 promise 同时操作，可以使用 Primise.all 方法，该方法会等待所有的 promise 完成。</p>
+<pre><code class="javascript">async function msg() {
+    const [a, b, c] = Promise.all([who(), what(), where()]);
+    console.log(`${a} ${b} ${c}`);
+}
+msg(); // 🤡 lurks in the shadow &lt;-- after 500ms</code></pre>
+<p>一旦传入的所有 promise 都完成了，Promise.all 就会返回一个由所有 resolved values 组成的数组。</p>
+<h2 id="返回-Promise"><a href="#返回-Promise" class="headerlink" title="返回 Promise"></a>返回 Promise</h2><p>Async 函数总会返回一个 promise，因此下面的代码并不会产生类似普通函数所预期的结果：</p>
+<pre><code class="javascript">async function hello() {
+    return &#39;Hello Alligator&#39;;
+}
+const b = hello();
+console.log(b); // Promise {...}</code></pre>
+<p>基于 async 函数返回的是一个 promise，你可以进行如下操作：</p>
+<pre><code class="javascript">async function hello() {
+    return &#39;Hello Alligator!&#39;;
+}
+
+// 等同于hello().then(x =&gt; console.log(x));
+const b = hello();
+b.then((x) =&gt; console.log(x)); // Hello Alligator!</code></pre>
+<h2 id="创建-async-的不同形式"><a href="#创建-async-的不同形式" class="headerlink" title="创建 async 的不同形式"></a>创建 async 的不同形式</h2><p>目前在代码示例中，我们只用函数声明的方式创建了 async 函数。同样的，我们也可以用函数表达式和箭头函数来创建 async 函数。</p>
+<h3 id="async-函数表达式"><a href="#async-函数表达式" class="headerlink" title="async 函数表达式"></a>async 函数表达式</h3><pre><code class="javascript">const msg = async function () {
+    const msg = await scaryClown();
+    console.log(`Message: ${msg}`);
+};</code></pre>
+<h3 id="async-箭头函数"><a href="#async-箭头函数" class="headerlink" title="async 箭头函数"></a>async 箭头函数</h3><pre><code class="javascript">const msg = async () =&gt; {
+    const msg = await scaryClown();
+    console.log(`Message: ${msg}`);
+};</code></pre>
+<h2 id="错误捕捉"><a href="#错误捕捉" class="headerlink" title="错误捕捉"></a>错误捕捉</h2><p>async 函数另一个对开发者友好的地方在于，它可以通过 try…catch 语句以同步的方式进行错误捕捉和处理。下面的例子用一个 rejected promise 展示了 async 函数的错误处理：</p>
+<pre><code class="javascript">function yayOrNay() {
+    return new Promise((resolve, reject) =&gt; {
+        const val = Math.round(Math.random() * 1); // 0 or 1, at random
+        val ? resolve(&#39;Lucky!!&#39;) : reject(&#39;Nope 😠&#39;);
+    });
+}
+
+async function msg() {
+    try {
+        const msg = await yayOrNay();
+        console.log(msg);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+msg(); // Lucky!!
+msg(); // Lucky!!
+msg(); // Lucky!!
+msg(); // Nope 😠
+msg(); // Lucky!!
+msg(); // Nope 😠
+msg(); // Nope 😠
+msg(); // Nope 😠</code></pre>
+<p>因为 async 函数最终返回的是一个 promise，所以你同样口可以使用 promise 的 catch 方法进行错误捕捉，如下：</p>
+<pre><code class="javascript">async function msg() {
+    const msg = await yayOrNay();
+    console.log(msg);
+}
+msg().catch((x) =&gt; console.log(x));</code></pre>
+<h2 id="async-函数搭配-Promise-式-API"><a href="#async-函数搭配-Promise-式-API" class="headerlink" title="async 函数搭配 Promise 式 API"></a>async 函数搭配 Promise 式 API</h2><p>使用原生的 Promise 式 API 与 async 函数组合可以方便的写出异步操作，如：</p>
+<pre><code class="javascript">async function fetchUsers(endpoint) {
+    const res = await fetch(endpoint);
+    let data = await res.json();
+
+    data = data.map((user) =&gt; user.username);
+    console.log(data);
+}
+
+fetchUsers(&#39;https://jsonplaceholder.typicode.com/users&#39;);
+// [&quot;Bret&quot;, &quot;Antonette&quot;, ... &quot;Moriah.Stanton&quot;]</code></pre>
+<blockquote>
+<p>Fetch 是新增的 web API，它以 Promise 的工作方式进行异步请求，从而避免了使用 XMLHttpRequest 所带来的许多冗余代码。</p>
+</blockquote>
+<blockquote>
+<p>原文：<a href="https://alligator.io/js/async-functions/" target="_blank" rel="noopener">https://alligator.io/js/async-functions/</a></p>
+</blockquote>
+
+          </div>
+      </article>
+
+      <div class="post-navigation">
+        
+        
+        <div class="post-next">
+            <a href="/2018/06/20/ES6%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/">
+                <span class="post-next-title">ES6中的数组去重</span>
+                <i class="iconfont icon-round-arrow-right"></i>
+            </a>
+        </div>
+        
+      </div>
+  </div>
+
+  <div id="disqus_thread"></div>
+
+  <script>
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+  var disqus_config = function () {
+  this.page.url = "http://www.qiwenke.com/2020/04/16/ES8%E4%B8%AD%E7%9A%84Async-Await%E5%87%BD%E6%95%B0/";  // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = "http://www.qiwenke.com/2020/04/16/ES8%E4%B8%AD%E7%9A%84Async-Await%E5%87%BD%E6%95%B0/"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+  (function() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = 'https://qiwenke.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+
+</div>
+<div class="post-catalog"></div>
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/prism.js"></script>
+</body>
+</html>

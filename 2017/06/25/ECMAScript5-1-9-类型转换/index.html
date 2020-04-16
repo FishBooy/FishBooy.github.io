@@ -7,15 +7,15 @@
   
   <title>ECMAScript5.1-(9)类型转换 | Calvin&#39;s notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="9 概述ECMAScript运行时会按需自动进行类型转换。为了清楚地阐释规范中规范中的某些构造的语义，有必要定义一系列关于类型转换的抽象操作。这些抽象操作不是EL的一部分，它们只在规范中被定义，意义在于帮助解释规范中关于EL的一些操作。这些抽象操作只接受任意EL类型的值，不接受规范中的类型作为参数。 9.1 ToPrimitiveToPrimitive操作接受一个必输参数input和一个可选参数P">
+  <meta name="description" content="9 概述ECMAScript 运行时会按需自动进行类型转换。为了清楚地阐释规范中规范中的某些构造的语义，有必要定义一系列关于类型转换的抽象操作。这些抽象操作不是 EL 的一部分，它们只在规范中被定义，意义在于帮助解释规范中关于 EL 的一些操作。这些抽象操作只接受任意 EL 类型的值，不接受规范中的类型作为参数。 9.1 ToPrimitiveToPrimitive 操作接受一个必输参数 inpu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ECMAScript5.1-(9)类型转换">
 <meta property="og:url" content="http://www.qiwenke.com/2017/06/25/ECMAScript5-1-9-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/index.html">
 <meta property="og:site_name" content="Calvin&#39;s notes">
-<meta property="og:description" content="9 概述ECMAScript运行时会按需自动进行类型转换。为了清楚地阐释规范中规范中的某些构造的语义，有必要定义一系列关于类型转换的抽象操作。这些抽象操作不是EL的一部分，它们只在规范中被定义，意义在于帮助解释规范中关于EL的一些操作。这些抽象操作只接受任意EL类型的值，不接受规范中的类型作为参数。 9.1 ToPrimitiveToPrimitive操作接受一个必输参数input和一个可选参数P">
+<meta property="og:description" content="9 概述ECMAScript 运行时会按需自动进行类型转换。为了清楚地阐释规范中规范中的某些构造的语义，有必要定义一系列关于类型转换的抽象操作。这些抽象操作不是 EL 的一部分，它们只在规范中被定义，意义在于帮助解释规范中关于 EL 的一些操作。这些抽象操作只接受任意 EL 类型的值，不接受规范中的类型作为参数。 9.1 ToPrimitiveToPrimitive 操作接受一个必输参数 inpu">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-06-25T20:00:00.000Z">
-<meta property="article:modified_time" content="2020-04-03T02:39:10.894Z">
+<meta property="article:modified_time" content="2020-04-16T20:15:20.604Z">
 <meta property="article:author" content="Calvin">
 <meta property="article:tag" content="Javascript">
 <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
               </span>
               <span class="post-update">
                 <i class="iconfont icon-copy"></i>
-                2020-04-03
+                2020-04-16
               </span>
               
               <span class="post-category">
@@ -84,8 +84,8 @@
               </span>
           </div>
           <div class="post-body">
-            <h2 id="9-概述"><a href="#9-概述" class="headerlink" title="9 概述"></a>9 概述</h2><p>ECMAScript运行时会按需自动进行类型转换。为了清楚地阐释规范中规范中的某些构造的语义，有必要定义一系列关于类型转换的抽象操作。这些抽象操作不是EL的一部分，它们只在规范中被定义，意义在于帮助解释规范中关于EL的一些操作。这些抽象操作只接受任意EL类型的值，不接受规范中的类型作为参数。</p>
-<h3 id="9-1-ToPrimitive"><a href="#9-1-ToPrimitive" class="headerlink" title="9.1 ToPrimitive"></a>9.1 ToPrimitive</h3><p>ToPrimitive操作接受一个必输参数input和一个可选参数PreferredType。它负责把input转化为非Object类型的值，也就是原始类型的值。如果input能够转化为多个原始类型，则使用PreferredType确定最后的转换值。转换规则如下表所示，<a href="http://ecma-international.org/ecma-262/5.1/#sec-9.1" target="_blank" rel="noopener">Table 10</a>:</p>
+            <h2 id="9-概述"><a href="#9-概述" class="headerlink" title="9 概述"></a>9 概述</h2><p>ECMAScript 运行时会按需自动进行类型转换。为了清楚地阐释规范中规范中的某些构造的语义，有必要定义一系列关于类型转换的抽象操作。这些抽象操作不是 EL 的一部分，它们只在规范中被定义，意义在于帮助解释规范中关于 EL 的一些操作。这些抽象操作只接受任意 EL 类型的值，不接受规范中的类型作为参数。</p>
+<h3 id="9-1-ToPrimitive"><a href="#9-1-ToPrimitive" class="headerlink" title="9.1 ToPrimitive"></a>9.1 ToPrimitive</h3><p>ToPrimitive 操作接受一个必输参数 input 和一个可选参数 PreferredType。它负责把 input 转化为非 Object 类型的值，也就是原始类型的值。如果 input 能够转化为多个原始类型，则使用 PreferredType 确定最后的转换值。转换规则如下表所示，<a href="http://ecma-international.org/ecma-262/5.1/#sec-9.1" target="_blank" rel="noopener">Table 10</a>:</p>
 <table>
 <thead>
 <tr>
@@ -95,30 +95,30 @@
 </thead>
 <tbody><tr>
 <td>Undefined</td>
-<td>不转换，直接返回input</td>
+<td>不转换，直接返回 input</td>
 </tr>
 <tr>
 <td>Null</td>
-<td>不转换，直接返回input</td>
+<td>不转换，直接返回 input</td>
 </tr>
 <tr>
 <td>Boolean</td>
-<td>不转换，直接返回input</td>
+<td>不转换，直接返回 input</td>
 </tr>
 <tr>
 <td>Number</td>
-<td>不转换，直接返回input</td>
+<td>不转换，直接返回 input</td>
 </tr>
 <tr>
 <td>String</td>
-<td>不转换，直接返回input</td>
+<td>不转换，直接返回 input</td>
 </tr>
 <tr>
 <td>Object</td>
-<td>返回Object类型的默认值。一个object的默认值的获取过程如下：调用该object的内置方法[[DefaultValue]]，并传入参数PreferredType。[[DefaultValue]]的执行过程在规范<a href="http://ecma-international.org/ecma-262/5.1/#sec-8.12.8" target="_blank" rel="noopener">8.12.8</a>中定义。</td>
+<td>返回 Object 类型的默认值。一个 object 的默认值的获取过程如下：调用该 object 的内置方法[[DefaultValue]]，并传入参数 PreferredType。[[DefaultValue]]的执行过程在规范<a href="http://ecma-international.org/ecma-262/5.1/#sec-8.12.8" target="_blank" rel="noopener">8.12.8</a>中定义。</td>
 </tr>
 </tbody></table>
-<h3 id="9-2-ToBoolean"><a href="#9-2-ToBoolean" class="headerlink" title="9.2 ToBoolean"></a>9.2 ToBoolean</h3><p>抽象操作会ToBoolean把参数转换为一个布尔类型的值。转换规则如下，<a href="http://ecma-international.org/ecma-262/5.1/#sec-9.2" target="_blank" rel="noopener">Table 11</a>：</p>
+<h3 id="9-2-ToBoolean"><a href="#9-2-ToBoolean" class="headerlink" title="9.2 ToBoolean"></a>9.2 ToBoolean</h3><p>抽象操作会 ToBoolean 把参数转换为一个布尔类型的值。转换规则如下，<a href="http://ecma-international.org/ecma-262/5.1/#sec-9.2" target="_blank" rel="noopener">Table 11</a>：</p>
 <table>
 <thead>
 <tr>
@@ -136,22 +136,22 @@
 </tr>
 <tr>
 <td>Boolean</td>
-<td>不转换，直接返回argument</td>
+<td>不转换，直接返回 argument</td>
 </tr>
 <tr>
 <td>Number</td>
-<td>如果argument为+0,-0,或NaN则返回false；否则返回true。</td>
+<td>如果 argument 为+0,-0,或 NaN 则返回 false；否则返回 true。</td>
 </tr>
 <tr>
 <td>String</td>
-<td>如果argument是空字符串(长度为0)则返回false；否则则返回true。</td>
+<td>如果 argument 是空字符串(长度为 0)则返回 false；否则则返回 true。</td>
 </tr>
 <tr>
 <td>Object</td>
 <td>true</td>
 </tr>
 </tbody></table>
-<h3 id="9-3-ToNumber"><a href="#9-3-ToNumber" class="headerlink" title="9.3 ToNumber"></a>9.3 ToNumber</h3><p>抽象操作ToNumber会把argument转换为Number类型的值。转换规则如下，<a href="http://ecma-international.org/ecma-262/5.1/#sec-9.3" target="_blank" rel="noopener">Table12</a>：</p>
+<h3 id="9-3-ToNumber"><a href="#9-3-ToNumber" class="headerlink" title="9.3 ToNumber"></a>9.3 ToNumber</h3><p>抽象操作 ToNumber 会把 argument 转换为 Number 类型的值。转换规则如下，<a href="http://ecma-international.org/ecma-262/5.1/#sec-9.3" target="_blank" rel="noopener">Table12</a>：</p>
 <table>
 <thead>
 <tr>
@@ -169,22 +169,22 @@
 </tr>
 <tr>
 <td>Boolean</td>
-<td>如果argument为true则返回1；如果argument为false则返回+0。</td>
+<td>如果 argument 为 true 则返回 1；如果 argument 为 false 则返回+0。</td>
 </tr>
 <tr>
 <td>Number</td>
-<td>不转换，直接返回argument。</td>
+<td>不转换，直接返回 argument。</td>
 </tr>
 <tr>
 <td>String</td>
-<td>符合数值形式的字符串转换为对应的数值；否则返回NaN。</td>
+<td>符合数值形式的字符串转换为对应的数值；否则返回 NaN。</td>
 </tr>
 <tr>
 <td>Object</td>
-<td>1. 执行ToPrimitive(argument, Number)，获取结果为primValue。</br>2. 返回 ToNumber(primValue)</td>
+<td>1. 执行 ToPrimitive(argument, Number)，获取结果为 primValue。</br>2. 返回 ToNumber(primValue)</td>
 </tr>
 </tbody></table>
-<h3 id="9-8-ToString"><a href="#9-8-ToString" class="headerlink" title="9.8 ToString"></a>9.8 ToString</h3><p>抽象操作ToString会把参数argument转换为String类型的值。转换规则如下，<a href="http://ecma-international.org/ecma-262/5.1/#sec-9.8" target="_blank" rel="noopener">Table13</a>：</p>
+<h3 id="9-8-ToString"><a href="#9-8-ToString" class="headerlink" title="9.8 ToString"></a>9.8 ToString</h3><p>抽象操作 ToString 会把参数 argument 转换为 String 类型的值。转换规则如下，<a href="http://ecma-international.org/ecma-262/5.1/#sec-9.8" target="_blank" rel="noopener">Table13</a>：</p>
 <table>
 <thead>
 <tr>
@@ -202,22 +202,22 @@
 </tr>
 <tr>
 <td>Boolean</td>
-<td>如果argument是true则返回“true“；如果argument是false则返回“false“。</td>
+<td>如果 argument 是 true 则返回“true“；如果 argument 是 false 则返回“false“。</td>
 </tr>
 <tr>
 <td>Number</td>
-<td>转换规则参考<a href="http://ecma-international.org/ecma-262/5.1/#sec-9.8.1" target="_blank" rel="noopener">ES规范</a></td>
+<td>转换规则参考<a href="http://ecma-international.org/ecma-262/5.1/#sec-9.8.1" target="_blank" rel="noopener">ES 规范</a></td>
 </tr>
 <tr>
 <td>String</td>
-<td>不转换，直接返回argument</td>
+<td>不转换，直接返回 argument</td>
 </tr>
 <tr>
 <td>Object</td>
-<td>1. 执行ToPrimitive(argument, Number)，获取结果为primValue。</br>2. 返回 ToString(primValue)</td>
+<td>1. 执行 ToPrimitive(argument, Number)，获取结果为 primValue。</br>2. 返回 ToString(primValue)</td>
 </tr>
 </tbody></table>
-<h3 id="9-9-ToObject"><a href="#9-9-ToObject" class="headerlink" title="9.9 ToObject"></a>9.9 ToObject</h3><p>抽象操作ToObject会把argument转换为Object类型的值，转换规则如下表<a href="http://ecma-international.org/ecma-262/5.1/#sec-9.9" target="_blank" rel="noopener">Table 14</a>：</p>
+<h3 id="9-9-ToObject"><a href="#9-9-ToObject" class="headerlink" title="9.9 ToObject"></a>9.9 ToObject</h3><p>抽象操作 ToObject 会把 argument 转换为 Object 类型的值，转换规则如下表<a href="http://ecma-international.org/ecma-262/5.1/#sec-9.9" target="_blank" rel="noopener">Table 14</a>：</p>
 <table>
 <thead>
 <tr>
@@ -227,30 +227,30 @@
 </thead>
 <tbody><tr>
 <td>Null</td>
-<td>抛出TypeError异常</td>
+<td>抛出 TypeError 异常</td>
 </tr>
 <tr>
 <td>Undefined</td>
-<td>抛出TypeError异常</td>
+<td>抛出 TypeError 异常</td>
 </tr>
 <tr>
 <td>Boolean</td>
-<td>创建一个内置属性[[PrimitiveValue]]为argument的object，该object的具体定义参考规范</td>
+<td>创建一个内置属性[[PrimitiveValue]]为 argument 的 object，该 object 的具体定义参考规范</td>
 </tr>
 <tr>
 <td>Number</td>
-<td>创建一个内置属性[[PrimitiveValue]]为argument的object，该object的具体定义参考规范</td>
+<td>创建一个内置属性[[PrimitiveValue]]为 argument 的 object，该 object 的具体定义参考规范</td>
 </tr>
 <tr>
 <td>String</td>
-<td>创建一个内置属性[[PrimitiveValue]]为argument的object，该object的具体定义参考规范</td>
+<td>创建一个内置属性[[PrimitiveValue]]为 argument 的 object，该 object 的具体定义参考规范</td>
 </tr>
 <tr>
 <td>Object</td>
-<td>不转换，直接返回argument</td>
+<td>不转换，直接返回 argument</td>
 </tr>
 </tbody></table>
-<h3 id="9-11-IsCallable"><a href="#9-11-IsCallable" class="headerlink" title="9.11 IsCallable"></a>9.11 IsCallable</h3><p>抽象操作IsCallable用来判断任一EL类型的值是否为可调用的函数对象。判断规则如下，<a href="http://ecma-international.org/ecma-262/5.1/#sec-9.11" target="_blank" rel="noopener">Table 16</a>：</p>
+<h3 id="9-11-IsCallable"><a href="#9-11-IsCallable" class="headerlink" title="9.11 IsCallable"></a>9.11 IsCallable</h3><p>抽象操作 IsCallable 用来判断任一 EL 类型的值是否为可调用的函数对象。判断规则如下，<a href="http://ecma-international.org/ecma-262/5.1/#sec-9.11" target="_blank" rel="noopener">Table 16</a>：</p>
 <table>
 <thead>
 <tr>
@@ -260,33 +260,33 @@
 </thead>
 <tbody><tr>
 <td>Undefined</td>
-<td>返回false</td>
+<td>返回 false</td>
 </tr>
 <tr>
 <td>Null</td>
-<td>返回false</td>
+<td>返回 false</td>
 </tr>
 <tr>
 <td>Boolean</td>
-<td>返回false</td>
+<td>返回 false</td>
 </tr>
 <tr>
 <td>Number</td>
-<td>返回false</td>
+<td>返回 false</td>
 </tr>
 <tr>
 <td>String</td>
-<td>返回false</td>
+<td>返回 false</td>
 </tr>
 <tr>
 <td>Object</td>
-<td>如果argument有内置属性[[call]]，则返回true，否则返回false</td>
+<td>如果 argument 有内置属性[[call]]，则返回 true，否则返回 false</td>
 </tr>
 </tbody></table>
 <blockquote>
 <p>Code Explanation</p>
 </blockquote>
-<p>在全局环境中，ES的内置的全局方法：Boolean，Number，String，Object，这些全局方法单纯作为函数被调用时，实际执行的就是上面的抽象操作。</p>
+<p>在全局环境中，ES 的内置的全局方法：Boolean，Number，String，Object，这些全局方法单纯作为函数被调用时，实际执行的就是上面的抽象操作。</p>
 <pre><code class="javascript">Boolean(123); // true 等同于ToBoolean(123)
 Number(&#39;123&#39;); // 123 等同于ToNumber(&#39;123&#39;)
 String(123); // &quot;123&quot; 等同于ToString(123)

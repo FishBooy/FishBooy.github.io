@@ -7,15 +7,15 @@
   
   <title>ECMAScript5.1-(8)值的类型 | Calvin&#39;s notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="8.6 Object类型定义一个object(Object实例，即对象)是一系列属性的集合，每个属性都是数据属性(Data property)，存取器属性(Accessor property)，内置属性(Internal property)中的一种。  Data property 将属性名和一个任意类型的ES语言的值以及一些值为Boolean类型的特性相关联。 它是最常规的属性，也就是对象字面量中">
+  <meta name="description" content="8.6 Object 类型定义一个 object(Object 实例，即对象)是一系列属性的集合，每个属性都是数据属性(Data property)，存取器属性(Accessor property)，内置属性(Internal property)中的一种。  Data property 将属性名和一个任意类型的 ES 语言的值以及一些值为 Boolean 类型的特性相关联。 它是最常规的属性，也就">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ECMAScript5.1-(8)值的类型">
 <meta property="og:url" content="http://www.qiwenke.com/2017/06/19/ECMAScript5-1-8-%E5%80%BC%E7%9A%84%E7%B1%BB%E5%9E%8B/index.html">
 <meta property="og:site_name" content="Calvin&#39;s notes">
-<meta property="og:description" content="8.6 Object类型定义一个object(Object实例，即对象)是一系列属性的集合，每个属性都是数据属性(Data property)，存取器属性(Accessor property)，内置属性(Internal property)中的一种。  Data property 将属性名和一个任意类型的ES语言的值以及一些值为Boolean类型的特性相关联。 它是最常规的属性，也就是对象字面量中">
+<meta property="og:description" content="8.6 Object 类型定义一个 object(Object 实例，即对象)是一系列属性的集合，每个属性都是数据属性(Data property)，存取器属性(Accessor property)，内置属性(Internal property)中的一种。  Data property 将属性名和一个任意类型的 ES 语言的值以及一些值为 Boolean 类型的特性相关联。 它是最常规的属性，也就">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2017-06-19T20:00:00.000Z">
-<meta property="article:modified_time" content="2020-04-03T02:39:10.894Z">
+<meta property="article:modified_time" content="2020-04-16T20:15:20.604Z">
 <meta property="article:author" content="Calvin">
 <meta property="article:tag" content="Javascript">
 <meta name="twitter:card" content="summary">
@@ -52,7 +52,7 @@
               </span>
               <span class="post-update">
                 <i class="iconfont icon-copy"></i>
-                2020-04-03
+                2020-04-16
               </span>
               
               <span class="post-category">
@@ -84,13 +84,13 @@
               </span>
           </div>
           <div class="post-body">
-            <h2 id="8-6-Object类型定义"><a href="#8-6-Object类型定义" class="headerlink" title="8.6 Object类型定义"></a>8.6 Object类型定义</h2><p>一个object(Object实例，即对象)是一系列属性的集合，每个属性都是数据属性(Data property)，存取器属性(Accessor property)，内置属性(Internal property)中的一种。</p>
+            <h2 id="8-6-Object-类型定义"><a href="#8-6-Object-类型定义" class="headerlink" title="8.6 Object 类型定义"></a>8.6 Object 类型定义</h2><p>一个 object(Object 实例，即对象)是一系列属性的集合，每个属性都是数据属性(Data property)，存取器属性(Accessor property)，内置属性(Internal property)中的一种。</p>
 <ul>
-<li><strong>Data property</strong> 将属性名和一个任意类型的ES语言的值以及一些值为Boolean类型的特性相关联。 它是最常规的属性，也就是对象字面量中的键值对。</li>
-<li><strong>Accessor property</strong> 则将属性名和一个/两个访问函数以及一些值为Boolean类型的特性相关联，这些访问函数的作用在于设置该属性的值和读取该属性的值。</li>
-<li><strong>Internal property</strong> 内置属性，没有显式的属性名且无法在程序中被直接访问。内置属性完全为ES规范所用，它在规范中的作用是解释程序的各种操作在内部是如何实现的。</li>
+<li><strong>Data property</strong> 将属性名和一个任意类型的 ES 语言的值以及一些值为 Boolean 类型的特性相关联。 它是最常规的属性，也就是对象字面量中的键值对。</li>
+<li><strong>Accessor property</strong> 则将属性名和一个/两个访问函数以及一些值为 Boolean 类型的特性相关联，这些访问函数的作用在于设置该属性的值和读取该属性的值。</li>
+<li><strong>Internal property</strong> 内置属性，没有显式的属性名且无法在程序中被直接访问。内置属性完全为 ES 规范所用，它在规范中的作用是解释程序的各种操作在内部是如何实现的。</li>
 </ul>
-<h3 id="8-6-1-命名属性的特性"><a href="#8-6-1-命名属性的特性" class="headerlink" title="8.6.1 命名属性的特性"></a>8.6.1 命名属性的特性</h3><p>在ES规范中，object的属性用property来表示，而用于描述某个property的特性则用attribute来表示。data property 和 accessor property 都是命名属性(都具有明确的属性名)，每个属性都由指定的特性集合来描述。下面的两个表格分别展示了这两类属性分别都有哪些特性。</p>
+<h3 id="8-6-1-命名属性的特性"><a href="#8-6-1-命名属性的特性" class="headerlink" title="8.6.1 命名属性的特性"></a>8.6.1 命名属性的特性</h3><p>在 ES 规范中，object 的属性用 property 来表示，而用于描述某个 property 的特性则用 attribute 来表示。data property 和 accessor property 都是命名属性(都具有明确的属性名)，每个属性都由指定的特性集合来描述。下面的两个表格分别展示了这两类属性分别都有哪些特性。</p>
 <p>Table5- Attributes for Data property</p>
 <table>
 <thead>
@@ -102,7 +102,7 @@
 </thead>
 <tbody><tr>
 <td>[[Value]]</td>
-<td>任意类型的EL值</td>
+<td>任意类型的 EL 值</td>
 <td>读取相应属性时的返回值。</td>
 </tr>
 <tr>
@@ -118,7 +118,7 @@
 <tr>
 <td>[[Configurable]]</td>
 <td>Boolean</td>
-<td>如果值为<strong>false</strong>，那么该属性无法被删除，无法被转化为Accessor property且属性的所有特性值([[Value]]除外)也无法被修改。</td>
+<td>如果值为<strong>false</strong>，那么该属性无法被删除，无法被转化为 Accessor property 且属性的所有特性值([[Value]]除外)也无法被修改。</td>
 </tr>
 </tbody></table>
 <p>Table6 - Attributes for Accessor property</p>
@@ -143,12 +143,12 @@
 <tr>
 <td>[[Enumerable]]</td>
 <td>Boolean</td>
-<td>如果值为true，那么该属性将会被 for-in 枚举，反之则无法被枚举。</td>
+<td>如果值为 true，那么该属性将会被 for-in 枚举，反之则无法被枚举。</td>
 </tr>
 <tr>
 <td>[[Configurable]]</td>
 <td>Boolean</td>
-<td>如果值为false，那么该属性无法被删除，无法被转化为Data property且属性的所有特性值([[Value]]除外)也无法被修改。</td>
+<td>如果值为 false，那么该属性无法被删除，无法被转化为 Data property 且属性的所有特性值([[Value]]除外)也无法被修改。</td>
 </tr>
 </tbody></table>
 <blockquote>
@@ -156,9 +156,9 @@
 </blockquote>
 <p>各属性的创建和读取、创建或设置：</p>
 <pre><code class="javascript">/*
-** name,city,country,age,heigh是data property
-** address,greet是accessor property
-*/
+ ** name,city,country,age,heigh是data property
+ ** address,greet是accessor property
+ */
 
 /* 各类属性的创建 */
 // 1) 字面量创建
@@ -167,12 +167,12 @@ var boy = {
     city: &#39;Jinan&#39;,
     country: &#39;China&#39;,
     get address() {
-        return this.city + this.country
+        return this.city + this.country;
     },
     set address(value) {
         this.city = value;
-    }
-}
+    },
+};
 // 2)表达式创建
 // data property:
 boy.age = 18;
@@ -181,14 +181,16 @@ Object.defineProperty(boy, &#39;gender&#39;, { value: &#39;female&#39; });
 
 // accessor property
 Object.defineProperty(boy, &#39;greet&#39;, {
-    get: function() { return &#39;Hello world!&#39; }
-})
+    get: function () {
+        return &#39;Hello world!&#39;;
+    },
+});
 
 /* 各类属性的读取 - 相同 */
 boy.name; // &#39;Calvin&#39;
 boy[&#39;age&#39;]; // 18
 boy.address; // &#39;JinanChina&#39;
-boy[&#39;greet&#39;] // &#39;Hello world
+boy[&#39;greet&#39;]; // &#39;Hello world
 
 /* 各类属性的设置 - 相同 */
 boy.name = &#39;Kevin&#39;;
@@ -196,57 +198,59 @@ boy[&#39;age&#39;] = 16;
 
 boy.address = &#39;Qingdao&#39;; // boy.address -&gt; &#39;QingdaoChina&#39;
 boy[&#39;greet&#39;] = &#39;Hello&#39;; // boy.greet -&gt; &#39;Hello world&#39;</code></pre>
-<p>对于Table5和Table6中列出的特性集合，这类集合是ES规范中规定的一种特殊类型(Property Descriptor)，但是JS提供了Object.getOwnPropertyDescriptor方法可以将其转化为object形式后返回。同时，JS也提供了defineProperty和defineProperties设置这些特性的值。如下：</p>
+<p>对于 Table5 和 Table6 中列出的特性集合，这类集合是 ES 规范中规定的一种特殊类型(Property Descriptor)，但是 JS 提供了 Object.getOwnPropertyDescriptor 方法可以将其转化为 object 形式后返回。同时，JS 也提供了 defineProperty 和 defineProperties 设置这些特性的值。如下：</p>
 <pre><code class="javascript">var boy = {
     name: &#39;Calvin&#39;,
     city: &#39;Jinan&#39;,
     country: &#39;China&#39;,
     get address() {
-        return this.city + this.country
+        return this.city + this.country;
     },
     set address(value) {
         this.city = value;
-    }
-}
+    },
+};
 // 修改name属性的属性值且不可枚
 Object.defineProperties(boy, {
-    name: { value:&#39;noName&#39;, enumerable: false }
+    name: { value: &#39;noName&#39;, enumerable: false },
 });
 
 for (prop in boy) {
     console.log(prop); // city country address
-};
+}
 
 // 同时修改address和增加age属
 Object.defineProperties(boy, {
     address: {
-        get: function() { return &#39;USA&#39; },
+        get: function () {
+            return &#39;USA&#39;;
+        },
     },
     age: {
         value: 18,
-        writable: false
-    }
+        writable: false,
+    },
 });
 boy.address; // &#39;USA&#39;
 boy.age = 20;
 boy.age; // 18</code></pre>
 <p>Object.getOwnPropertyDescriptor(obj, propName)的执行过程如下:</p>
 <ul>
-<li>调用obj的内置方法<a href="下文Table8">[GetOwnProperty]</a>，传入propName，获取对应的Property Descriptor(类型的值);</li>
-<li>调用ES规范中的抽象操作FromPropertyDescriptor(Desc)，传入获取到的property descriptor(类型的值)，操作结果则是返回上图中的object。</li>
+<li>调用 obj 的内置方法<a href="下文Table8">[GetOwnProperty]</a>，传入 propName，获取对应的 Property Descriptor(类型的值);</li>
+<li>调用 ES 规范中的抽象操作 FromPropertyDescriptor(Desc)，传入获取到的 property descriptor(类型的值)，操作结果则是返回上图中的 object。</li>
 </ul>
 <p>Object.defineProperty(obj, propName, attrsObj)的执行如下：</p>
 <ul>
-<li>调用抽象操作ToPropertyDescriptor(attrsObj)将attrsObj由object类型转换为property descriptor类型；</li>
-<li>调用obj的内置方法[[DefineOwnProperty]]，传入属性名propName和转换后的property descriptor作为参数，执行为obj设置属性的操作。</li>
+<li>调用抽象操作 ToPropertyDescriptor(attrsObj)将 attrsObj 由 object 类型转换为 property descriptor 类型；</li>
+<li>调用 obj 的内置方法[[DefineOwnProperty]]，传入属性名 propName 和转换后的 property descriptor 作为参数，执行为 obj 设置属性的操作。</li>
 </ul>
-<p>Objec.defineProperties(obj, propList)方法只是将各属性及其特性放在了同一对象中进行处理，原理和defineProperty相同。</p>
+<p>Objec.defineProperties(obj, propList)方法只是将各属性及其特性放在了同一对象中进行处理，原理和 defineProperty 相同。</p>
 <blockquote>
 <p>Code Explanation End</p>
 </blockquote>
-<h3 id="8-6-2-内置属性和方法"><a href="#8-6-2-内置属性和方法" class="headerlink" title="8.6.2 内置属性和方法"></a>8.6.2 内置属性和方法</h3><p>ES规范中定了各种内置属性和方法，这些属性和方法并不是ES语言的一部分，它们的存在只是为了方便规范对一些实现语言的行为进行解释说明，这些实现语言必须必须依照规范中定义的内置属性和方法的工作原理去执行操作。</p>
-<p>Table8中列出了所有ES objects都有的内置属性和方法，Table9中列出的则是只有个别ES objects才会有的内置属性和方法。表中的“any“指的是任意类型的ES语言值，“Primitive“指的是原始值，即除去Object后的ES语言值：Number,String,Boolean,Undefined,Null。“SpecOp“指的是当前的内置属性是一个内置方法，所以SpecOp中可能会传入一些参数，如果参数名和某类值的类型名相同，则表示该参数需要是该类型的值。如果该内置方法执行后(SpecOp(…))会返回值则用“→“加返回值的类型表示。“Property Descriptor“是一种ES规范类型，它的值是描述object命名属性的特性集合。</p>
-<p>Table8 - ES objects的公共内置属性</p>
+<h3 id="8-6-2-内置属性和方法"><a href="#8-6-2-内置属性和方法" class="headerlink" title="8.6.2 内置属性和方法"></a>8.6.2 内置属性和方法</h3><p>ES 规范中定了各种内置属性和方法，这些属性和方法并不是 ES 语言的一部分，它们的存在只是为了方便规范对一些实现语言的行为进行解释说明，这些实现语言必须必须依照规范中定义的内置属性和方法的工作原理去执行操作。</p>
+<p>Table8 中列出了所有 ES objects 都有的内置属性和方法，Table9 中列出的则是只有个别 ES objects 才会有的内置属性和方法。表中的“any“指的是任意类型的 ES 语言值，“Primitive“指的是原始值，即除去 Object 后的 ES 语言值：Number,String,Boolean,Undefined,Null。“SpecOp“指的是当前的内置属性是一个内置方法，所以 SpecOp 中可能会传入一些参数，如果参数名和某类值的类型名相同，则表示该参数需要是该类型的值。如果该内置方法执行后(SpecOp(…))会返回值则用“→“加返回值的类型表示。“Property Descriptor“是一种 ES 规范类型，它的值是描述 object 命名属性的特性集合。</p>
+<p>Table8 - ES objects 的公共内置属性</p>
 <table>
 <thead>
 <tr>
@@ -258,70 +262,70 @@ boy.age; // 18</code></pre>
 <tbody><tr>
 <td>[[Prototype]]</td>
 <td>Object/null</td>
-<td>object的原型。</td>
+<td>object 的原型。</td>
 </tr>
 <tr>
 <td>[[Class]]</td>
 <td>String</td>
-<td>object所属类的类名。</td>
+<td>object 所属类的类名。</td>
 </tr>
 <tr>
 <td>[[Extensible]]</td>
 <td>Boolean</td>
-<td>如果为true，表示可以为object增加命名属性</td>
+<td>如果为 true，表示可以为 object 增加命名属性</td>
 </tr>
 <tr>
 <td>[[Get]]</td>
 <td>SpecOp(propertyName)→any</td>
-<td>返回object命名属性的属性值。</td>
+<td>返回 object 命名属性的属性值。</td>
 </tr>
 <tr>
 <td>[[GetOwnProperty]]</td>
 <td>SpecOp(propertyName)→Property Descriptor/Undefined</td>
-<td>返回描述object自身的命名属性的特性集合，如果属性不存在则返回undefined。</td>
+<td>返回描述 object 自身的命名属性的特性集合，如果属性不存在则返回 undefined。</td>
 </tr>
 <tr>
 <td>[[GetProperty]]</td>
 <td>SpecOp(propertyName)→Property Descriptor/Undefined</td>
-<td>返回描述object包含属性的特性集合，如果属性不存在则返回undefined。</td>
+<td>返回描述 object 包含属性的特性集合，如果属性不存在则返回 undefined。</td>
 </tr>
 <tr>
 <td>[[Put]]</td>
 <td>SpecOp(propertyName, any, Boolean)→Boolean</td>
-<td>为object名为propertyName的属性赋值，属性值为any，Boolean负责标记是否需要赋值失败的处理。</td>
+<td>为 object 名为 propertyName 的属性赋值，属性值为 any，Boolean 负责标记是否需要赋值失败的处理。</td>
 </tr>
 <tr>
 <td>[[CanPut]]</td>
 <td>SpecOp(propertyName)→Boolean</td>
-<td>返回一个布尔值，true表示可以为object的属性propertyName执行[[Put]]操作，反之则表示不可以</td>
+<td>返回一个布尔值，true 表示可以为 object 的属性 propertyName 执行[[Put]]操作，反之则表示不可以</td>
 </tr>
 <tr>
 <td>[[HasProperty]]</td>
 <td>SpecOp(propertyName)→Boolean</td>
-<td>返回一个布尔值，表示object是否有propertyName这个属性。</td>
+<td>返回一个布尔值，表示 object 是否有 propertyName 这个属性。</td>
 </tr>
 <tr>
 <td>[[Delete]]</td>
 <td>SpecOp(propertyName, Boolean)→Boolean</td>
-<td>删除object的命名属性propertyName，Boolean表示是否需要删除失败的处理。</td>
+<td>删除 object 的命名属性 propertyName，Boolean 表示是否需要删除失败的处理。</td>
 </tr>
 <tr>
 <td>[[DefaultValue]]</td>
 <td>SpecOp(Hint, Boolean)→Primitive</td>
-<td>Hint是一个字符串。为object返回一个原始值。</td>
+<td>Hint 是一个字符串。为 object 返回一个原始值。</td>
 </tr>
 <tr>
 <td>[[DefineOwnProperty]]</td>
 <td>SpecOp (propertyName, PropertyDescriptor, Boolean) → Boolean</td>
-<td>用PropertyDescriptor增加或改变属性propertyName。</td>
+<td>用 PropertyDescriptor 增加或改变属性 propertyName。</td>
 </tr>
 </tbody></table>
-<p>每个object的[[prototype]]属性都指向另一个object或null，ES语言就是靠[[Prototype]]实现的继承。objects之间靠该属性连接起来的继承链通常叫作原型链，每个原型链的长度必须是有限的，也就是说最终都会有一个顶层object的[[Prototype]]指向null，null不再有[[Prototype]]因此终结原型链。object的data property被继承后可以被读取但不可以被写入，而accessor property既可以被读取也可以被写入。</p>
-<p>[[Extensible]]属性决定了object是否可以增加新的命名属性，如果值为false，则表示该object无法增加新属性且[[Class]]，[[Prototype]]属性也将无法被更改。[[Extensible]]一旦为false，就无法被设置回true了。</p>
-<p>实际上，ES规范中并没有为实现语言规定可以更改[[Extensible]]，[[Class]]，[[Prototype]]的操作符或内置方法，如果某种实现语言要提供这种方法，也必须以符合上文的描述为前提。</p>
-<p>[[Class]]属性是为了标示出object所属的具体类别(Object类下的子类)，这些类别包含：”Arguments”, “Array”, “Boolean”, “Date”, “Error”, “Function”, “JSON”, “Math”, “Number”, “Object”, “RegExp”, and “String”。ES规范中只有通过“Object.prototype.toString“才能获取到[[Class]]的值。</p>
-<p>除非另有规定，否则只要是ES规范中定义的对象都必须实现Table8中的内置属性和方法。Array objects具有自定义的[[DefineOwnProperty]]方法，String objects具有自定义的[[GetOwnProperty]]方法，Arguments objects则具有自定义的[[Get]]，[[GetOwnProperty]]，[[DefineOwnProperty]]内置方法，Function objects有自定义的[[Get]]方法。</p>
-<p>Table9 - 个别objects的特有内置属性</p>
+<p>每个 object 的[[prototype]]属性都指向另一个 object 或 null，ES 语言就是靠[[Prototype]]实现的继承。objects 之间靠该属性连接起来的继承链通常叫作原型链，每个原型链的长度必须是有限的，也就是说最终都会有一个顶层 object 的[[Prototype]]指向 null，null 不再有[[Prototype]]因此终结原型链。object 的 data property 被继承后可以被读取但不可以被写入，而 accessor property 既可以被读取也可以被写入。</p>
+<p>[[Extensible]]属性决定了 object 是否可以增加新的命名属性，如果值为 false，则表示该 object 无法增加新属性且[[Class]]，[[Prototype]]属性也将无法被更改。[[Extensible]]一旦为 false，就无法被设置回 true 了。</p>
+<p>实际上，ES 规范中并没有为实现语言规定可以更改[[Extensible]]，[[Class]]，[[Prototype]]的操作符或内置方法，如果某种实现语言要提供这种方法，也必须以符合上文的描述为前提。</p>
+<p>[[Class]]属性是为了标示出 object 所属的具体类别(Object 类下的子类)，这些类别包含：”Arguments”, “Array”, “Boolean”, “Date”, “Error”, “Function”, “JSON”, “Math”, “Number”, “Object”, “RegExp”, and “String”。ES 规范中只有通过“Object.prototype.toString“才能获取到[[Class]]的值。</p>
+<p>除非另有规定，否则只要是 ES 规范中定义的对象都必须实现 Table8 中的内置属性和方法。Array objects 具有自定义的[[DefineOwnProperty]]方法，String objects 具有自定义的[[GetOwnProperty]]方法，Arguments objects 则具有自定义的[[Get]]，[[GetOwnProperty]]，[[DefineOwnProperty]]内置方法，Function objects 有自定义的[[Get]]方法。</p>
+<p>Table9 - 个别 objects 的特有内置属性</p>
 <table>
 <thead>
 <tr>
@@ -333,52 +337,52 @@ boy.age; // 18</code></pre>
 <tbody><tr>
 <td>[[PrimitiveValue]]</td>
 <td>Primitive</td>
-<td>当前object的内部描述信息。在ES实现语言的object类型中，只有Number, String, Boolean, 和Date类型的object实现了该属性。</td>
+<td>当前 object 的内部描述信息。在 ES 实现语言的 object 类型中，只有 Number, String, Boolean, 和 Date 类型的 object 实现了该属性。</td>
 </tr>
 <tr>
 <td>[[Construct]]</td>
 <td>SpecOp(a List of any) →Object</td>
-<td>通过new操作符被调用，创建一个object。接收的参数即new操作符执行时传入的参数。具有该属性的objects称为构造器(Constructors)。</td>
+<td>通过 new 操作符被调用，创建一个 object。接收的参数即 new 操作符执行时传入的参数。具有该属性的 objects 称为构造器(Constructors)。</td>
 </tr>
 <tr>
 <td>[[Call]]</td>
 <td>SpecOp(any, a List of any) →any</td>
-<td>执行与当前object相关联的代码块。由函数调用表达式所触发。SpecOp接收的参数是当前对象和函数执行时传入的参数。具有该内置属性的objects是可调用的(Callable)。</td>
+<td>执行与当前 object 相关联的代码块。由函数调用表达式所触发。SpecOp 接收的参数是当前对象和函数执行时传入的参数。具有该内置属性的 objects 是可调用的(Callable)。</td>
 </tr>
 <tr>
 <td>[[HasInstance]]</td>
 <td>SpecOp(any)→any</td>
-<td>返回一个布尔值，表示传入的参数是否是由当前对象构造出来的(是否是其实例)。在EL中，只有函数对象具有该属性。</td>
+<td>返回一个布尔值，表示传入的参数是否是由当前对象构造出来的(是否是其实例)。在 EL 中，只有函数对象具有该属性。</td>
 </tr>
 <tr>
 <td>[[Scope]]</td>
 <td>Lexical Environment</td>
-<td>函数执行时所在的词法环境(Lexical Environment，ES规范中定义的类型)。EL中，只有函数对象具有该属性。</td>
+<td>函数执行时所在的词法环境(Lexical Environment，ES 规范中定义的类型)。EL 中，只有函数对象具有该属性。</td>
 </tr>
 <tr>
 <td>[[FormalParameters]]</td>
 <td>List of Strings</td>
-<td>一个可能为空的列表，该列表包含了函数的形参列表(FormalParametersList)中的标识符。EL中，只有函数对象具有该属性和[[FormalParametersList]]属性。</td>
+<td>一个可能为空的列表，该列表包含了函数的形参列表(FormalParametersList)中的标识符。EL 中，只有函数对象具有该属性和[[FormalParametersList]]属性。</td>
 </tr>
 <tr>
 <td>[[Code]]</td>
 <td>ECMAScript Code</td>
-<td>符合ES规范的代码段。只有函数对象具有该属性。</td>
+<td>符合 ES 规范的代码段。只有函数对象具有该属性。</td>
 </tr>
 <tr>
 <td>[[TargetFunction]]</td>
 <td>Object</td>
-<td>只有通过Function.proptotype.bind方法创建出来的函数对象具有该属性，该属性指向函数的目标函数。</td>
+<td>只有通过 Function.proptotype.bind 方法创建出来的函数对象具有该属性，该属性指向函数的目标函数。</td>
 </tr>
 <tr>
 <td>[[BoundThis]]</td>
 <td>any</td>
-<td>只有通过Function.proptotype.bind方法创建出来的函数对象具有该属性，该属性指向函数被预绑定的this值。</td>
+<td>只有通过 Function.proptotype.bind 方法创建出来的函数对象具有该属性，该属性指向函数被预绑定的 this 值。</td>
 </tr>
 <tr>
 <td>[[BoundArguments]]</td>
 <td>List of any</td>
-<td>只有通过Function.proptotype.bind方法创建出来的函数对象具有该属性，该属性指向函数被预绑定的参数。</td>
+<td>只有通过 Function.proptotype.bind 方法创建出来的函数对象具有该属性，该属性指向函数被预绑定的参数。</td>
 </tr>
 <tr>
 <td>[[ParameterMap]]</td>
@@ -386,87 +390,87 @@ boy.age; // 18</code></pre>
 <td>提供同一函数的参数对象的属性和形参之间的映射。只有函数对象的参数对象具有该属性。</td>
 </tr>
 </tbody></table>
-<h2 id="8-12-Object内置方法的执行规则"><a href="#8-12-Object内置方法的执行规则" class="headerlink" title="8.12 Object内置方法的执行规则"></a>8.12 Object内置方法的执行规则</h2><p>设 O 为一个原生 object，P 为property description，Throw 为一个Boolean值，则各内置方法的执行规定如下所述。</p>
-<h3 id="8-12-1-GetOwnProperty"><a href="#8-12-1-GetOwnProperty" class="headerlink" title="8.12.1 [GetOwnProperty]"></a>8.12.1 <a href="P">[GetOwnProperty]</a></h3><p>当O的内置方法[[GetOwnProperty]]被调用且传入属性名P为参数时，执行步骤如下：</p>
-<p>如果O没有自有属性P则返回undefined。</p>
+<h2 id="8-12-Object-内置方法的执行规则"><a href="#8-12-Object-内置方法的执行规则" class="headerlink" title="8.12 Object 内置方法的执行规则"></a>8.12 Object 内置方法的执行规则</h2><p>设 O 为一个原生 object，P 为 property description，Throw 为一个 Boolean 值，则各内置方法的执行规定如下所述。</p>
+<h3 id="8-12-1-GetOwnProperty"><a href="#8-12-1-GetOwnProperty" class="headerlink" title="8.12.1 [GetOwnProperty]"></a>8.12.1 <a href="P">[GetOwnProperty]</a></h3><p>当 O 的内置方法[[GetOwnProperty]]被调用且传入属性名 P 为参数时，执行步骤如下：</p>
+<p>如果 O 没有自有属性 P 则返回 undefined。</p>
 <ol>
-<li>创建D为一个新的Property Description，不包含任何特性。</li>
-<li>获取X为O的属性P。</li>
-<li>如果X是data property，那么：<ul>
-<li>a. 设置D.[[Value]]为X.[[Value]]</li>
-<li>b. 设置D.[[Writable]]为X.[[Writable]]</li>
+<li>创建 D 为一个新的 Property Description，不包含任何特性。</li>
+<li>获取 X 为 O 的属性 P。</li>
+<li>如果 X 是 data property，那么：<ul>
+<li>a. 设置 D.[[Value]]为 X.[[Value]]</li>
+<li>b. 设置 D.[[Writable]]为 X.[[Writable]]</li>
 </ul>
 </li>
-<li>如果X是accessor property，那么：<ul>
-<li>a. 设置D.[[Get]]为X.[[Get]]</li>
-<li>b. 设置D.[[Set]]为X.[[Set]]</li>
-<li>设置D.[[Enumerable]]为X.[[Enumerable]]</li>
-<li>设置D.[[Configurable]]为X.[[Configurable]]</li>
+<li>如果 X 是 accessor property，那么：<ul>
+<li>a. 设置 D.[[Get]]为 X.[[Get]]</li>
+<li>b. 设置 D.[[Set]]为 X.[[Set]]</li>
+<li>设置 D.[[Enumerable]]为 X.[[Enumerable]]</li>
+<li>设置 D.[[Configurable]]为 X.[[Configurable]]</li>
 </ul>
 </li>
-<li>如果O是一个String object, String类型下重写了[[GetOwnProperty]]方法，更为复杂一些，参考15.5.5.2。</li>
+<li>如果 O 是一个 String object, String 类型下重写了[[GetOwnProperty]]方法，更为复杂一些，参考 15.5.5.2。</li>
 </ol>
 <h3 id="8-12-2-GetProperty"><a href="#8-12-2-GetProperty" class="headerlink" title="8.12.2 [GetProperty]"></a>8.12.2 <a href="P">[GetProperty]</a></h3><ol>
-<li>当O的内置方法[[GetProperty]]被调用且传入属性名P为参数时，执行步骤如下：</li>
-<li>获取prop为O.<a href="P">[GetOwnProperty]</a>的返回值。</li>
-<li>如果prop不是undefined，则返回prop。</li>
-<li>获取proto为O.[[Prototype]]。</li>
-<li>如果proto是null，则返回undefined。</li>
-<li>返回proto.<a href="P">[GetProperty]</a>的返回值。</li>
+<li>当 O 的内置方法[[GetProperty]]被调用且传入属性名 P 为参数时，执行步骤如下：</li>
+<li>获取 prop 为 O.<a href="P">[GetOwnProperty]</a>的返回值。</li>
+<li>如果 prop 不是 undefined，则返回 prop。</li>
+<li>获取 proto 为 O.[[Prototype]]。</li>
+<li>如果 proto 是 null，则返回 undefined。</li>
+<li>返回 proto.<a href="P">[GetProperty]</a>的返回值。</li>
 </ol>
 <h3 id="8-12-3-Get"><a href="#8-12-3-Get" class="headerlink" title="8.12.3 [[Get]]"></a>8.12.3 [[Get]]</h3><ol>
-<li>当O的内置方法[[Get]]被调用且传入属性名P为参数时，执行步骤如下：</li>
-<li>获取desc为O.<a href="P">[GetProperty]</a>的返回值。</li>
-<li>如果IsDataDescriptor(desc)为true，则返回desc.[[Value]]。</li>
-<li>否则IsAccessorDescriptor(desc)一定为true，设getter为desc.[[Get]]。</li>
-<li>如果getter为undefined，则返回undefined。</li>
-<li>调用getter.[[Call]]，以O为this值且不传参，返回执行结果。</li>
+<li>当 O 的内置方法[[Get]]被调用且传入属性名 P 为参数时，执行步骤如下：</li>
+<li>获取 desc 为 O.<a href="P">[GetProperty]</a>的返回值。</li>
+<li>如果 IsDataDescriptor(desc)为 true，则返回 desc.[[Value]]。</li>
+<li>否则 IsAccessorDescriptor(desc)一定为 true，设 getter 为 desc.[[Get]]。</li>
+<li>如果 getter 为 undefined，则返回 undefined。</li>
+<li>调用 getter.[[Call]]，以 O 为 this 值且不传参，返回执行结果。</li>
 </ol>
 <h3 id="8-12-4-CanPut"><a href="#8-12-4-CanPut" class="headerlink" title="8.12.4 [CanPut]"></a>8.12.4 <a href="P">[CanPut]</a></h3><h3 id="8-12-5-Put"><a href="#8-12-5-Put" class="headerlink" title="8.12.5 [[Put]]"></a>8.12.5 [[Put]]</h3><h3 id="8-12-6-HasProperty"><a href="#8-12-6-HasProperty" class="headerlink" title="8.12.6 [HasProperty]"></a>8.12.6 <a href="P">[HasProperty]</a></h3><ol>
-<li>当O的内置方法[[HasProperty]]被调用且传入属性名P为参数时，执行步骤如下：</li>
-<li>获取desc为O.[[GetProperty]](P)的返回值。</li>
-<li>如果desc为undefined则返回false.</li>
-<li>反之返回true。</li>
+<li>当 O 的内置方法[[HasProperty]]被调用且传入属性名 P 为参数时，执行步骤如下：</li>
+<li>获取 desc 为 O.[[GetProperty]](P)的返回值。</li>
+<li>如果 desc 为 undefined 则返回 false.</li>
+<li>反之返回 true。</li>
 </ol>
-<h3 id="8-12-7-Delete"><a href="#8-12-7-Delete" class="headerlink" title="8.12.7 [[Delete]]"></a>8.12.7 [[Delete]]</h3><h3 id="8-12-8-DefaultValue-hint"><a href="#8-12-8-DefaultValue-hint" class="headerlink" title="8.12.8 [[DefaultValue]] (hint)"></a>8.12.8 [[DefaultValue]] (hint)</h3><ul>
-<li>当O的内置方法[[DefaultValue]]被调用，且传入的hint为String时，执行步骤如下：</li>
+<h3 id="8-12-7-Delete"><a href="#8-12-7-Delete" class="headerlink" title="8.12.7 [[Delete]]"></a>8.12.7 [[Delete]]</h3><h3 id="8-12-8-DefaultValue"><a href="#8-12-8-DefaultValue" class="headerlink" title="8.12.8 [DefaultValue]"></a>8.12.8 <a href="hint">[DefaultValue]</a></h3><ul>
+<li>当 O 的内置方法[[DefaultValue]]被调用，且传入的 hint 为 String 时，执行步骤如下：</li>
 </ul>
 <ol>
-<li>调用O的内置方法[[Get]]，传入参数“toString“，设返回结果为toString。如果IsCallable(toString)为true，则：<ul>
-<li>a. 以O为this值，调用toString的内置方法[[Call]]，无其他参数传入，设返回结果为str。</li>
-<li>b. 如果str是基本类型的值，则返回str。</li>
+<li>调用 O 的内置方法[[Get]]，传入参数“toString“，设返回结果为 toString。如果 IsCallable(toString)为 true，则：<ul>
+<li>a. 以 O 为 this 值，调用 toString 的内置方法[[Call]]，无其他参数传入，设返回结果为 str。</li>
+<li>b. 如果 str 是基本类型的值，则返回 str。</li>
 </ul>
 </li>
-<li>调用O的内置方法[[Get]]，传入参数“valueOf“，设返回结果为valueOf。如果IsCallable(valueOf)为true，则：<ul>
-<li>a. 以O为this值，调用valueOf的内置方法[[Call]]，无其他参数传入，设返回结果为val</li>
-<li>b. 如果val是基本类型的值，则返回val。</li>
+<li>调用 O 的内置方法[[Get]]，传入参数“valueOf“，设返回结果为 valueOf。如果 IsCallable(valueOf)为 true，则：<ul>
+<li>a. 以 O 为 this 值，调用 valueOf 的内置方法[[Call]]，无其他参数传入，设返回结果为 val</li>
+<li>b. 如果 val 是基本类型的值，则返回 val。</li>
 </ul>
 </li>
-<li>抛出TypeError异常。</li>
+<li>抛出 TypeError 异常。</li>
 </ol>
 <ul>
-<li>当O的内置方法[[DefaultValue]]被调用，且传入的hint为Number时，执行步骤如下：</li>
+<li>当 O 的内置方法[[DefaultValue]]被调用，且传入的 hint 为 Number 时，执行步骤如下：</li>
 </ul>
 <ol>
-<li>调用O的内置方法[[Get]]，传入参数“valueOf“，设返回结果为valueOf。如果IsCallable(valueOf)为true，则：<ul>
-<li>a. 以O为this值，调用valueOf的内置方法[[Call]]，无其他参数传入，设返回结果为val。</li>
-<li>b. 如果val是基本类型的值，则返回val。</li>
+<li>调用 O 的内置方法[[Get]]，传入参数“valueOf“，设返回结果为 valueOf。如果 IsCallable(valueOf)为 true，则：<ul>
+<li>a. 以 O 为 this 值，调用 valueOf 的内置方法[[Call]]，无其他参数传入，设返回结果为 val。</li>
+<li>b. 如果 val 是基本类型的值，则返回 val。</li>
 </ul>
 </li>
-<li>调用O的内置方法[[Get]]，传入参数“toString“，设返回结果为toString。如果IsCallable(toString)为true，则：<ul>
-<li>a. 以O为this值，调用toString的内置方法[[Call]]，无其他参数传入，设返回结果为str</li>
-<li>b. 如果str是基本类型的值，则返回str。</li>
+<li>调用 O 的内置方法[[Get]]，传入参数“toString“，设返回结果为 toString。如果 IsCallable(toString)为 true，则：<ul>
+<li>a. 以 O 为 this 值，调用 toString 的内置方法[[Call]]，无其他参数传入，设返回结果为 str</li>
+<li>b. 如果 str 是基本类型的值，则返回 str。</li>
 </ul>
 </li>
-<li>抛出TypeError异常。</li>
+<li>抛出 TypeError 异常。</li>
 </ol>
 <ul>
-<li>[[DefaultValue]]被调用时，如果hint值未传入，则默认为Number，当O为Date object时除外(此时hint为String)。[[DefaultValue]]只允许返回基本类型的值，如果任意其他类型的宿主对象要实现自己的[[DefaultValue]]方法，必须确保最终的返回值为基本类型的值。</li>
+<li>[[DefaultValue]]被调用时，如果 hint 值未传入，则默认为 Number，当 O 为 Date object 时除外(此时 hint 为 String)。[[DefaultValue]]只允许返回基本类型的值，如果任意其他类型的宿主对象要实现自己的[[DefaultValue]]方法，必须确保最终的返回值为基本类型的值。</li>
 </ul>
 <blockquote>
 <p>Code Explanation</p>
 </blockquote>
-<p>[[DefaultValue]]的操作，简单来讲就是按顺序(由hint决定)依次调用object的toString，valueOf方法直到返回一个基本类型的值为止。</p>
+<p>[[DefaultValue]]的操作，简单来讲就是按顺序(由 hint 决定)依次调用 object 的 toString，valueOf 方法直到返回一个基本类型的值为止。</p>
 <pre><code class="javascript">var arr = [1, 2, 3];
 // hint值默认为Number 因此首先调用valueOf
 arr.valueOf(); // [1, 2, 3]
@@ -476,64 +480,64 @@ arr.toString(); // &quot;1,2,3&quot;
 <p>Code Explanation End</p>
 </blockquote>
 <h3 id="8-12-9-DefineOwnProperty-P-Desc-Throw"><a href="#8-12-9-DefineOwnProperty-P-Desc-Throw" class="headerlink" title="8.12.9 [[DefineOwnProperty]](P, Desc, Throw)"></a>8.12.9 [[DefineOwnProperty]](P, Desc, Throw)</h3><ul>
-<li>当O的内置方法[[DefineOwnProperty]]被调用，且分别传入参数：属性名P，property descriptor Desc，Boolean标识Throw时，执行步骤如下：</li>
+<li>当 O 的内置方法[[DefineOwnProperty]]被调用，且分别传入参数：属性名 P，property descriptor Desc，Boolean 标识 Throw 时，执行步骤如下：</li>
 </ul>
 <ol>
-<li>设current为O.[[GetOwnProperty]](P)的返回值。</li>
-<li>设extensible为O.[[Extensible]]。</li>
-<li>如果current为undefined，extensible为false，则Reject。</li>
-<li>如果current为undefined，extensible 为true，那么：<ul>
-<li>a. 如果IsGenericDescriptor(Desc) 或者 IsDataDescriptor(Desc) 为true，那么：<ul>
-<li>i. 创建一个名为P的data property，该属性的特性集合([[Value]], [[Writable]], [[Enumerable]], [[Configurable]])与Desc保持一致。如果Desc中有缺失的特性，则新创建的属性中的对应特性被设置为默认值。</li>
+<li>设 current 为 O.[[GetOwnProperty]](P)的返回值。</li>
+<li>设 extensible 为 O.[[Extensible]]。</li>
+<li>如果 current 为 undefined，extensible 为 false，则 Reject。</li>
+<li>如果 current 为 undefined，extensible 为 true，那么：<ul>
+<li>a. 如果 IsGenericDescriptor(Desc) 或者 IsDataDescriptor(Desc) 为 true，那么：<ul>
+<li>i. 创建一个名为 P 的 data property，该属性的特性集合([[Value]], [[Writable]], [[Enumerable]], [[Configurable]])与 Desc 保持一致。如果 Desc 中有缺失的特性，则新创建的属性中的对应特性被设置为默认值。</li>
 </ul>
 </li>
-<li>b. 否则，Desc一定是一个accessor Property Descriptor，那么：<ul>
-<li>i. 创建一个名为P的accessor property，该属性的特性集合([[Get]], [[Set]], [[Enumerable]], [[Configurable]])与Desc保持一致。如果Desc中有缺失的特性，则<br>新创建的属性中的对应特性被设置为默认值。</li>
+<li>b. 否则，Desc 一定是一个 accessor Property Descriptor，那么：<ul>
+<li>i. 创建一个名为 P 的 accessor property，该属性的特性集合([[Get]], [[Set]], [[Enumerable]], [[Configurable]])与 Desc 保持一致。如果 Desc 中有缺失的特性，则新创建的属性中的对应特性被设置为默认值。</li>
 </ul>
 </li>
-<li>c. 返回true。</li>
+<li>c. 返回 true。</li>
 </ul>
 </li>
-<li>返回true，如果Desc中不包含任何特性值。</li>
-<li>返回true，如果Desc中的特性值和current中的一致。</li>
-<li>如果current中的[[Configurable]]为false，那么：<ul>
-<li>a. Reject， 如果Desc中[[Configurable]]为true</li>
-<li>b. Reject，如果Desc中[[Enumerable]]的值和current中[[Enumerable]]的值互为相反的布尔值。</li>
+<li>返回 true，如果 Desc 中不包含任何特性值。</li>
+<li>返回 true，如果 Desc 中的特性值和 current 中的一致。</li>
+<li>如果 current 中的[[Configurable]]为 false，那么：<ul>
+<li>a. Reject， 如果 Desc 中[[Configurable]]为 true</li>
+<li>b. Reject，如果 Desc 中[[Enumerable]]的值和 current 中[[Enumerable]]的值互为相反的布尔值。</li>
 </ul>
 </li>
-<li>如果IsGenericDescriptor(Desc)为true，不进行其他验证。</li>
-<li>否则，如果IsDataDescriptor(current)且IsDataDescriptor(Desc)有不同的返回值，那么：<ul>
-<li>a. Reject，如果current中[[Configurable]]为false。</li>
-<li>b. 如果IsDataDescriptor(current)为true，那么：<ul>
-<li>i. 将O的属性P由data property转化为accessor property。保留已有的[[Configurable]]和[[Enumerable]]值，剩余特性值设为默认值。</li>
+<li>如果 IsGenericDescriptor(Desc)为 true，不进行其他验证。</li>
+<li>否则，如果 IsDataDescriptor(current)且 IsDataDescriptor(Desc)有不同的返回值，那么：<ul>
+<li>a. Reject，如果 current 中[[Configurable]]为 false。</li>
+<li>b. 如果 IsDataDescriptor(current)为 true，那么：<ul>
+<li>i. 将 O 的属性 P 由 data property 转化为 accessor property。保留已有的[[Configurable]]和[[Enumerable]]值，剩余特性值设为默认值。</li>
 </ul>
 </li>
 <li>c. 否则：<ul>
-<li>i. 将O的属性P由accessor property转化为data property。保留已有的[[Configurable]]和[[Enumerable]]值，剩余特性值设为默认值。</li>
+<li>i. 将 O 的属性 P 由 accessor property 转化为 data property。保留已有的[[Configurable]]和[[Enumerable]]值，剩余特性值设为默认值。</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>否则，如果IsDataDescriptor(current)和IsDataDescriptor(Desc)的值都为true，那么：<ul>
-<li>a. 如果current中[[Configurable]]为false，那么：<ul>
-<li>i.  Reject，如果current中[[Writable]]为false且Desc中[[Writable]]为true。</li>
-<li>ii. 如果current中的[[Writable]]为false，那么：</li>
-<li>iii. Reject，如果current.[[value]]和Desc.[[Value]]不是相同值</li>
+<li>否则，如果 IsDataDescriptor(current)和 IsDataDescriptor(Desc)的值都为 true，那么：<ul>
+<li>a. 如果 current 中[[Configurable]]为 false，那么：<ul>
+<li>i. Reject，如果 current 中[[Writable]]为 false 且 Desc 中[[Writable]]为 true。</li>
+<li>ii. 如果 current 中的[[Writable]]为 false，那么：</li>
+<li>iii. Reject，如果 current.[[value]]和 Desc.[[Value]]不是相同值</li>
 </ul>
 </li>
-<li>b. 否则，如果current中的[[Configurable]]为true，那么任何属性改变都是允许的。</li>
+<li>b. 否则，如果 current 中的[[Configurable]]为 true，那么任何属性改变都是允许的。</li>
 </ul>
 </li>
-<li>否则，如果IsAccessorDescriptor(current)和IsAccessorDescriptor(Desc)都为true<ul>
-<li>a. 如果current中[[Configurable]]为false，那么：<ul>
-<li>i. Reject，如果current.[[Get]]和Desc.[[Get]]不是相同值</li>
-<li>ii. Reject，如果current.[[Set]]和Desc.[[Set]]不是相同值</li>
+<li>否则，如果 IsAccessorDescriptor(current)和 IsAccessorDescriptor(Desc)都为 true<ul>
+<li>a. 如果 current 中[[Configurable]]为 false，那么：<ul>
+<li>i. Reject，如果 current.[[Get]]和 Desc.[[Get]]不是相同值</li>
+<li>ii. Reject，如果 current.[[Set]]和 Desc.[[Set]]不是相同值</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>遍历Desc中的特性，并将O.P的对应特性设置为该特性的值。</li>
-<li>返回True。</li>
+<li>遍历 Desc 中的特性，并将 O.P 的对应特性设置为该特性的值。</li>
+<li>返回 True。</li>
 </ol>
 
           </div>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>ES6中的数组去重 | Calvin&#39;s notes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="filter &amp; indexOfES5 中常用数组去重方法如下： var array &#x3D; [&#39;🐶&#39;, &#39;many&#39;, &#39;🐶&#39;, &#39;puppies&#39;, &#39;🐶&#39;, &#39;🐶&#39;]; var newArray &#x3D; array.filter(function (item, index) {     r">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6中的数组去重">
+<meta property="og:url" content="http://www.qiwenke.com/2018/06/20/ES6%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/index.html">
+<meta property="og:site_name" content="Calvin&#39;s notes">
+<meta property="og:description" content="filter &amp; indexOfES5 中常用数组去重方法如下： var array &#x3D; [&#39;🐶&#39;, &#39;many&#39;, &#39;🐶&#39;, &#39;puppies&#39;, &#39;🐶&#39;, &#39;🐶&#39;]; var newArray &#x3D; array.filter(function (item, index) {     r">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-06-20T13:17:35.000Z">
+<meta property="article:modified_time" content="2020-04-16T20:15:20.604Z">
+<meta property="article:author" content="Calvin">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Calvin&#39;s notes" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/css/prism.css">
+
+    
+<link rel="stylesheet" href="/css/prism_custom.css">
+
+  
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body><div class="site-column-post">
+  <div class="site-content-post">
+      <article class="post-all-content">
+          <div class="post-name">
+            <h2>ES6中的数组去重</h2>
+          </div>
+          <div class="post-info">
+              <span class="post-info-date">
+                <i class="iconfont icon-calendar"></i>
+                2018-06-20
+              </span>
+              <span class="post-update">
+                <i class="iconfont icon-copy"></i>
+                2020-04-16
+              </span>
+              
+              
+              <span class="back-to-home">
+                <a href="/">
+                  <span>Calvin&#39;s notes</span>
+                  <i class="iconfont icon-home"></i>
+                </a>
+              </span>
+          </div>
+          <div class="post-body">
+            <h2 id="filter-amp-indexOf"><a href="#filter-amp-indexOf" class="headerlink" title="filter &amp; indexOf"></a>filter &amp; indexOf</h2><p>ES5 中常用数组去重方法如下：</p>
+<pre><code class="javascript">var array = [&#39;🐶&#39;, &#39;many&#39;, &#39;🐶&#39;, &#39;puppies&#39;, &#39;🐶&#39;, &#39;🐶&#39;];
+var newArray = array.filter(function (item, index) {
+    return array.indexOf(item) === index;
+});
+// newArray: [&quot;🐶&quot;, &quot;many&quot;, &quot;puppies&quot;]</code></pre>
+<h2 id="reduce-amp-includes"><a href="#reduce-amp-includes" class="headerlink" title="reduce &amp; includes"></a>reduce &amp; includes</h2><p>在 ES6 中，Array.prototype 上新增了 includes 方法，接受任意类型的值为参数并返回一个布尔值用来表示数组是否包含某元素。因此，去重的方法可以改造如下：</p>
+<pre><code class="javascript">const array = [&#39;🐶&#39;, &#39;many&#39;, &#39;🐶&#39;, &#39;puppies&#39;, &#39;🐶&#39;, &#39;🐶&#39;];
+const newArray = array.reduce(function (accu, item) {
+    return accu.includes(item) ? accu : [...accu, item];
+}, []);</code></pre>
+<h2 id="Set-类型"><a href="#Set-类型" class="headerlink" title="Set 类型"></a>Set 类型</h2><p>类型上的变化是 ES6 的主要改动之一，其中新增的集合类型 Set 可以帮助我们更简单的进行数组去重。如下：</p>
+<pre><code class="javascript">const array = [&#39;🐶&#39;, &#39;many&#39;, &#39;🐶&#39;, &#39;puppies&#39;, &#39;🐶&#39;, &#39;🐶&#39;];
+
+const newArray = [...new Set(array)];
+// 等同于 const newArray = Array.from(new Set(array));</code></pre>
+<p>Set 类型可以使用可迭代对象进行初始化，当迭代对象中包含重复值时，set 会自动进行去重。因此<code>new Set(array)</code>的结果是一个已经去重的 set 集合。由于 Set 类型是可迭代的，因此可以便捷的使用扩展操作符对其进行扩展用于生成一个对应的去重数组，也就是上例中的<code>newArray</code>。</p>
+<p>此外，ES6 中还为全局构造函数 Array 增加了一个新方法：Array.from，该方法接受一个可迭代对象为参数，返回一个包含其迭代值的数组。因此，可以用 from 方法替代扩展操作符来生成去重数组。</p>
+
+          </div>
+      </article>
+
+      <div class="post-navigation">
+        
+        <div class="post-previous">
+          <a href="/2020/04/16/ES8%E4%B8%AD%E7%9A%84Async-Await%E5%87%BD%E6%95%B0/">
+              <i class="iconfont icon-round-arrow-left"></i> 
+              <span class="post-prev-title">ES8中的async函数[译]</span>
+          </a>
+        </div>
+        
+        
+        <div class="post-next">
+            <a href="/2017/10/24/Flexbox%E5%B8%83%E5%B1%80%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97/">
+                <span class="post-next-title">Flexbox布局完全指南 [译]</span>
+                <i class="iconfont icon-round-arrow-right"></i>
+            </a>
+        </div>
+        
+      </div>
+  </div>
+
+  <div id="disqus_thread"></div>
+
+  <script>
+  /**
+  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+  var disqus_config = function () {
+  this.page.url = "http://www.qiwenke.com/2018/06/20/ES6%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/";  // Replace PAGE_URL with your page's canonical URL variable
+  this.page.identifier = "http://www.qiwenke.com/2018/06/20/ES6%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+  (function() { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = 'https://qiwenke.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" target="_blank" rel="noopener">comments powered by Disqus.</a></noscript>
+
+</div>
+<div class="post-catalog"></div>
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/prism.js"></script>
+</body>
+</html>
