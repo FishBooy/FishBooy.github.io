@@ -503,14 +503,14 @@ body {
 .site-column-index .site-content-index .post-list-container .post-list-by-year .post-list-item h2 .post-date {
   display: inline-block;
   font-size: 12px;
-  margin-right: 0.6em;
+  margin-right: 8px;
   margin-top: 1px;
   color: #9ea5ad;
   -webkit-transition: color 0.5s;
   -moz-transition: color 0.5s;
   -ms-transition: color 0.5s;
   transition: color 0.5s;
-  width: 38px;
+  width: 41px;
   text-align: left;
 }
 .site-column-index .site-content-index .post-list-container .post-list-by-year .post-list-item h2:hover .post-date {
