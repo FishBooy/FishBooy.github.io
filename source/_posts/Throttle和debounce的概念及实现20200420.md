@@ -1,0 +1,148 @@
+---
+title: Throttle和dDebounce的概念及实现
+date: 2018-04-20 09:27:43
+tags:
+---
+
+## 用途
+
+web 应用中通常会包含很多事件监听函数，而这其中有些事件的触发频率会非常高，因此当监听函数的逻辑比较复杂时，函数高频率的执行就会产生问题。
+
+比如一个 scroll 事件： {% codepen "PZOZgB" "css,result" "350px" "100%" "dcorb" "dark" %}
+
+根据测试结果显示，当你使用触控板、鼠标滚轮或者直接拖拽页面滚动条时，scroll 事件会维持在 30 次左右/秒的频率。但是如果是智能手机，当使用手势滑动页面时，scroll 事件的发生频率会高达 100 次/秒。而真实的 scroll 事件回调函数又往往要复杂许多，因此给如此高的事件触发频率绑定回调对于页面性能来说往往是一种负担，严重时会直接导致程序崩溃。
+
+Debounce(防抖)和 Throttle(节流)的意义就在于允许我们通过控制函数的执行评频率从而达到性能优化的目的。当函数为 DOM 事件的监听回调时，对函数进 dedounce 或者 throttle 尤其有用。因为事件的触发频率是我们无法控制的，但是我们可以通过 debounce 和 throttle 控制回调的响应频率。
+
+## 区别
+
+-   Throttle——可以理解为每隔一段时间执行一次函数，而不是只要有需要就去执行。用一个假想的酒吧的例子来说明，因为酒吧的接待能力有限，所以为了避免消费者订单过多造成混乱，酒吧规定每个消费者自第一次点完酒水后，每隔 45 分钟才能在吧台再点酒水。因此，当你第一次在吧台点完酒水后的 45 分钟内，不论你再在吧台请求多少次，吧台都不再会向你提供酒水，直到第 45 分钟才会重新放开你点酒的权限。这就是一个 throttle，你可能会一直不停的在点酒水，但是不管你的请求频率如何，吧台只会每隔 45 分钟才会接受你的请求。
+
+不过，这个 throttle 还可以优化从而更加节省性能。酒吧的规定是每隔 45 分钟都会对你进行权限标记。但是一旦你不再请求或者离开酒吧后，这个操作就显得有些多余，因此酒吧新的规定是默认请求为允许状态，你每请求一次，根据你的状态处理：如果被允许则给你提供酒水并开启一个 45 分钟的禁止时间段，45 分钟之后再放开你的权限，之后不再有其他操作；如果仍是被禁止状态则无视请求。这样，酒吧就省去了每隔 45 分钟就要进行开放权限的操作，
+
+-   Debounce——简单来说就是等到不再有事件或操作发生的时候再去执行函数。其实我们日常点餐就是一个类似 debounce 的例子，我们翻阅菜单并告诉身边的服务员要点哪些菜，而服务员通常会在我们每选一道菜后询问“是否还需要别的菜”来确认是否完成了点餐，当最终得到确认后才会把菜单交给后厨开始烹制。而如果没有 debounce，点餐流程就会变成我们每点一道菜，服务员就会通知后厨一次，后厨就会立即开始烹制，现实中如果存在这种操作，虽然会造成不便，不过一般没有太大问题，在 js 程序中，由于浏览器本身的性能限制，高频的执行一些复杂的函数(比如大批量的 DOM 操作)就会产生性能问题，严重则会导致程序崩溃或失去响应。
+
+## 适用场景
+
+-   Throttle: 防止按钮的多余点击/API 请求/mousemove 或 touchmove 的事件回调
+-   Debounce：resize 或 scroll 事件回调/频繁的自动保存工作
+
+上面列举的场景只是常用场景，并没有严格的限制，同样的事件既可以使用 throttle 也可以使用 debounce，这都要根据程序里的具体需求决定。不过通常情况下 throttle 要比 debounce 使用的要少，在使用 throttle 之前，可以先使用 debounce 进行比较，大多数时候 debounce 可能是更好的解决方法。
+
+考虑一下上面提到的第一个 throttle 使用场景，防止按钮的多余点击。我们在应用中有一个按钮，点击按钮会发送一个 API 请求以进入某个比赛，使用 throttle 后我们就可以对 API 的请求次数进行限制，也就是按钮点击的回调。用户可能每秒点击按钮 20 次，但是我们会把请求控制在每秒只发送一次。
+
+再看一下 debounce 应用到执行自动保存的场景。自动保存会在用户每次做一些更新操作时候保存应用的当前最新状态，而我们可以使用 debounce 使得保存函数只在用户在某段时间内没有任何更新操作后执行一次。这样，我们就省去了中间许多次不必要的保存从而提升了程序性能。
+
+2011 年 Twitter 页面出现了一个 bug，当用户在消息推送页面滑动且滑动到底部时，页面会变得卡顿甚至失去响应。随后，John Resig 发表了一片[文章](https://johnresig.com/blog/learning-from-twitter/)，说明了这个问题的产生原因，并重点说明了直接给 scroll 绑定复杂的事件监听函数是非常昂贵的性能开销，会导致性能下降。他当时给出的解决方案大致如下：
+
+```javascript
+var didScroll = false;
+
+$(window).scroll(function () {
+    didScroll = true;
+});
+
+setInterval(function () {
+    if (didScroll) {
+        didScroll = false;
+        // Check your page position and then
+        // Load in more results
+    }
+}, 250);
+```
+
+每 250ms 执行一次循环，而该循环的任务就是根据 didScroll 的值决定是否进行复杂的 DOM 处理。这样，事件回调就变得非常简单，只对 didScroll 进行赋值，而复杂的 DOM 处理则不再与事件触发紧密耦合(事件每触发一次就执行一次)，而只在每个 250ms 节点且 scroll 刚好在发生时才执行，从而节省了性能开销避免了糟糕的用户体验。而这个解决方案实际上就是一个简易的 throttle。通常如果没有特殊需求，debounce 实际要比 throttle 更适合处理 scroll 事件，下面关于两者的具体实现会解释清楚原因。
+
+## 具体实现
+
+实现 throttle 和 debounce 有很多种方式，但是大致原理都相似。我们看下如何使用 setTimeout 实现： {% codepen "opNYWy" "js,result" "350px" "100%" "jh3y" "dark" %}
+
+在上面的这个例子中，回调函数分别使用 2s 和 3s 的时间限制进行了 debounce 和 throttle 处理。
+
+### Debounce
+
+Debounce 的实现要相对简单一些：
+
+```javascript
+// 对给定的函数进行debounce
+const debounce = (func, delay) => {
+    let inDebounce;
+    return function () {
+        const context = this;
+        const args = arguments;
+        clearTimeout(inDebounce);
+        inDebounce = setTimeout(() => {
+            func.apply(context, args);
+        }, delay);
+    };
+};
+
+// 绑定debounce后的函数作为事件回调
+debounceButton.addEventListener('click', debounce(function() {
+    console.info(`Hey! Its ${new Date().toUTString()}`
+}, 3000));
+```
+
+debounce 函数接受一个要进行 debounce 处理的函数和一个延迟时间 delay 作为参数，最后产生的新函数(下文简称 debounced_func)会使得主要的负责逻辑处理的函数 func 和简易的决定是否执行逻辑处理的部分区分开来，这样在首次执行 debounced_func 时，会使得 func 在一段延迟后才执行，如果接下来在延迟时间内继续连续调用 debounced_func，那么就会不停的重复“取消上一次的定时并新建一个定时器“。这样，当最终停止调用 debounced_func 时，当前仍然只会存在一个定时器，所以 func 会在延迟之后只执行一次。
+
+### Throttle
+
+Throttle 的实现会稍微有一点复杂。
+
+```javascript
+// 对给定的函数进行throttle
+const throttle = (func, limit) => {
+    let inThrottle;
+    return function () {
+        const context=this;
+        const args=arguments;
+        if (!inThrottle) {
+            func.apply(this,arguments);
+            inThrottle=true;
+            setTimeout(() => {
+                inThrottle=false;
+            }, limit);
+        }
+    };
+};
+
+// 绑定throttle后的函数作为事件回调
+throttleButton.addEventListener('click', throttle(function() {
+    console.info(`Hey! Its ${new Date().toUTString()}`
+}, 3000));
+```
+
+throttle 同样接收要处理的函数 func 和一个时间间隔 limit 为参数，返回一个新函数(下文简称 throttled_func)。首次调用 throttled_func 时，func 会立即执行同时设置 inThrottle 标识，然后设置定时器在某段时间后恢复 inThrottle 的值。throttled_func 如果在 limit 这段时间内不停的被调用，func 也不会被执行，因为 inThrottle 还没有恢复到原来的值。一旦 inThrottle 的值恢复，throttled_func 的调用则会立即执行 func 并设置下一次定时。
+
+但是这里会有一个问题，最后一次调用如果发生在 limit 这个时间以内，inThrottle 标识还没来得及恢复，那么最后一次调用就什么操作也不会发生。如果我们不想最后一次调用被忽略，那应该如何处理？比如，如果我们对 mousemove 或 resize 事件绑定了监听函数，如果我们忽略了最后一次调用，那么我们很可能不会得到预期的结果。因此我们需要捕捉到最后一次调用并且在 limit 时间之后执行一次 func。
+
+```javascript
+const throttle = (func, limit) => {
+    let lastFunc;
+    let lastRan;
+    return function () {
+        const context = this;
+        const args = arguments;
+        if (!lastRan) {
+            func.apply(context, args);
+            lastRan = Date.now();
+        } else {
+            clearTimeout(lastFunc);
+            lastFunc = setTimeout(function () {
+                if (Date.now() - lastRan >= limit) {
+                    func.apply(context, args);
+                    lastRan = Date.now();
+                }
+            }, limit - (Date.now() - lastRan));
+        }
+    };
+};
+```
+
+这次的实现保证了最后一次调用能够执行到 func，同时也能够让 func 按 limit 时间间隔进行执行。lastRan 是最后一次调用时的时间戳，我们用它来决定最后一次 limit 时间内的调用是否可以执行 func，它同样也可以被用来判断 throttled_func 是否已经开始执行从而省去了 inThrottle 变量。
+
+## 总结
+
+对函数进行 debounce 和 throttle 处理是开发者应该掌握的技巧，因为在某些场景下(常见于 DOM 事件绑定)它能明显的提升你的应用性能。
+
+Throttle 和 Debounce 的视觉化展示： {% codepen "mGVGvm" "js,result" "350px" "100%" "jh3y" "dark" %}
