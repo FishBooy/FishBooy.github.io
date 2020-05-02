@@ -501,9 +501,14 @@ body {
   font-weight: normal;
 }
 .site-column-index .site-content-index .post-list-container .post-list-by-year .post-list-item h2 .post-date {
+  -webkit-flex-flow: 0;
+  -ms-flex-flow: 0;
+  flex-flow: 0;
+  -webkit-flex-shrink: 0;
+  flex-shrink: 0;
   display: inline-block;
   font-size: 12px;
-  margin-right: 8px;
+  margin-right: 5px;
   margin-top: 1px;
   color: #9ea5ad;
   -webkit-transition: color 0.5s;
@@ -694,13 +699,13 @@ body {
 }
 .site-column-post .site-content-post .post-body code.inline {
   padding: 1px 3px;
-  background: #f4f4f4;
-  color: #e2687f;
+  background: #f9f9f9;
+  color: #de407e;
   border-radius: 5px;
   border: $border-style;
   font-weight: bold;
   margin: 0 4px;
-  border: 1px solid #ebe3e3;
+  border: 1px solid #ced0d9;
 }
 .site-column-post .site-content-post .post-body table {
   margin: 0 0 15px 0;
@@ -917,9 +922,6 @@ body {
   }
   .site-column-post {
     width: 90%;
-  }
-  .post-date {
-    min-width: 32px;
   }
   a.post-title {
     font-size: 14px;
