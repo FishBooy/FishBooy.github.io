@@ -7,15 +7,15 @@
   
   <title>Throttle和dDebounce的概念及实现 | Calvin&#39;s notes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="用途web 应用中通常会包含很多事件监听函数，而这其中有些事件的触发频率会非常高，因此当监听函数的逻辑比较复杂时，函数高频率的执行就会产生问题。 比如一个 scroll 事件：  根据测试结果显示，当你使用触控板、鼠标滚轮或者直接拖拽页面滚动条时，scroll 事件会维持在 30 次左右&#x2F;秒的频率。但是如果是智能手机，当使用手势滑动页面时，scroll 事件的发生频率会高达 100 次&#x2F;秒。而真实">
+  <meta name="description" content="用途web 应用中通常会包含很多事件监听函数，而这其中有些事件的触发频率会非常高，因此当监听函数的逻辑比较复杂时，函数高频率的执行就会产生性能问题。 比如一个 scroll 事件：  根据测试结果显示，当你使用触控板、鼠标滚轮或者直接拖拽页面滚动条时，scroll 事件会维持在 30 次左右&#x2F;秒的频率。但是如果是智能手机，当使用手势滑动页面时，scroll 事件的发生频率会高达 100 次&#x2F;秒。而">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Throttle和dDebounce的概念及实现">
 <meta property="og:url" content="http://www.qiwenke.com/2018/04/20/Throttle%E5%92%8Cdebounce%E7%9A%84%E6%A6%82%E5%BF%B5%E5%8F%8A%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="Calvin&#39;s notes">
-<meta property="og:description" content="用途web 应用中通常会包含很多事件监听函数，而这其中有些事件的触发频率会非常高，因此当监听函数的逻辑比较复杂时，函数高频率的执行就会产生问题。 比如一个 scroll 事件：  根据测试结果显示，当你使用触控板、鼠标滚轮或者直接拖拽页面滚动条时，scroll 事件会维持在 30 次左右&#x2F;秒的频率。但是如果是智能手机，当使用手势滑动页面时，scroll 事件的发生频率会高达 100 次&#x2F;秒。而真实">
+<meta property="og:description" content="用途web 应用中通常会包含很多事件监听函数，而这其中有些事件的触发频率会非常高，因此当监听函数的逻辑比较复杂时，函数高频率的执行就会产生性能问题。 比如一个 scroll 事件：  根据测试结果显示，当你使用触控板、鼠标滚轮或者直接拖拽页面滚动条时，scroll 事件会维持在 30 次左右&#x2F;秒的频率。但是如果是智能手机，当使用手势滑动页面时，scroll 事件的发生频率会高达 100 次&#x2F;秒。而">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-04-20T09:27:43.000Z">
-<meta property="article:modified_time" content="2020-05-02T18:13:41.356Z">
+<meta property="article:modified_time" content="2020-06-07T16:17:25.326Z">
 <meta property="article:author" content="Calvin">
 <meta name="twitter:card" content="summary">
   
@@ -51,7 +51,7 @@
               </span>
               <span class="post-update">
                 <i class="iconfont icon-copy"></i>
-                2020-05-02
+                2020-06-07
               </span>
               
               
@@ -63,7 +63,7 @@
               </span>
           </div>
           <div class="post-body">
-            <h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>web 应用中通常会包含很多事件监听函数，而这其中有些事件的触发频率会非常高，因此当监听函数的逻辑比较复杂时，函数高频率的执行就会产生问题。</p>
+            <h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>web 应用中通常会包含很多事件监听函数，而这其中有些事件的触发频率会非常高，因此当监听函数的逻辑比较复杂时，函数高频率的执行就会产生性能问题。</p>
 <p>比如一个 scroll 事件： <iframe id="cp_embed_PZOZgB" src="//codepen.io/dcorb/embed/PZOZgB?height=350px&theme-id=dark&slug-hash=PZOZgB&default-tab=css,result&embed-version=2" scrolling="no" frameborder="no" height="350px" allowTransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></p>
 <p>根据测试结果显示，当你使用触控板、鼠标滚轮或者直接拖拽页面滚动条时，scroll 事件会维持在 30 次左右/秒的频率。但是如果是智能手机，当使用手势滑动页面时，scroll 事件的发生频率会高达 100 次/秒。而真实的 scroll 事件回调函数又往往要复杂许多，因此给如此高的事件触发频率绑定回调对于页面性能来说往往是一种负担，严重时会直接导致程序崩溃。</p>
 <p>Debounce(防抖)和 Throttle(节流)的意义就在于允许我们通过控制函数的执行评频率从而达到性能优化的目的。当函数为 DOM 事件的监听回调时，对函数进 dedounce 或者 throttle 尤其有用。因为事件的触发频率是我们无法控制的，但是我们可以通过 debounce 和 throttle 控制回调的响应频率。</p>
