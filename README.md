@@ -21,7 +21,7 @@
 
 -   [x] v1.0.0 release
 -   [x] v2.0.0 release
--   [ ] Create Catelog page and tag page not
+-   [ ] Create Catelog page and tag page
 -   [ ] Publish all previous posts
 -   [x] Js for indicating the catlog location when scrolling post
 -   [ ] Adjust home and Catlog buttons on post page
