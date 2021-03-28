@@ -4,18 +4,20 @@
 
 -   Record thoughts in life
 -   Share web technologies
+-   Translations for awsome articles
 
 ## Powered By
 
 -   Built with Hexo
 -   Deployed with Travis CI
--   Server is github pages
+-   Server by Github pages
 
 ## Branches
 
--   Blog code base and posts' markdowns are on `Develop`
--   Generated `.html` files by Hexo are on `Master`
--   All changes will be in `Develop`, never in `Master`
+-   `Develop`: for blog's base code and posts' MDs
+-   `Master`: generated `.html` files by Develop branch with Hexo command
+
+> All changes will be in `Develop`, never in `Master`
 
 ## To-do List
 
