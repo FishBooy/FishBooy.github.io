@@ -1,68 +1,75 @@
-<% if (pagination == 2){ %>
+<% if (pagination==2){ %>
   <main class="site-content-index">
     <div class="post-list-container">
       <% var postsByYears={}; %>
-      <% site.posts.sort('date',-1).forEach(function(post){ %>
+        <% site.posts.sort('date',-1).forEach(function(post){ %>
           <% var year=post.date.year(); %>
-          <% if (!postsByYears[year]) { %>
+            <% if (!postsByYears[year]) { %>
               <% postsByYears[year]=[]; %>
-          <% } %>
-          <% postsByYears[year].push(post); %>
-      <% }); %>
-      
-      <% var years=Object.getOwnPropertyNames(postsByYears); %>
-      <% var newYears=years.sort(function(a,b){ %>
-        <% return b-a; %>
-      <% }); %>
-      <% newYears.forEach(function(year){ %>
-        <ul class="post-list-by-year">
-          <li class="post-arch-year">
-            <h1 class="arch-year"><a><%= year %></a></h1>
-          </li>
-          <% var posts=postsByYears[year]; %>
-          <% if (posts.length) { %>
-          <ul class="post-list">
-            <% posts.forEach(function(post){ %>
-            <li class="post-list-item">
-              <h2>
-                  <span class="post-date"><%= date(post.date,'MM-DD') %></span>
-                  <a class="post-title" href="<%- url_for() + post.path %>"><%= post.title %></a>
-              </h2>
-            </li>
-            <% }) %>
-          </ul>
-          <% } %>
-        </ul>
-      <% }); %>
+                <% } %>
+                  <% postsByYears[year].push(post); %>
+                    <% }); %>
+
+                      <% var years=Object.getOwnPropertyNames(postsByYears); %>
+                        <% var newYears=years.sort(function(a,b){ %>
+                          <% return b-a; %>
+                            <% }); %>
+                              <% newYears.forEach(function(year){ %>
+                                <ul class="post-list-by-year">
+                                  <li class="post-arch-year">
+                                    <h1 class="arch-year"><a>
+                                        <%= year %>
+                                      </a></h1>
+                                  </li>
+                                  <% var posts=postsByYears[year]; %>
+                                    <% if (posts.length) { %>
+                                      <ul class="post-list">
+                                        <% posts.forEach(function(post){ %>
+                                          <li class="post-list-item">
+                                            <h2>
+                                              <a class="post-title" href="<%- url_for() + post.path %>">
+                                                <%= post.title %>
+                                              </a>
+                                              <span class="post-date">
+                                                <%= date(post.date,'MM-DD') %>
+                                              </span>
+                                            </h2>
+                                          </li>
+                                          <% }) %>
+                                      </ul>
+                                      <% } %>
+                                </ul>
+                                <% }); %>
     </div>
   </main>
-<% } else { %>
-  <% var last; %>
-  <% page.posts.each(function(post, i){ %>
-    <% var year = post.date.year(); %>
-    <% if (last != year){ %>
-      <% if (last != null){ %>
-        </div></section>
-      <% } %>
-      <% last = year; %>
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="<%- url_for(config.archive_dir + '/' + year) %>" class="archive-year"><%= year %></a>
-        </div>
-        <div class="archives">
-    <% } %>
-    <%- partial('archive-post', {post: post, even: i % 2 == 0}) %>
-  <% }) %>
-  <% if (page.posts.length){ %>
-    </div></section>
-  <% } %>
-<% } %>
-<% if (page.total > 1){ %>
-  <nav id="page-nav">
-    <% var prev_text = "&laquo; " + __('prev');var next_text = __('next') + " &raquo;"%>
-    <%- paginator({
-      prev_text: prev_text,
-      next_text: next_text
-    }) %>
-  </nav>
-<% } %>
+  <% } else { %>
+    <% var last; %>
+      <% page.posts.each(function(post, i){ %>
+        <% var year=post.date.year(); %>
+          <% if (last !=year){ %>
+            <% if (last !=null){ %>
+              </div>
+              </section>
+              <% } %>
+                <% last=year; %>
+                  <section class="archives-wrap">
+                    <div class="archive-year-wrap">
+                      <a href="<%- url_for(config.archive_dir + '/' + year) %>" class="archive-year">
+                        <%= year %>
+                      </a>
+                    </div>
+                    <div class="archives">
+                      <% } %>
+                        <%- partial('archive-post', {post: post, even: i % 2==0}) %>
+                          <% }) %>
+                            <% if (page.posts.length){ %>
+                    </div>
+                  </section>
+                  <% } %>
+                    <% } %>
+                      <% if (page.total> 1){ %>
+                        <nav id="page-nav">
+                          <% var prev_text="&laquo; " + __('prev');var next_text=__('next') + " &raquo;" %>
+                            <%- paginator({ prev_text: prev_text, next_text: next_text }) %>
+                        </nav>
+                        <% } %>

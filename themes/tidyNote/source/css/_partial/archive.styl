@@ -50,15 +50,33 @@
         }
 
         .post-list-item{
-          padding: .6em 2.5em .6em 1.2em;
+          padding: .6em 0 .6em 1.2em;
 
           &::before{
+            transition: background .5s;
             background: #d2d8de;
           }
 
+          &:hover{
+            &::before{
+              background: color-tips-hover;
+            }
+            h2 {
+              .post-title{
+                text-decoration: none;
+              }
+              .post-date{
+                color: color-tips-hover;
+              }
+            }
+            
+          }
+
           h2{
+            width: 100%;
             position: relative;
             display: flex;
+            justify-content: space-between;
             align-items: center;
             padding: 0 0 0 .5em;
             font-weight: normal;
@@ -67,7 +85,6 @@
               flex-shrink: 0;
               display: inline-block;
               font-size: 12px;
-              margin-right: 5px;
               margin-top: 1px;
               color: color-tips;
               transition: color .5s;
@@ -75,19 +92,11 @@
               text-align: left;
             }
 
-            &:hover .post-date{
-              color: color-tips-hover;
-            }
-
-            a.post-title{
+            .post-title{
+              transition: color .5s;
               color: color-link-title;
               text-decoration: none;
               font-size: 16px;
-
-              &:hover{
-                transition: color .5s;
-                text-decoration: none;
-              }
             }
           }
         }
@@ -97,8 +106,12 @@
             background: color-rose;
           }
 
-          a.post-title:hover{
-            color: color-rose;
+          .post-list-item:hover{
+            h2 {
+              .post-title{
+                color: color-rose;
+              }
+            }
           }
         }
 
@@ -106,9 +119,12 @@
           .post-arch-year::before{
             background: color-lake;
           }
-
-          a.post-title:hover{
-            color: color-lake;
+          .post-list-item:hover{
+            h2 {
+              .post-title{
+                color: color-lake;
+              }
+            }
           }
         }
       }
